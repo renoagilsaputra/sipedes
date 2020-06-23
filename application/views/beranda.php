@@ -4,7 +4,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
-          <h1>SELAMAT DATANG DI WEBSITE PEMERINTAHAN DESA KEDONDONG</h1>
+          <h1>Cek</h1>
           <h2>Kami menyajikan sekilas informasi dan pelayanan online pada Desa Kedondong, Kecamatan Sokaraja, Kabupaten Banyumas, Provinsi Jawa Tengah.
               Lahirnya Website Kelurahan Desa Kedondong, bertujuan untuk mempermudah proses pelayanan masyarakat serta lebih mendekatkan diri kepada masyarakat. Karena website ini dapat
 			  diakses oleh siapapun. Profil kelurahan, kegiatan dan fasilitas desa serta jenis dan prosedur pelayanan dapat diakses oleh masyarakat secara
