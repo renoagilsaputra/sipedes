@@ -1,24 +1,17 @@
-<div class="container">
+<div class="container" style="margin-top: 10rem;">
+
 	<div class="row">
-		<div class="col-lg-6 mx-auto" style="margin-top: 10rem;">
-			<h1 class="text-center">Kontak</h1>
+		<div class="mx-auto">
 
-			<form action="" method="post">
-				<div class="form-group">
-					<label for="nama">Nama</label>
-					<input type="text" name="nama" class="form-control">
-				</div>
-				<div class="form-group">
-					<label for="email">Email</label>
-					<input type="text" name="email" class="form-control">
-				</div>
-				<div class="form-group">
-					<label for="pesan">Pesan</label>
-					<textarea name="pesan" class="form-control" style="height: 100px; rezize: none;"></textarea>
-				</div>
-
-				<button type="submit" class="btn btn-primary btn-block">Kirim</button>
-			</form>
+			<div class="col-lg-12 col-md-12">
+				<h1 class="mb-5 mt-5">Kontak Pemerintahan Desa Kedondong</h1>
+				<a href="tel:0281-6540012" class="btn btn-info btn-lg btn-block"><i class="fa fa-phone"></i> 0281-6540012</a>
+				<a href="mailto:lindapradina26@gmail.com" class="btn btn-danger btn-lg btn-block mt-5"><i class="fa fa-envelope"></i> lindapradina26@gmail.com</a>
+				
+				
+			</div>
 		</div>
+
 	</div>
+
 </div>

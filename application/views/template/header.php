@@ -10,8 +10,8 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <!-- <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon"> -->
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Dosis:300,400,500,,600,700,700i|Lato:300,300i,400,400i,700,700i" rel="stylesheet">
@@ -22,7 +22,8 @@
   <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="assets/vendor/venobox/venobox.css" rel="stylesheet">
   <link href="assets/vendor/line-awesome/css/line-awesome.min.css" rel="stylesheet">
-  <link href="assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+	<link href="assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="assets/vendor/font-awesome/css/font-awesome.min.css">
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
@@ -40,7 +41,12 @@
   <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center">
 
-      <a href="index.html" class="logo mr-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>
+			<a href="<?= base_url(); ?>" class="logo mr-auto">
+				<div class="d-flex">
+
+					<div class="text-dark">si</div><div class="text-info">PEDES</div>
+				</div>
+			</a>
       <!-- Uncomment below if you prefer to use text as a logo -->
       <!-- <h1 class="logo mr-auto"><a href="index.html">Butterfly</a></h1> -->
 
@@ -51,7 +57,7 @@
             <ul>
               <li><a href="<?= base_url('visimisi'); ?>">Visi & Misi</a></li>
               <li><a href="<?= base_url('sejarah'); ?>">Sejarah Desa</a></li>
-              <li><a href="#">Perangkat Desa</a></li>
+              <li><a href="<?= base_url('perangkatdesa'); ?>">Perangkat Desa</a></li>
               <li><a href="#">Demografi Penduduk</a></li>
 			  <li><a href="#">Fasilitas Umum</a></li>
             </ul>
