@@ -56,9 +56,30 @@ $route['pengaduan'] = 'Home/pengaduan';
 $route['visimisi'] = 'Home/visimisi';
 $route['sejarah'] = 'Home/sejarah';
 $route['perangkatdesa'] = 'Home/perangkatdesa';
+$route['demografi'] = 'Home/demografi';
+$route['fasilitas'] = 'Home/fasilitas';
 $route['pelayanan'] = 'Home/pelayanan';
 $route['peta'] = 'Home/peta';
 $route['galeri'] = 'Home/galeri';
 $route['kontak'] = 'Home/kontak';
+
+$route['petugas'] = 'Petugas';
+// Pengaduan
+$route['petugas/laporan-pengaduan'] = 'Petugas/laporanPengaduan';
+$route['petugas/pengaduan/status/edit'] = 'Petugas/editStatusPengaduan';
+$route['petugas/pengaduan/hapus/(:any)'] = 'Petugas/pengaduan_del/$1';
+// Penduduk
+$route['petugas/penduduk'] = 'Petugas/penduduk';
+$route['petugas/penduduk/tambah'] = 'Petugas/addPenduduk';
+$route['petugas/penduduk/edit/(:any)'] = 'Petugas/editPenduduk/$1';
+$route['petugas/penduduk/hapus/(:any)'] = 'Petugas/delPenduduk/$1';
+$route['petugas/penduduk/gantisandi/(:any)'] = 'Petugas/sandiPenduduk/$1';
+// Pelayanan
+$route['petugas/pelayanan'] = 'Petugas/pelayanan';
+$route['petugas/pelayanan/tambah'] = 'Petugas/pelayanan_add';
+$route['petugas/pelayanan/edit/(:any)'] = 'Petugas/pelayanan_edit/$1';
+$route['petugas/pelayanan/hapus/(:any)'] = 'Petugas/pelayanan_del/$1';
+
+
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

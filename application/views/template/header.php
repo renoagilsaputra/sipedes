@@ -2,77 +2,81 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Sistem Pelayanan Desa-SIPEDES</title>
-  <meta content="" name="descriptison">
-  <meta content="" name="keywords">
+	<title>Sistem Pelayanan Desa-SIPEDES</title>
+	<meta content="" name="descriptison">
+	<meta content="" name="keywords">
 
-  <!-- Favicons -->
-  <!-- <link href="assets/img/favicon.png" rel="icon">
+	<!-- Favicons -->
+	<!-- <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon"> -->
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Dosis:300,400,500,,600,700,700i|Lato:300,300i,400,400i,700,700i" rel="stylesheet">
+	<!-- Google Fonts -->
+	<link
+		href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Dosis:300,400,500,,600,700,700i|Lato:300,300i,400,400i,700,700i"
+		rel="stylesheet">
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/icofont/icofont.min.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/venobox/venobox.css" rel="stylesheet">
-  <link href="assets/vendor/line-awesome/css/line-awesome.min.css" rel="stylesheet">
+	<!-- Vendor CSS Files -->
+	<link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+	<link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+	<link href="assets/vendor/venobox/venobox.css" rel="stylesheet">
+	<link href="assets/vendor/line-awesome/css/line-awesome.min.css" rel="stylesheet">
 	<link href="assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="assets/vendor/font-awesome/css/font-awesome.min.css">
 
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+	<!-- Template Main CSS File -->
+	<link href="assets/css/style.css" rel="stylesheet">
 
-  <!-- =======================================================
+	<!-- =======================================================
   * Template Name: Butterfly - v2.0.0
   * Template URL: https://bootstrapmade.com/butterfly-free-bootstrap-theme/
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 </head>
+
 <body>
 
-  <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top">
-    <div class="container d-flex align-items-center">
+	<!-- ======= Header ======= -->
+	<header id="header" class="fixed-top">
+		<div class="container d-flex align-items-center">
 
 			<a href="<?= base_url(); ?>" class="logo mr-auto">
 				<div class="d-flex">
 
-					<div class="text-dark">si</div><div class="text-info">PEDES</div>
+					<div class="text-dark">si</div>
+					<div class="text-info">PEDES</div>
 				</div>
 			</a>
-      <!-- Uncomment below if you prefer to use text as a logo -->
-      <!-- <h1 class="logo mr-auto"><a href="index.html">Butterfly</a></h1> -->
+			<!-- Uncomment below if you prefer to use text as a logo -->
+			<!-- <h1 class="logo mr-auto"><a href="index.html">Butterfly</a></h1> -->
 
-      <nav class="nav-menu d-none d-lg-block">
-        <ul>
-          <li class="active"><a href="<?= base_url(); ?>">Beranda</a></li>
-		  <li class="drop-down"><a href="">Profil Desa</a>
-            <ul>
-              <li><a href="<?= base_url('visimisi'); ?>">Visi & Misi</a></li>
-              <li><a href="<?= base_url('sejarah'); ?>">Sejarah Desa</a></li>
-              <li><a href="<?= base_url('perangkatdesa'); ?>">Perangkat Desa</a></li>
-              <li><a href="#">Demografi Penduduk</a></li>
-			  <li><a href="#">Fasilitas Umum</a></li>
-            </ul>
-          </li>
-		  <li><a href="<?= base_url('pelayanan'); ?>">Pelayanan</a></li>
-		  <li><a href="#">Kegiatan</a></li>
-		  
-          </li>
-		   <li><a href="<?= base_url('galeri'); ?>">Galeri</a></li>
-          <li><a href="<?= base_url('peta'); ?>">Peta Desa</a></li>
-          <li><a href="<?= base_url('kontak'); ?>">Kontak</a></li>
-		  <li><a href="#">Masuk</a></li>
+			<nav class="nav-menu d-none d-lg-block">
+				<ul>
+					<li class="active"><a href="<?= base_url(); ?>">Beranda</a></li>
+					<li class="drop-down"><a href="">Profil Desa</a>
+						<ul>
+							<li><a href="<?= base_url('visimisi'); ?>">Visi & Misi</a></li>
+							<li><a href="<?= base_url('sejarah'); ?>">Sejarah Desa</a></li>
+							<li><a href="<?= base_url('perangkatdesa'); ?>">Perangkat Desa</a></li>
+							<li><a href="<?= base_url('demografi'); ?>">Demografi Penduduk</a></li>
+							<li><a href="<?= base_url('fasilitas'); ?>">Fasilitas Umum</a></li>
+						</ul>
+					</li>
+					<li><a href="<?= base_url('pelayanan'); ?>">Pelayanan</a></li>
+					<li><a href="#">Kegiatan</a></li>
 
-        </ul>
-      </nav><!-- .nav-menu -->
+					</li>
+					<li><a href="<?= base_url('galeri'); ?>">Galeri</a></li>
+					<li><a href="<?= base_url('peta'); ?>">Peta Desa</a></li>
+					<li><a href="<?= base_url('kontak'); ?>">Kontak</a></li>
+					<li><a href="#">Masuk</a></li>
 
-    </div>
-  </header><!-- End Header -->
+				</ul>
+			</nav><!-- .nav-menu -->
+
+		</div>
+	</header><!-- End Header -->

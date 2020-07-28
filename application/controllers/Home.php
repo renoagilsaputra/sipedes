@@ -114,6 +114,18 @@ class Home extends CI_Controller {
 		$this->load->view('template/footer');
 	}
 
+	public function demografi() {
+		$this->load->view('template/header');
+		$this->load->view('demografi');
+		$this->load->view('template/footer');
+	}
+
+	public function fasilitas() {
+		$this->load->view('template/header');
+		$this->load->view('fasilitas');
+		$this->load->view('template/footer');
+	}
+
 	public function galeri() {
 		$this->load->view('template/header');
 		$this->load->view('galeri');
