@@ -84,6 +84,11 @@ $route['petugas/kependudukan'] = 'Petugas/kependudukan';
 $route['petugas/kependudukan/tambah'] = 'Petugas/kependudukan_add';
 $route['petugas/kependudukan/edit/(:any)'] = 'Petugas/kependudukan_edit/$1';
 $route['petugas/kependudukan/hapus/(:any)'] = 'Petugas/kependudukan_del/$1';
+// Izin Acara
+$route['petugas/izin_acara'] = 'Petugas/izin_acara';
+$route['petugas/izin_acara/tambah'] = 'Petugas/izin_acara_add';
+$route['petugas/izin_acara/edit/(:any)'] = 'Petugas/izin_acara_edit/$1';
+$route['petugas/izin_acara/hapus/(:any)'] = 'Petugas/izin_acara_del/$1';
 
 
 $route['404_override'] = '';

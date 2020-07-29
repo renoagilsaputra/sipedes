@@ -698,11 +698,84 @@ class Petugas extends CI_Controller {
 
 	// Izin Acara
 	public function izin_acara() {
+		if($this->input->post('search')) {
+			$this->db->join('penduduk','penduduk.id_penduduk = pelayanan.id_penduduk','left');
+			$this->db->order_by('nik','asc');
+			$this->db->like('nik', $this->input->post('search'));
+			$this->db->or_like('nama_lengkap', $this->input->post('search'));
+			$this->db->or_like('kode', $this->input->post('search'));
+			$data['acara'] = $this->db->get('izin_acara')->result_array();
+		} else {
+			$data['acara'] = $this->MyModel->getAcara();
+		}
 
+		
+
+		$this->load->view('template/header_pet');
+		$this->load->view('petugas/izin_acara', $data);
+		$this->load->view('template/footer_pet');
 	}
 
 	public function izin_acara_add() {
+		$data['penduduk'] = $this->MyModel->getPenduduk();
+		
 
+		$this->form_validation->set_rules('id_penduduk', 'NIK', 'trim|required');
+		$this->form_validation->set_rules('acara', 'Acara', 'trim|required');
+		// $this->form_validation->set_rules('keperluan', 'Keperluan', 'trim|required');
+		
+		if ($this->form_validation->run() == FALSE) {
+			
+			$this->load->view('template/header_pet');
+			$this->load->view('petugas/izin_acara_add', $data);
+			$this->load->view('template/footer_pet');
+		} else {
+			if(empty($_FILES['gambar_surat_pengantar']['name'])) {
+				$alert = "<script>alert('Surat Pengantar tidak boleh kosong!');</script>";
+				$this->session->set_flashdata('message', $alert);
+				redirect('petugas/pelayanan/tambah');
+			} else {
+				$config = [
+                    'file_name' => 'izin_acara_surat_pengantar',
+                    'upload_path' => './assets/img/izin_acara/',
+                    'allowed_types' => 'jpg|png|jpeg',
+                    'max_size' => 1024,
+				];
+				
+				$this->load->library('upload', $config);
+
+				if($this->upload->do_upload('gambar_surat_pengantar')) {
+					$file = $this->upload->data();
+
+					$query = $this->db->query("SELECT MAX(kode) as kode from izin_acara");
+					$kodeMax = $query->row_array();
+
+					$nourut = substr($kodeMax['kode'], 3, 4);
+					$urutan = $nourut + 1;
+					$huruf = "IZA";
+					$kode = $huruf . sprintf("%03s", $urutan);
+
+					$data = [
+						'id_penduduk' => $this->input->post('id_penduduk'),
+						// 'jenis_pelayanan' => $this->input->post('jenis_pelayanan'),
+						// 'keperluan' => $this->input->post('keperluan'),
+						// 'gambar_surat_pengantar' => $file['file_name'],
+						'waktu' => date('Y-m-d H:i:s'),
+						'kode' => $kode,
+						'status' => 'belum',
+					];
+					
+					$this->MyModel->addPelayanan($data);
+					$alert = "<script>alert('Berhasil!');</script>";
+					$this->session->set_flashdata('message', $alert);
+					redirect('petugas/pelayanan'); 	
+				} else {
+					$alert = "<div class='alert alert-danger'>".$this->upload->display_errors()."</div>";
+					$this->session->set_flashdata('error', $alert);
+					redirect('petugas/pelayanan/tambah');
+				}
+			}
+		}
 	}
 
 	public function izin_acara_edit($id) {

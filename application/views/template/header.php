@@ -67,8 +67,6 @@
 						</ul>
 					</li>
 					<li><a href="<?= base_url('pelayanan'); ?>">Pelayanan</a></li>
-					<li><a href="#">Kegiatan</a></li>
-
 					</li>
 					<li><a href="<?= base_url('galeri'); ?>">Galeri</a></li>
 					<li><a href="<?= base_url('peta'); ?>">Peta Desa</a></li>

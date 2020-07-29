@@ -89,7 +89,7 @@
 							</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">
+							<a class="nav-link" href="<?= base_url('petugas/izin_acara'); ?>">
 								<i class="fa fa-calendar-check-o"></i>
 								Izin Acara
 							</a>

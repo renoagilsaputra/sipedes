@@ -87,6 +87,11 @@
 				<div class="table-responsive">
 					<table class="table table-hover">
 						<tr>
+							<th>Kode</th>
+							<td>:</td>
+							<td><?= $pn['kode']; ?></td>
+						</tr>
+						<tr>
 							<th>NIK</th>
 							<td>:</td>
 							<td><?= $pn['nik']; ?></td>
@@ -131,6 +136,11 @@
 							<th>Surat Pengantar</th>
 							<td>:</td>
 							<td><img src="<?= base_url('assets/img/pelayanan/').$pn['gambar_surat_pengantar']; ?>" width="100%" class="img-thumbnail" alt=""></td>
+						</tr>
+						<tr>
+							<th>Status</th>
+							<td>:</td>
+							<td><?= $pn['status']; ?></td>
 						</tr>
 						<tr>
 							<th>Waktu Pengajuan</th>

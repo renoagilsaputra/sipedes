@@ -87,6 +87,11 @@
 				<div class="table-responsive">
 					<table class="table table-hover">
 						<tr>
+							<th>Kode</th>
+							<td>:</td>
+							<td><?= $pn['kode']; ?></td>
+						</tr>
+						<tr>
 							<th>NIK</th>
 							<td>:</td>
 							<td><?= $pn['nik']; ?></td>
@@ -136,6 +141,11 @@
 							<th>Akta Kelahiran</th>
 							<td>:</td>
 							<td><img src="<?= base_url('assets/img/kependudukan/').$pn['gambar_akta_kelahiran']; ?>" width="100%" class="img-thumbnail" alt=""></td>
+						</tr>
+						<tr>
+							<th>Status</th>
+							<td>:</td>
+							<td><?= $pn['status']; ?></td>
 						</tr>
 						<tr>
 							<th>Waktu Pengajuan</th>

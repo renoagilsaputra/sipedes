@@ -90,6 +90,31 @@ class MyModel extends CI_Model {
 		$this->db->where('id_kependudukan',$id);
 		$this->db->delete('kependudukan');
 	}
+
+	// Izin Acara
+	public function getAcara() {
+		$this->db->join('penduduk','penduduk.id_penduduk = izin_acara.id_penduduk','left');
+		$this->db->order_by('nik','asc');
+		return $this->db->get('izin_acara')->result_array();
+	}
+
+	public function getAcaraByID($id) {
+		return $this->db->get_where('izin_acara',['id_izin_acara' => $id])->row_array();
+	}
+
+	public function addAcara($data) {
+		$this->db->insert('izin_acara',$data);
+	}
+
+	public function editAcara($id, $data) {
+		$this->db->where('id_izin_acara', $id);
+		$this->db->update('izin_acara', $data);
+	}
+
+	public function delAcara($id) {
+		$this->db->where('id_izin_acara', $id);
+		$this->db->update('izin_acara');
+	}
 }
                         
 /* End of file MyModel.php */
