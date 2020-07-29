@@ -72,6 +72,12 @@
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="#">
+								<i class="fa fa-envelope-square"></i>
+								Surat Keterangan Menikah
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">
 								<i class="fa fa-envelope"></i>
 								Surat Keterangan Kematian
 							</a>

@@ -63,7 +63,7 @@
 					<div class="custom-file">
 						<input type="file" name="gambar_akta_kelahiran" class="custom-file-input2" id="inputGroupFile02"
 							aria-describedby="inputGroupFileAddon02">
-						<label class="custom-file-label" for="inputGroupFile02">Pilih Surat Pengantar</label>
+						<label class="custom-file-label" for="inputGroupFile02">Pilih Akta Kelahiran</label>
 					</div>
 				</div>
 				<div id="image-holder2"> </div>
