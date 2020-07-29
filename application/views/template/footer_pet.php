@@ -31,6 +31,30 @@
 			alert("This browser does not support FileReader.");
 		}
 		});
+		
+		$(".custom-file-input2").on('change', function () {
+
+		if (typeof (FileReader) != "undefined") {
+
+			var image_holder2 = $("#image-holder2");
+			image_holder2.empty();
+
+			var reader = new FileReader();
+			reader.onload = function (e) {
+				$("<img />", {
+					"src": e.target.result,
+					"class": "img-fluid img-thumbnail",
+					"width": "100%"
+					
+				}).appendTo(image_holder2);
+
+			}
+			image_holder2.show();
+			reader.readAsDataURL($(this)[0].files[0]);
+		} else {
+			alert("This browser does not support FileReader.");
+		}
+		});
 
 		function printlayer(layer) {
 			var printContents = document.getElementById(layer).innerHTML;

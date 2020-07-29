@@ -59,7 +59,7 @@
 							</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">
+							<a class="nav-link" href="<?= base_url('petugas/kependudukan'); ?>">
 								<i class="fa fa-users"></i>
 								Kependudukan
 							</a>

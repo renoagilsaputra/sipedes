@@ -65,7 +65,7 @@
 <?php foreach($penduduk as $pn) : ?>
 <div class="modal fade" id="penduduk<?= $pn['id_penduduk']; ?>" tabindex="-1" role="dialog"
 	aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg" id="cetak">
+	<div class="modal-dialog modal-lg" id="cetak<?= $pn['id_penduduk']; ?>">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="exampleModalLabel">Detail Penduduk</h5>
@@ -75,8 +75,8 @@
 			</div>
 			<div class="modal-body">
 				<div class="text-right">
-
-					<a href="" onclick="javascript:printlayer('cetak')" class="btn btn-secondary mb-2 no-print"><i
+					<p class="print">Dicetak pada : <?= date('d-m-Y'); ?></p>
+					<a href="" onclick="javascript:printlayer('cetak<?= $pn['id_penduduk']; ?>')" class="btn btn-secondary mb-2 no-print"><i
 							class="fa fa-print"></i> Cetak</a>
 				</div>
 				<div class="table-responsive">

@@ -352,7 +352,7 @@ class Petugas extends CI_Controller {
 			$this->load->view('template/footer_pet');
 		} else {
 			if(empty($_FILES['gambar_surat_pengantar']['name'])) {
-				$alert = "<script>alert('Foto tidak boleh kosong!');</script>";
+				$alert = "<script>alert('Surat Pengantar tidak boleh kosong!');</script>";
 				$this->session->set_flashdata('message', $alert);
 				redirect('petugas/pelayanan/tambah');
 			} else {
@@ -367,12 +367,22 @@ class Petugas extends CI_Controller {
 
 				if($this->upload->do_upload('gambar_surat_pengantar')) {
 					$file = $this->upload->data();
+
+					$query = $this->db->query("SELECT MAX(kode) as kode from pelayanan");
+					$kodeMax = $query->row_array();
+
+					$nourut = substr($kodeMax['kode'], 3, 4);
+					$urutan = $nourut + 1;
+					$huruf = "PLY";
+					$kode = $huruf . sprintf("%03s", $urutan);
+
 					$data = [
 						'id_penduduk' => $this->input->post('id_penduduk'),
 						'jenis_pelayanan' => $this->input->post('jenis_pelayanan'),
 						'keperluan' => $this->input->post('keperluan'),
 						'gambar_surat_pengantar' => $file['file_name'],
 						'waktu' => date('Y-m-d H:i:s'),
+						'kode' => $kode,
 						'status' => 'belum',
 					];
 					
@@ -392,13 +402,190 @@ class Petugas extends CI_Controller {
 	}
 
 	public function pelayanan_edit($id) {
+		$data['penduduk'] = $this->MyModel->getPenduduk();
+		$data['jenis_pelayanan'] = ['Kartu Keluarga','SKCK','Surat Keterangan Belum Menikah','Surat Keterangan Sudah Menikah','Surat Keterangan Tidak Mampu','Domisili'];
+		$data['keperluan'] = ['membuat','merubah'];
+		$data['status'] = ['belum','proses','selesai'];
 
+		$data['ply'] = $this->MyModel->getPelayananByID($id);
+
+		$this->form_validation->set_rules('id_penduduk', 'NIK', 'trim|required');
+		$this->form_validation->set_rules('jenis_pelayanan', 'Jenis Pelayanan', 'trim|required');
+		$this->form_validation->set_rules('keperluan', 'Keperluan', 'trim|required');
+		$this->form_validation->set_rules('status', 'Status', 'trim|required');
+		
+		if ($this->form_validation->run() == FALSE) {
+			
+			$this->load->view('template/header_pet');
+			$this->load->view('petugas/pelayanan_edit', $data);
+			$this->load->view('template/footer_pet');
+		} else {
+			if(empty($_FILES['gambar_surat_pengantar']['name'])) {
+				$data = [
+					'id_penduduk' => $this->input->post('id_penduduk'),
+					'jenis_pelayanan' => $this->input->post('jenis_pelayanan'),
+					'keperluan' => $this->input->post('keperluan'),
+					'status' => $this->input->post('status'),
+				];
+				
+				$this->MyModel->editPelayanan($id,$data);
+				$alert = "<script>alert('Berhasil!');</script>";
+				$this->session->set_flashdata('message', $alert);
+				redirect('petugas/pelayanan');
+			} else {
+				$config = [
+                    'file_name' => 'pelayanan_surat_pengantar',
+                    'upload_path' => './assets/img/pelayanan/',
+                    'allowed_types' => 'jpg|png|jpeg',
+                    'max_size' => 1024,
+				];
+				
+				$this->load->library('upload', $config);
+
+				if($this->upload->do_upload('gambar_surat_pengantar')) {
+					$file = $this->upload->data();
+
+					
+
+					$data = [
+						'id_penduduk' => $this->input->post('id_penduduk'),
+						'jenis_pelayanan' => $this->input->post('jenis_pelayanan'),
+						'keperluan' => $this->input->post('keperluan'),
+						'gambar_surat_pengantar' => $file['file_name'],
+						'status' => $this->input->post('status'),
+					];
+					
+					$this->MyModel->editPelayanan($id,$data);
+					$alert = "<script>alert('Berhasil!');</script>";
+					$this->session->set_flashdata('message', $alert);
+					redirect('petugas/pelayanan'); 	
+				} else {
+					$alert = "<div class='alert alert-danger'>".$this->upload->display_errors()."</div>";
+					$this->session->set_flashdata('error', $alert);
+					redirect('petugas/pelayanan/tambah');
+				}
+			}
+		}
 	}
 
 	public function pelayanan_del($id) {
+		$ply = $this->MyModel->getPelayananByID($id);
+		unlink('assets/img/pelayanan/'.$ply['gambar_surat_pengantar']);
+		$this->MyModel->delPelayanan($id);
+		$alert = "<script>alert('Berhasil!');</script>";
+		$this->session->set_flashdata('message', $alert);
+		redirect('petugas/pelayanan'); 
+	}
+
+	// Kependudukan
+	public function kependudukan() {
+		if($this->input->post('search')) {
+			$this->db->join('penduduk','penduduk.id_penduduk = pelayanan.id_penduduk','left');
+			$this->db->order_by('nik','asc');
+			$this->db->like('nik', $this->input->post('search'));
+			$this->db->or_like('nama_lengkap', $this->input->post('search'));
+			$this->db->or_like('kode', $this->input->post('search'));
+			$data['kependudukan'] = $this->db->get('kependudukan')->result_array();
+		} else {
+			$data['kependudukan'] = $this->MyModel->getKependudukan();
+		}
+
+		
+
+		$this->load->view('template/header_pet');
+		$this->load->view('petugas/kependudukan', $data);
+		$this->load->view('template/footer_pet');	
+	}
+
+	public function kependudukan_add() {
+		$data['penduduk'] = $this->MyModel->getPenduduk();
+		$data['jenis_pelayanan'] = ['KTP','KIA'];
+		$data['keperluan'] = ['membuat','merubah'];
+
+		$this->form_validation->set_rules('id_penduduk', 'NIK', 'trim|required');
+		$this->form_validation->set_rules('jenis_pelayanan', 'Jenis Pelayanan', 'trim|required');
+		$this->form_validation->set_rules('keperluan', 'Keperluan', 'trim|required');
+		
+		if ($this->form_validation->run() == FALSE) {
+			
+			$this->load->view('template/header_pet');
+			$this->load->view('petugas/kependudukan_add', $data);
+			$this->load->view('template/footer_pet');
+		} else {
+			if(empty($_FILES['gambar_surat_pengantar']['name']) || empty($_FILES['gambar_akta_kelahiran'])) {
+				$alert = "<script>alert('Surat Pengantar / Akta kelahiran tidak boleh kosong!');</script>";
+				$this->session->set_flashdata('message', $alert);
+				redirect('petugas/kependudukan/tambah');
+			} else {
+				$config = [
+                    'file_name' => 'kependudukan_bukti',
+                    'upload_path' => './assets/img/kependudukan/',
+                    'allowed_types' => 'jpg|png|jpeg',
+                    'max_size' => 1024,
+				];
+
+				
+				
+				$this->load->library('upload', $config);
+		
+
+				if($this->upload->do_upload('gambar_surat_pengantar')) {
+					$file = $this->upload->data();
+					if($this->upload->do_upload('gambar_akta_kelahiran')) {
+						$file2 = $this->upload->data();
+
+						$query = $this->db->query("SELECT MAX(kode) as kode from kependudukan");
+						$kodeMax = $query->row_array();
+
+						$nourut = substr($kodeMax['kode'], 3, 4);
+						$urutan = $nourut + 1;
+						$huruf = "KPN";
+						$kode = $huruf . sprintf("%03s", $urutan);
+
+						$data = [
+							'id_penduduk' => $this->input->post('id_penduduk'),
+							'jenis_pelayanan' => $this->input->post('jenis_pelayanan'),
+							'keperluan' => $this->input->post('keperluan'),
+							'gambar_surat_pengantar' => $file['file_name'],
+							'gambar_akta_kelahiran' => $file2['file_name'],
+							'waktu' => date('Y-m-d H:i:s'),
+							'kode' => $kode,
+							'status' => 'belum',
+						];
+						
+						$this->MyModel->addKependudukan($data);
+						$alert = "<script>alert('Berhasil!');</script>";
+						$this->session->set_flashdata('message', $alert);
+						redirect('petugas/kependudukan');
+					} else {
+						$alert = "<div class='alert alert-danger'>".$this->upload->display_errors()."</div>";
+						$this->session->set_flashdata('error', $alert);
+						redirect('petugas/kependudukan/tambah');
+					}
+					 	
+				} else {
+					$alert = "<div class='alert alert-danger'>".$this->upload->display_errors()."</div>";
+					$this->session->set_flashdata('error', $alert);
+					redirect('petugas/kependudukan/tambah');
+				}
+			}
+		}
+	}
+
+	public function kependudukan_edit($id) {
 
 	}
-        
+
+	public function kependudukan_del($id) {
+		$kpn = $this->MyModel->getKependudukanByID($id);
+		unlink('assets/img/kependudukan/'.$kpn['gambar_surat_pengantar']);
+		unlink('assets/img/kependudukan/'.$kpn['gambar_akta_kelahiran']);
+		$this->MyModel->delKependudukan($id);
+		$alert = "<script>alert('Berhasil!');</script>";
+		$this->session->set_flashdata('message', $alert);
+		redirect('petugas/kependudukan'); 	
+	}
+         
 }
         
     /* End of file  Petugas.php */
