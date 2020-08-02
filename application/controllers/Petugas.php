@@ -963,6 +963,33 @@ class Petugas extends CI_Controller {
 		redirect('petugas/akta');
 	}
 	// Surat Keterangan Menikah
+	public function suket_nikah() {
+		if($this->input->post('search')) {
+			$this->db->join('penduduk','penduduk.id_penduduk = suket_kematian.id_penduduk','left');
+			$this->db->order_by('nik','asc');
+			$this->db->like('nik', $this->input->post('search'));
+			$this->db->or_like('akta_kelahiran.nama_lengkap', $this->input->post('search'));
+			$this->db->or_like('kode', $this->input->post('search'));
+			$data['nikah'] = $this->db->get('suket_menikah')->result_array();
+		} else {
+			$data['nikah'] = $this->MyModel->getNikah();
+		}
+
+		
+
+		$this->load->view('template/header_pet');
+		$this->load->view('petugas/suket_nikah', $data);
+		$this->load->view('template/footer_pet');
+	}
+	public function suket_nikah_add() {
+
+	}
+	public function suket_nikah_edit($id) {
+
+	}
+	public function suket_nikah_del($id) {
+
+	}
 	// Surat Keterangan Kematian
 	public function suket_mati() {
 		if($this->input->post('search')) {

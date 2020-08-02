@@ -129,6 +129,43 @@ class MyModel extends CI_Model {
 		$this->db->where('id_akta_kelahiran',$id);
 		$this->db->delete('akta_kelahiran');
 	}
+	// Surat Menikah
+	public function getNikah() {
+		$this->db->join('penduduk','penduduk.id_penduduk = suket_menikah.id_penduduk','left');
+		
+		$this->db->order_by('nik','asc');
+		return $this->db->get('suket_menikah')->result_array();
+	}
+
+	public function getNikahByID($id) {
+		
+		return $this->db->get_where('suket_menikah',['id_suket_menikah' => $id])->row_array();
+	}
+
+	public function addNikah($data) {
+		$this->db->insert('suket_menikah',$data);
+	}
+
+	public function editNikah($id, $data) {
+		$this->db->where('id_suket_menikah', $id);
+		$this->db->update('suket_menikah', $data);
+	}
+
+	public function delNikah($id) {
+		$sm = $this->getNikahByID($id);
+
+
+		$this->db->where('id_pasangan', $sm['id_pasangan']);
+		$this->db->delete('pasangan');
+		
+		$this->db->where('id_suket_menikah', $id);
+		$this->db->delete('suket_menikah');
+	}
+
+	public function getPasanganByID($id) {
+		return $this->db->get_where('pasangan',['id_pasangan' => $id])->row_array();
+	}
+
 	// Surat Kematian
 	public function getMati() {
 		$this->db->select('*, penduduk_mati.id_penduduk as id_mati');

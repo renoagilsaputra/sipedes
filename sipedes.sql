@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 29 Jul 2020 pada 13.16
+-- Waktu pembuatan: 02 Agu 2020 pada 15.37
 -- Versi server: 10.1.38-MariaDB
 -- Versi PHP: 7.3.2
 
@@ -31,12 +31,35 @@ SET time_zone = "+00:00";
 CREATE TABLE `akta_kelahiran` (
   `id_akta_kelahiran` int(11) NOT NULL,
   `id_penduduk` int(11) NOT NULL,
-  `id_kelahiran_anak` int(11) NOT NULL,
+  `nama_lengkap` varchar(255) NOT NULL,
+  `tmp_lahir` varchar(255) NOT NULL,
+  `tgl_lahir` date NOT NULL,
+  `jk` char(1) NOT NULL,
+  `kewarganegaraan` varchar(255) NOT NULL,
+  `agama` varchar(255) NOT NULL,
+  `nama_ayah` varchar(255) NOT NULL,
+  `nama_ibu` varchar(255) NOT NULL,
+  `alamat` text NOT NULL,
+  `rt` int(11) NOT NULL,
+  `rw` int(11) NOT NULL,
+  `no_rumah` varchar(255) NOT NULL,
+  `kelurahan_desa` varchar(255) NOT NULL,
+  `kecamatan` varchar(255) NOT NULL,
+  `kabupaten_kota` varchar(255) NOT NULL,
+  `kode_pos` int(11) NOT NULL,
   `gambar_surat_pengantar` text NOT NULL,
   `waktu` datetime NOT NULL,
   `kode` varchar(255) NOT NULL,
   `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `akta_kelahiran`
+--
+
+INSERT INTO `akta_kelahiran` (`id_akta_kelahiran`, `id_penduduk`, `nama_lengkap`, `tmp_lahir`, `tgl_lahir`, `jk`, `kewarganegaraan`, `agama`, `nama_ayah`, `nama_ibu`, `alamat`, `rt`, `rw`, `no_rumah`, `kelurahan_desa`, `kecamatan`, `kabupaten_kota`, `kode_pos`, `gambar_surat_pengantar`, `waktu`, `kode`, `status`) VALUES
+(6, 2, 'Bela Ciao', 'Banyumas', '2020-08-02', 'p', 'Indonesia', 'Islam', 'Bahar', 'Rina', 'Purwokerto', 2, 4, 'B5', 'Purwokerto Selatan', 'Purwokerto Utara', 'Banyumas', 5323344, 'akta.jpg', '2020-08-02 14:37:44', 'AKT001', 'belum'),
+(7, 3, 'Reno Agil Saputra', 'Banyumas', '2020-08-21', 'p', 'Indonesia', 'Islam', 'Akbar', 'Siti', 'Banyumas', 4, 5, 'AB', 'Kembaran', 'Purwokerto Utara', 'Banyumas', 5323344, 'akta1.jpg', '2020-08-02 14:38:34', 'AKT002', 'proses');
 
 -- --------------------------------------------------------
 
@@ -58,6 +81,40 @@ CREATE TABLE `izin_acara` (
   `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `izin_acara`
+--
+
+INSERT INTO `izin_acara` (`id_izin_acara`, `id_penduduk`, `acara`, `tgl_mulai`, `tgl_selesai`, `lokasi`, `jenis_acara`, `gambar_surat_pengantar`, `waktu`, `kode`, `status`) VALUES
+(1, 2, 'Konser', '2020-07-30 15:16:00', '2020-08-26 18:16:00', 'Lapangan', 'Konser Musik', 'izin_acara_surat_pengantar.jpg', '2020-07-30 15:16:40', 'IZA001', 'proses'),
+(2, 3, 'Konser Dangdut', '2020-08-02 14:32:00', '2020-08-20 14:32:00', 'Lapangan', 'Konser Musik', 'izin_acara_surat_pengantar.png', '2020-08-02 14:32:37', 'IZA002', 'belum');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `izin_usaha`
+--
+
+CREATE TABLE `izin_usaha` (
+  `id_izin_usaha` int(11) NOT NULL,
+  `id_penduduk` int(11) NOT NULL,
+  `nama_usaha` varchar(255) NOT NULL,
+  `jenis_usaha` varchar(255) NOT NULL,
+  `modal_usaha` int(100) NOT NULL,
+  `tempat_usaha` text NOT NULL,
+  `gambar_surat_pengantar` text NOT NULL,
+  `waktu` datetime NOT NULL,
+  `kode` varchar(255) NOT NULL,
+  `status` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `izin_usaha`
+--
+
+INSERT INTO `izin_usaha` (`id_izin_usaha`, `id_penduduk`, `nama_usaha`, `jenis_usaha`, `modal_usaha`, `tempat_usaha`, `gambar_surat_pengantar`, `waktu`, `kode`, `status`) VALUES
+(2, 2, 'Baso Aci', 'Makanan', 100000, 'Pasar', 'izin_usaha_surat_pengantar.jpg', '2020-08-02 17:33:42', 'IZU001', 'belum');
+
 -- --------------------------------------------------------
 
 --
@@ -73,35 +130,6 @@ CREATE TABLE `kasi` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `kelahiran_anak`
---
-
-CREATE TABLE `kelahiran_anak` (
-  `id_kelahiran_anak` int(11) NOT NULL,
-  `nama_lengkap` varchar(255) NOT NULL,
-  `tmp_lahir` varchar(255) NOT NULL,
-  `tgl_lahir` date NOT NULL,
-  `jk` char(1) NOT NULL,
-  `kewarganegaraan` varchar(255) NOT NULL,
-  `agama` varchar(255) NOT NULL,
-  `nama_ayah` varchar(255) NOT NULL,
-  `nama_ibu` varchar(255) NOT NULL,
-  `alamat` text NOT NULL,
-  `rt` int(11) NOT NULL,
-  `rw` int(11) NOT NULL,
-  `no_rumah` int(11) NOT NULL,
-  `keluarahan_desa` varchar(255) NOT NULL,
-  `kecamatan` varchar(255) NOT NULL,
-  `kabupaten_kota` varchar(255) NOT NULL,
-  `kode_pos` int(11) NOT NULL,
-  `waktu` datetime NOT NULL,
-  `kode` varchar(255) NOT NULL,
-  `status` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Struktur dari tabel `keluarga_pindah`
 --
 
@@ -111,6 +139,13 @@ CREATE TABLE `keluarga_pindah` (
   `nik` varchar(255) NOT NULL,
   `nama` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `keluarga_pindah`
+--
+
+INSERT INTO `keluarga_pindah` (`id_keluarga_pindah`, `id_suket_pindah`, `nik`, `nama`) VALUES
+(1, 1, '8954895489', 'Reno');
 
 -- --------------------------------------------------------
 
@@ -191,9 +226,10 @@ CREATE TABLE `pelayanan` (
 --
 
 INSERT INTO `pelayanan` (`id_pelayanan`, `id_penduduk`, `jenis_pelayanan`, `keperluan`, `gambar_surat_pengantar`, `waktu`, `kode`, `status`) VALUES
-(2, 3, 'Domisili', 'merubah', 'pelayanan_surat_pengantar1.jpg', '2020-07-29 10:01:06', 'PLY001', 'belum'),
+(2, 3, 'Surat Keterangan Sudah Menikah', 'membuat', 'pelayanan_surat_pengantar1.jpg', '2020-07-29 10:01:06', 'PLY001', 'belum'),
 (5, 2, 'Surat Keterangan Belum Menikah', 'membuat', 'pelayanan_surat_pengantar4.jpg', '2020-07-29 10:14:48', 'PLY002', 'belum'),
-(6, 3, 'Domisili', 'merubah', 'pelayanan_surat_pengantar.jpg', '2020-07-29 10:15:24', 'PLY003', 'proses');
+(6, 3, 'Domisili', 'merubah', 'pelayanan_surat_pengantar.jpg', '2020-07-29 10:15:24', 'PLY003', 'proses'),
+(7, 2, 'Surat Keterangan Sudah Menikah', 'merubah', 'pelayanan_surat_pengantar2.jpg', '2020-07-30 18:52:05', 'PLY004', 'belum');
 
 -- --------------------------------------------------------
 
@@ -204,6 +240,7 @@ INSERT INTO `pelayanan` (`id_pelayanan`, `id_penduduk`, `jenis_pelayanan`, `kepe
 CREATE TABLE `penduduk` (
   `id_penduduk` int(11) NOT NULL,
   `nik` varchar(255) NOT NULL,
+  `no_kk` varchar(255) NOT NULL,
   `nama_lengkap` varchar(255) NOT NULL,
   `tmp_lahir` varchar(255) NOT NULL,
   `tgl_lahir` date NOT NULL,
@@ -229,9 +266,10 @@ CREATE TABLE `penduduk` (
 -- Dumping data untuk tabel `penduduk`
 --
 
-INSERT INTO `penduduk` (`id_penduduk`, `nik`, `nama_lengkap`, `tmp_lahir`, `tgl_lahir`, `jk`, `kewarganegaraan`, `status_perkawinan`, `agama`, `pekerjaan`, `telp`, `alamat`, `rt`, `rw`, `no_rumah`, `kelurahan_desa`, `kecamatan`, `kabupaten_kota`, `kode_pos`, `kata_sandi`, `foto`) VALUES
-(2, '73453243', 'Reno Agil Saputra', 'Banyumas', '2020-07-28', 'l', 'Indonesia', 'belum kawin', 'Islam', 'Pelajar', '08384758999', 'Purwokerto', 2, 3, '4', 'Teluk', 'Purwokerto Selatan', 'Banyumas', 5234, '$2y$10$LTFu/oWIkHCRChilJAbPNu.x.0U.RMZ9RIJdAIkD4IQnx4dSUnE92', 'penduduk-73453243.jpg'),
-(3, '828838882', 'Bella L', 'Bekasi', '1998-02-19', 'p', 'Indonesia', 'sudah kawin', 'Islam', 'Chef', '08384758999', 'Purwokerto Utara', 4, 1, '4', 'Kembaran', 'Purwokerto Barat', 'Banyumas', 534323, '$2y$10$KaTrjaYEBk3Y21FK19INMefBZK10/.nastSTsI48VHQYMaDfKhK1e', 'penduduk-828838882.jpg');
+INSERT INTO `penduduk` (`id_penduduk`, `nik`, `no_kk`, `nama_lengkap`, `tmp_lahir`, `tgl_lahir`, `jk`, `kewarganegaraan`, `status_perkawinan`, `agama`, `pekerjaan`, `telp`, `alamat`, `rt`, `rw`, `no_rumah`, `kelurahan_desa`, `kecamatan`, `kabupaten_kota`, `kode_pos`, `kata_sandi`, `foto`) VALUES
+(2, '73453243', '9494949', 'Reno Agil Saputra', 'Banyumas', '2020-07-28', 'l', 'Indonesia', 'belum kawin', 'Islam', 'Pelajar', '08384758999', 'Purwokerto', 2, 3, '4', 'Teluk', 'Purwokerto Selatan', 'Banyumas', 5234, '$2y$10$LTFu/oWIkHCRChilJAbPNu.x.0U.RMZ9RIJdAIkD4IQnx4dSUnE92', 'penduduk-73453243.jpg'),
+(3, '828838882', '838785859', 'Bella L', 'Bekasi', '1998-02-19', 'p', 'Indonesia', 'sudah kawin', 'Islam', 'Chef', '08384758999', 'Purwokerto Utara', 4, 1, '4', 'Kembaran', 'Purwokerto Barat', 'Banyumas', 534323, '$2y$10$KaTrjaYEBk3Y21FK19INMefBZK10/.nastSTsI48VHQYMaDfKhK1e', 'penduduk-828838882.jpg'),
+(4, '9999999', '9384050', 'Bambang P', 'Banyumas', '2020-08-02', 'l', 'Indonesia', 'belum kawin', 'Islam', 'Guru', '081327566748', 'Kembarang', 3, 5, '-', 'Bawang', 'Purwokerto Utara', 'Banyumas', 5323344, '$2y$10$RzO0G9d1Zl9ZMe1FoTttM.rcnb3wuNkFeFt7kMxBC18iFQGhmj.9G', 'penduduk-9999999.jpg');
 
 -- --------------------------------------------------------
 
@@ -240,9 +278,16 @@ INSERT INTO `penduduk` (`id_penduduk`, `nik`, `nama_lengkap`, `tmp_lahir`, `tgl_
 --
 
 CREATE TABLE `penduduk_mati` (
-  `id_penududuk_mati` int(11) NOT NULL,
+  `id_penduduk_mati` int(11) NOT NULL,
   `id_penduduk` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `penduduk_mati`
+--
+
+INSERT INTO `penduduk_mati` (`id_penduduk_mati`, `id_penduduk`) VALUES
+(2, 3);
 
 -- --------------------------------------------------------
 
@@ -286,6 +331,13 @@ CREATE TABLE `suket_kematian` (
   `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `suket_kematian`
+--
+
+INSERT INTO `suket_kematian` (`id_suket_kematian`, `id_penduduk`, `id_penduduk_mati`, `waktu_kematian`, `gambar_surat_pengantar`, `waktu`, `kode`, `status`) VALUES
+(1, 2, 2, '2020-08-11 19:19:00', 'suket_mati2.jpg', '2020-08-02 19:20:14', 'SKM001', 'belum');
+
 -- --------------------------------------------------------
 
 --
@@ -316,7 +368,7 @@ CREATE TABLE `suket_pindah` (
   `jml_keluarga_pindah` int(11) NOT NULL,
   `pindah_ke` text NOT NULL,
   `tgl_pindah` datetime NOT NULL,
-  `keluarahan_desa` varchar(255) NOT NULL,
+  `kelurahan_desa` varchar(255) NOT NULL,
   `kecamatan` varchar(255) NOT NULL,
   `kabupaten_kota` varchar(255) NOT NULL,
   `gambar_surat_pengantar` text NOT NULL,
@@ -324,6 +376,14 @@ CREATE TABLE `suket_pindah` (
   `status` varchar(255) NOT NULL,
   `kode` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `suket_pindah`
+--
+
+INSERT INTO `suket_pindah` (`id_suket_pindah`, `id_penduduk`, `status_kependudukan`, `jml_keluarga_pindah`, `pindah_ke`, `tgl_pindah`, `kelurahan_desa`, `kecamatan`, `kabupaten_kota`, `gambar_surat_pengantar`, `waktu`, `status`, `kode`) VALUES
+(1, 2, 'warga desa', 3, 'Jakarta', '2020-08-19 16:05:00', 'Bawang', 'Purwokerto Utara', 'Banyumas', 'suket_pindah.jpg', '2020-08-02 16:05:22', 'proses', 'SKP001'),
+(3, 3, 'warga desa', 4, 'Kalimantan', '2020-08-19 17:00:00', 'Bawang', 'Purwokerto Utara', 'Banyumas', 'suket_pindah1.jpg', '2020-08-02 17:00:50', 'belum', 'SKP002');
 
 -- --------------------------------------------------------
 
@@ -361,16 +421,16 @@ ALTER TABLE `izin_acara`
   ADD PRIMARY KEY (`id_izin_acara`);
 
 --
+-- Indeks untuk tabel `izin_usaha`
+--
+ALTER TABLE `izin_usaha`
+  ADD PRIMARY KEY (`id_izin_usaha`);
+
+--
 -- Indeks untuk tabel `kasi`
 --
 ALTER TABLE `kasi`
   ADD PRIMARY KEY (`id_kasi`);
-
---
--- Indeks untuk tabel `kelahiran_anak`
---
-ALTER TABLE `kelahiran_anak`
-  ADD PRIMARY KEY (`id_kelahiran_anak`);
 
 --
 -- Indeks untuk tabel `keluarga_pindah`
@@ -406,7 +466,7 @@ ALTER TABLE `penduduk`
 -- Indeks untuk tabel `penduduk_mati`
 --
 ALTER TABLE `penduduk_mati`
-  ADD PRIMARY KEY (`id_penududuk_mati`);
+  ADD PRIMARY KEY (`id_penduduk_mati`);
 
 --
 -- Indeks untuk tabel `pengaduan`
@@ -446,13 +506,19 @@ ALTER TABLE `usaha`
 -- AUTO_INCREMENT untuk tabel `akta_kelahiran`
 --
 ALTER TABLE `akta_kelahiran`
-  MODIFY `id_akta_kelahiran` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_akta_kelahiran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `izin_acara`
 --
 ALTER TABLE `izin_acara`
-  MODIFY `id_izin_acara` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_izin_acara` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT untuk tabel `izin_usaha`
+--
+ALTER TABLE `izin_usaha`
+  MODIFY `id_izin_usaha` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `kasi`
@@ -461,22 +527,16 @@ ALTER TABLE `kasi`
   MODIFY `id_kasi` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `kelahiran_anak`
---
-ALTER TABLE `kelahiran_anak`
-  MODIFY `id_kelahiran_anak` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT untuk tabel `keluarga_pindah`
 --
 ALTER TABLE `keluarga_pindah`
-  MODIFY `id_keluarga_pindah` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_keluarga_pindah` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `kependudukan`
 --
 ALTER TABLE `kependudukan`
-  MODIFY `id_kependudukan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_kependudukan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT untuk tabel `pasangan`
@@ -494,13 +554,13 @@ ALTER TABLE `pelayanan`
 -- AUTO_INCREMENT untuk tabel `penduduk`
 --
 ALTER TABLE `penduduk`
-  MODIFY `id_penduduk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_penduduk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `penduduk_mati`
 --
 ALTER TABLE `penduduk_mati`
-  MODIFY `id_penududuk_mati` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_penduduk_mati` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `pengaduan`
@@ -512,7 +572,7 @@ ALTER TABLE `pengaduan`
 -- AUTO_INCREMENT untuk tabel `suket_kematian`
 --
 ALTER TABLE `suket_kematian`
-  MODIFY `id_suket_kematian` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_suket_kematian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `suket_menikah`
@@ -524,7 +584,7 @@ ALTER TABLE `suket_menikah`
 -- AUTO_INCREMENT untuk tabel `suket_pindah`
 --
 ALTER TABLE `suket_pindah`
-  MODIFY `id_suket_pindah` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_suket_pindah` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `usaha`

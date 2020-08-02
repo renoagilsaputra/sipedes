@@ -24,7 +24,7 @@
 		
 		<ul class="navbar-nav px-3">
 			<li class="nav-item text-nowrap">
-				<a class="nav-link" href="#"><i class="fa fa-sign-out"></i> Sign out</a>
+				<a onclick="return confirm('Yakin?')" class="nav-link" href=""><i class="fa fa-sign-out"></i> Keluar</a>
 			</li>
 		</ul>
 	</nav>
@@ -71,7 +71,7 @@
 							</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">
+							<a class="nav-link" href="<?= base_url('petugas/suket_nikah'); ?>">
 								<i class="fa fa-envelope-square"></i>
 								Surat Keterangan Menikah
 							</a>

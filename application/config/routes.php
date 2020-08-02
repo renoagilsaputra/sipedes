@@ -90,6 +90,11 @@ $route['petugas/akta'] = 'Petugas/akta';
 $route['petugas/akta/tambah'] = 'Petugas/akta_add';
 $route['petugas/akta/edit/(:any)'] = 'Petugas/akta_edit/$1';
 $route['petugas/akta/hapus/(:any)'] = 'Petugas/akta_del/$1';
+// Surat Keterangan Menikah
+$route['petugas/suket_nikah'] = 'Petugas/suket_nikah';
+$route['petugas/suket_nikah/tambah'] = 'Petugas/suket_nikah_add';
+$route['petugas/suket_nikah/edit/(:any)'] = 'Petugas/suket_nikah_edit/$1';
+$route['petugas/suket_nikah/hapus/(:any)'] = 'Petugas/suket_nikah_del/$1';
 // Surat Keterangan Mati
 $route['petugas/suket_mati'] = 'Petugas/suket_mati';
 $route['petugas/suket_mati/tambah'] = 'Petugas/suket_mati_add';

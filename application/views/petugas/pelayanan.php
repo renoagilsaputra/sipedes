@@ -51,7 +51,7 @@
 			<td><?= $pl['status']; ?></td>
 			<td>
 				<div class="btn-group">
-					<a href="<?= base_url('petugas/pelayanan/cetak/').$pl['id_pelayanan']; ?>" class="btn btn-secondary"><i class="fa fa-print"></i> Cetak Surat</a>
+					<a target="_blank" href="<?= base_url('petugas/pelayanan/cetak/').$pl['id_pelayanan']; ?>" class="btn btn-secondary"><i class="fa fa-print"></i> Cetak Surat</a>
 					<a href="" data-toggle="modal" data-target="#pelayanan<?= $pl['id_pelayanan']; ?>"
 						class="btn btn-info"><i class="fa fa-search"></i></a>
 					<a href="<?= base_url('petugas/pelayanan/edit/').$pl['id_pelayanan']; ?>" class="btn btn-success"><i
