@@ -96,9 +96,10 @@ $route['petugas/suket_pindah/tambah'] = 'Petugas/suket_pindah_add';
 $route['petugas/suket_pindah/edit/(:any)'] = 'Petugas/suket_pindah_edit/$1';
 $route['petugas/suket_pindah/hapus/(:any)'] = 'Petugas/suket_pindah_del/$1';
 
-$route['petugas/keluarga_pindah/(:any)'] = 'Petugas/keluarga_pindah/$1';
+$route['petugas/keluarga_pindah/(:num)'] = 'Petugas/keluarga_pindah/$1';
 $route['petugas/keluarga_pindah/tambah'] = 'Petugas/keluarga_pindah_add';
 $route['petugas/keluarga_pindah/edit'] = 'Petugas/keluarga_pindah_edit';
+$route['petugas/keluarga_pindah/hapus/(:any)'] = 'Petugas/keluarga_pindah_del/$1';
 // Izin Acara
 $route['petugas/izin_acara'] = 'Petugas/izin_acara';
 $route['petugas/izin_acara/tambah'] = 'Petugas/izin_acara_add';

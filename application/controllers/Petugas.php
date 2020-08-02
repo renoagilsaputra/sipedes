@@ -964,28 +964,240 @@ class Petugas extends CI_Controller {
 	}
 	// Surat Keterangan Pindah
 	public function suket_pindah() {
+		if($this->input->post('search')) {
+			$this->db->join('penduduk','penduduk.id_penduduk = suket_pindah.id_penduduk','left');
+			$this->db->order_by('nik','asc');
+			$this->db->like('nik', $this->input->post('search'));
+			$this->db->or_like('nama_lengkap', $this->input->post('search'));
+			$this->db->or_like('kode', $this->input->post('search'));
+			$data['pindah'] = $this->db->get('suket_pindah')->result_array();
+		} else {
+			$data['pindah'] = $this->MyModel->getPindah();
+		}
 
+
+		$this->load->view('template/header_pet');
+		$this->load->view('petugas/suket_pindah', $data);
+		$this->load->view('template/footer_pet');
 	}
 	public function suket_pindah_add() {
+		$data['penduduk'] = $this->MyModel->getPenduduk();
+		$data['status_kependudukan'] = ['warga desa','warga luar'];
+		
 
+		$this->form_validation->set_rules('id_penduduk', 'NIK', 'trim|required');
+		$this->form_validation->set_rules('status_kependudukan', 'Status Kependudukan', 'trim|required');
+		$this->form_validation->set_rules('jml_keluarga_pindah', 'Jumlah Keluarga Pindah', 'trim|required');
+		$this->form_validation->set_rules('pindah_ke', 'Pindah Ke', 'trim|required');
+		$this->form_validation->set_rules('tgl_pindah', 'Tanggal Pindah', 'trim|required');
+		$this->form_validation->set_rules('kelurahan_desa', 'Kecamatan', 'trim|required');
+		$this->form_validation->set_rules('kecamatan', 'Kecamatan', 'trim|required');
+		$this->form_validation->set_rules('kabupaten_kota', 'Kabupaten / Kota', 'trim|required');
+		
+		if ($this->form_validation->run() == FALSE) {
+			
+			$this->load->view('template/header_pet');
+			$this->load->view('petugas/suket_pindah_add', $data);
+			$this->load->view('template/footer_pet');
+		} else {
+			if(empty($_FILES['gambar_surat_pengantar']['name'])) {
+				$alert = "<script>alert('Surat Pengantar tidak boleh kosong!');</script>";
+				$this->session->set_flashdata('message', $alert);
+				redirect('petugas/suket_pindah/tambah');
+			} else {
+				$config = [
+                    'file_name' => 'suket_pindah',
+                    'upload_path' => './assets/img/suket_pindah/',
+                    'allowed_types' => 'jpg|png|jpeg',
+                    'max_size' => 1024,
+				];
+				
+				$this->load->library('upload', $config);
+
+				if($this->upload->do_upload('gambar_surat_pengantar')) {
+					$file = $this->upload->data();
+
+					$query = $this->db->query("SELECT MAX(kode) as kode from suket_pindah");
+					$kodeMax = $query->row_array();
+
+					$nourut = substr($kodeMax['kode'], 3, 4);
+					$urutan = $nourut + 1;
+					$huruf = "SKP";
+					$kode = $huruf . sprintf("%03s", $urutan);
+
+					$data = [
+						'id_penduduk' => $this->input->post('id_penduduk'),
+						'status_kependudukan' => $this->input->post('status_kependudukan'),
+						'jml_keluarga_pindah' => $this->input->post('jml_keluarga_pindah'),
+						'pindah_ke' => $this->input->post('pindah_ke'),
+						'tgl_pindah' => $this->input->post('tgl_pindah'),
+						'kelurahan_desa' => $this->input->post('kelurahan_desa'),
+						'kecamatan' => $this->input->post('kecamatan'),
+						'kabupaten_kota' => $this->input->post('kabupaten_kota'),
+						'gambar_surat_pengantar' => $file['file_name'],
+						'waktu' => date('Y-m-d H:i:s'),
+						'kode' => $kode,
+						'status' => 'belum',
+					];
+					
+					$this->MyModel->addPindah($data);
+					$alert = "<script>alert('Berhasil!');</script>";
+					$this->session->set_flashdata('message', $alert);
+					redirect('petugas/suket_pindah'); 	
+				} else {
+					$alert = "<div class='alert alert-danger'>".$this->upload->display_errors()."</div>";
+					$this->session->set_flashdata('error', $alert);
+					redirect('petugas/suket_pindah/tambah');
+				}
+			}
+		}
 	}
 	public function suket_pindah_edit($id) {
+		$data['penduduk'] = $this->MyModel->getPenduduk();
+		$data['status_kependudukan'] = ['warga desa','warga luar'];
+		$data['pindah'] = $this->MyModel->getPindahByID($id);
+		$data['status'] = ['belum','proses','selesai'];
+		
 
+		$this->form_validation->set_rules('id_penduduk', 'NIK', 'trim|required');
+		$this->form_validation->set_rules('status_kependudukan', 'Status Kependudukan', 'trim|required');
+		$this->form_validation->set_rules('jml_keluarga_pindah', 'Jumlah Keluarga Pindah', 'trim|required');
+		$this->form_validation->set_rules('pindah_ke', 'Pindah Ke', 'trim|required');
+		$this->form_validation->set_rules('tgl_pindah', 'Tanggal Pindah', 'trim|required');
+		$this->form_validation->set_rules('kelurahan_desa', 'Kecamatan', 'trim|required');
+		$this->form_validation->set_rules('kecamatan', 'Kecamatan', 'trim|required');
+		$this->form_validation->set_rules('kabupaten_kota', 'Kabupaten / Kota', 'trim|required');
+		$this->form_validation->set_rules('status', 'Status', 'trim|required');
+		
+		if ($this->form_validation->run() == FALSE) {
+			
+			$this->load->view('template/header_pet');
+			$this->load->view('petugas/suket_pindah_edit', $data);
+			$this->load->view('template/footer_pet');
+		} else {
+			if(empty($_FILES['gambar_surat_pengantar']['name'])) {
+				$data = [
+					'id_penduduk' => $this->input->post('id_penduduk'),
+					'status_kependudukan' => $this->input->post('status_kependudukan'),
+					'jml_keluarga_pindah' => $this->input->post('jml_keluarga_pindah'),
+					'pindah_ke' => $this->input->post('pindah_ke'),
+					'tgl_pindah' => $this->input->post('tgl_pindah'),
+					'kelurahan_desa' => $this->input->post('kelurahan_desa'),
+					'kecamatan' => $this->input->post('kecamatan'),
+					'kabupaten_kota' => $this->input->post('kabupaten_kota'),
+					'status' => $this->input->post('status'),
+				];
+				
+				$this->MyModel->editPindah($id,$data);
+				$alert = "<script>alert('Berhasil!');</script>";
+				$this->session->set_flashdata('message', $alert);
+				redirect('petugas/suket_pindah');
+			} else {
+				unlink('assets/img/suket_pindah/'.$data['pindah']['gambar_surat_pengantar']);
+				$config = [
+                    'file_name' => 'suket_pindah',
+                    'upload_path' => './assets/img/suket_pindah/',
+                    'allowed_types' => 'jpg|png|jpeg',
+                    'max_size' => 1024,
+				];
+				
+				$this->load->library('upload', $config);
+
+				if($this->upload->do_upload('gambar_surat_pengantar')) {
+					$file = $this->upload->data();
+
+					$data = [
+						'id_penduduk' => $this->input->post('id_penduduk'),
+						'status_kependudukan' => $this->input->post('status_kependudukan'),
+						'jml_keluarga_pindah' => $this->input->post('jml_keluarga_pindah'),
+						'pindah_ke' => $this->input->post('pindah_ke'),
+						'tgl_pindah' => $this->input->post('tgl_pindah'),
+						'kelurahan_desa' => $this->input->post('kelurahan_desa'),
+						'kecamatan' => $this->input->post('kecamatan'),
+						'kabupaten_kota' => $this->input->post('kabupaten_kota'),
+						'gambar_surat_pengantar' => $file['file_name'],
+						'status' => $this->input->post('status'),
+					];
+					
+					$this->MyModel->editPindah($id,$data);
+					$alert = "<script>alert('Berhasil!');</script>";
+					$this->session->set_flashdata('message', $alert);
+					redirect('petugas/suket_pindah'); 	
+				} else {
+					$alert = "<div class='alert alert-danger'>".$this->upload->display_errors()."</div>";
+					$this->session->set_flashdata('error', $alert);
+					redirect('petugas/suket_pindah/edit/'.$id);
+				}
+			}
+		}
 	}
 	public function suket_pindah_del($id) {
-
+		$pdh = $this->MyModel->getPindahByID($id);
+		unlink('assets/img/suket_pindah/'.$pdh['gambar_surat_pengantar']);
+		$this->MyModel->delPindah($id);
+		$alert = "<script>alert('Berhasil!');</script>";
+		$this->session->set_flashdata('message', $alert);
+		redirect('petugas/suket_pindah');
 	}
 	public function keluarga_pindah($id) {
-
+		$data['kel'] = $this->MyModel->getKelPindah($id);
+		$this->load->view('template/header_pet');
+		$this->load->view('petugas/keluarga_pindah', $data);
+		$this->load->view('template/footer_pet');
 	}
 	public function keluarga_pindah_add() {
+		$id_suket_pindah = $this->input->post('id_suket_pindah');
+		$nik = $this->input->post('nik');
+		$nama = $this->input->post('nama');
+
+		if(empty($nik) || empty($nama)) {
+			$alert = "<script>alert('Kolom tidak boleh kosong!');</script>";
+			$this->session->set_flashdata('message', $alert);
+			redirect('petugas/keluarga_pindah/'.$id_suket_pindah);
+		} else {
+
+			$data = [
+				'id_suket_pindah' => $id_suket_pindah,
+				'nik' => $nik,
+				'nama' => $nama	
+			];
+	
+			$this->MyModel->addKelPindah($data);
+			$alert = "<script>alert('Berhasil!');</script>";
+			$this->session->set_flashdata('message', $alert);
+			redirect('petugas/keluarga_pindah/'.$id_suket_pindah);
+		}
 
 	}
 	public function keluarga_pindah_edit() {
-		
+		$id_suket_pindah = $this->input->post('id_suket_pindah');
+		$id_keluarga_pindah = $this->input->post('id_keluarga_pindah');
+		$nik = $this->input->post('nik');
+		$nama = $this->input->post('nama');
+
+		if(empty($nik) || empty($nama)) {
+			$alert = "<script>alert('Kolom tidak boleh kosong!');</script>";
+			$this->session->set_flashdata('message', $alert);
+			redirect('petugas/keluarga_pindah/'.$id_suket_pindah);
+		} else {
+
+			$data = [
+				'id_suket_pindah' => $id_suket_pindah,
+				'nik' => $nik,
+				'nama' => $nama	
+			];
+	
+			$this->MyModel->editKelPindah($id_keluarga_pindah,$data);
+			$alert = "<script>alert('Berhasil!');</script>";
+			$this->session->set_flashdata('message', $alert);
+			redirect('petugas/keluarga_pindah/'.$id_suket_pindah);
+		}
 	}
 	public function keluarga_pindah_del($id) {
-
+		$this->MyModel->delKelPindah($id);
+		$alert = "<script>alert('Berhasil!');</script>";
+		$this->session->set_flashdata('message', $alert);
+		$this->redirect_back();
 	}
 	// Izin Acara
 	public function izin_acara() {
@@ -1317,6 +1529,19 @@ class Petugas extends CI_Controller {
 		$this->session->set_flashdata('message', $alert);
 		redirect('petugas/izin_usaha');
 	}
+
+	private function redirect_back()
+    {
+        if(isset($_SERVER['HTTP_REFERER']))
+        {
+            header('Location: '.$_SERVER['HTTP_REFERER']);
+        }
+        else
+        {
+            header('Location: http://'.$_SERVER['SERVER_NAME']);
+        }
+        exit;
+    }
 }
         
     /* End of file  Petugas.php */

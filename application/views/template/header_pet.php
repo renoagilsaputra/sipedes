@@ -83,7 +83,7 @@
 							</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">
+							<a class="nav-link" href="<?= base_url('petugas/suket_pindah'); ?>">
 								<i class="fa fa-envelope-o"></i>
 								Surat Pindah
 							</a>

@@ -134,9 +134,10 @@ class MyModel extends CI_Model {
 		$this->db->select('
 			*, 
 			suket_pindah.kelurahan_desa as kelurahan_desa_pindah,
-			suket_pindah_kecamatan as kecamatan_pindah,
+			suket_pindah.kecamatan as kecamatan_pindah,
 			suket_pindah.kabupaten_kota as kabupaten_kota_pindah');
 		$this->db->join('penduduk','penduduk.id_penduduk = suket_pindah.id_penduduk','left');
+		
 		$this->db->order_by('nik','asc');
 		return $this->db->get('suket_pindah')->result_array();
 	}
@@ -156,21 +157,24 @@ class MyModel extends CI_Model {
 
 	public function delPindah($id) {
 		$this->db->where('id_suket_pindah', $id);
+		$this->db->delete('keluarga_pindah');
+
+		$this->db->where('id_suket_pindah', $id);
 		$this->db->delete('suket_pindah');
 	}
 	public function getKelPindah($id) {  
-		return $this->db->get_where('kelurga_pindah',['id_suket_pindah' => $id])->result_array();
+		return $this->db->get_where('keluarga_pindah',['id_suket_pindah' => $id])->result_array();
 	}
-	public function addKelPindah() {
+	public function addKelPindah($data) {
 		$this->db->insert('keluarga_pindah',$data);
 	}
-	public function editPindah($id, $data) {
+	public function editKelPindah($id, $data) {
 		$this->db->where('id_keluarga_pindah', $id);
 		$this->db->update('keluarga_pindah', $data);
 	}
-	public function delKelPindah() {
+	public function delKelPindah($id) {
 		$this->db->where('id_keluarga_pindah', $id);
-		$this->db->delete('keluraga_pindah');
+		$this->db->delete('keluarga_pindah');
 	}
 	// Izin Acara
 	public function getAcara() {
