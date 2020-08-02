@@ -965,16 +965,181 @@ class Petugas extends CI_Controller {
 	// Surat Keterangan Menikah
 	// Surat Keterangan Kematian
 	public function suket_mati() {
+		if($this->input->post('search')) {
+			$this->db->select('*, penduduk_mati.id_penduduk as id_mati');
+			$this->db->join('penduduk','penduduk.id_penduduk = suket_kematian.id_penduduk','left');
+			$this->db->join('penduduk_mati','penduduk_mati.id_penduduk_mati = suket_kematian.id_penduduk_mati','left');
+			$this->db->order_by('nik','asc');
+			$this->db->like('nik', $this->input->post('search'));
+			$this->db->or_like('akta_kelahiran.nama_lengkap', $this->input->post('search'));
+			$this->db->or_like('kode', $this->input->post('search'));
+			$data['mati'] = $this->db->get('suket_kematian')->result_array();
+		} else {
+			$data['mati'] = $this->MyModel->getMati();
+		}
 
+		
+
+		$this->load->view('template/header_pet');
+		$this->load->view('petugas/suket_mati', $data);
+		$this->load->view('template/footer_pet');
 	}
 	public function suket_mati_add() {
+		$data['penduduk'] = $this->MyModel->getPenduduk();
+		
 
+		$this->form_validation->set_rules('id_penduduk', 'NIK', 'trim|required');
+		$this->form_validation->set_rules('id_mati', 'NIK Penduduk Mati', 'trim|required');
+		$this->form_validation->set_rules('waktu_kematian', 'Waktu Kematian', 'trim|required');
+		
+		
+		if ($this->form_validation->run() == FALSE) {
+			
+			$this->load->view('template/header_pet');
+			$this->load->view('petugas/suket_mati_add', $data);
+			$this->load->view('template/footer_pet');
+		} else {
+			if(empty($_FILES['gambar_surat_pengantar']['name'])) {
+				$alert = "<script>alert('Surat Pengantar tidak boleh kosong!');</script>";
+				$this->session->set_flashdata('message', $alert);
+				redirect('petugas/suket_pindah/tambah');
+			} else {
+				$config = [
+                    'file_name' => 'suket_mati',
+                    'upload_path' => './assets/img/suket_mati/',
+                    'allowed_types' => 'jpg|png|jpeg',
+                    'max_size' => 1024,
+				];
+				
+				$this->load->library('upload', $config);
+
+				if($this->upload->do_upload('gambar_surat_pengantar')) {
+					$file = $this->upload->data();
+
+					$query = $this->db->query("SELECT MAX(kode) as kode from suket_kematian");
+					$kodeMax = $query->row_array();
+
+					$nourut = substr($kodeMax['kode'], 3, 4);
+					$urutan = $nourut + 1;
+					$huruf = "SKM";
+					$kode = $huruf . sprintf("%03s", $urutan);
+
+					$data = [
+						'id_penduduk' => $this->input->post('id_mati'),
+					];
+					$this->db->insert('penduduk_mati', $data);
+					$id_penduduk_mati = $this->db->insert_id();
+
+					$dt = [
+						'id_penduduk' => $this->input->post('id_penduduk'),
+						'id_penduduk_mati' => $id_penduduk_mati,
+						'waktu_kematian' => $this->input->post('waktu_kematian'),
+						'gambar_surat_pengantar' => $file['file_name'],
+						'waktu' => date('Y-m-d H:i:s'),
+						'kode' => $kode,
+						'status' => 'belum',
+					];
+
+					$this->MyModel->addMati($dt);
+
+
+					
+					
+					$alert = "<script>alert('Berhasil!');</script>";
+					$this->session->set_flashdata('message', $alert);
+					redirect('petugas/suket_mati'); 	
+				} else {
+					$alert = "<div class='alert alert-danger'>".$this->upload->display_errors()."</div>";
+					$this->session->set_flashdata('error', $alert);
+					redirect('petugas/suket_mati/tambah');
+				}
+			}
+		}
 	}
 	public function suket_mati_edit($id) {
+		$data['penduduk'] = $this->MyModel->getPenduduk();
+		$data['mati'] = $this->MyModel->getMatiByID($id);
+		$data['status'] = ['belum','proses','selesai'];
+		
 
+		$this->form_validation->set_rules('id_penduduk', 'NIK', 'trim|required');
+		$this->form_validation->set_rules('id_mati', 'NIK Penduduk Mati', 'trim|required');
+		$this->form_validation->set_rules('waktu_kematian', 'Waktu Kematian', 'trim|required');
+		$this->form_validation->set_rules('status', 'Status', 'trim|required');
+		
+		
+		if ($this->form_validation->run() == FALSE) {
+			
+			$this->load->view('template/header_pet');
+			$this->load->view('petugas/suket_mati_edit', $data);
+			$this->load->view('template/footer_pet');
+		} else {
+			if(empty($_FILES['gambar_surat_pengantar']['name'])) {
+				$data = [
+					'id_penduduk' => $this->input->post('id_mati'),
+				];
+				$this->db->where('id_penduduk_mati', $this->input->post('id_penduduk_mati'));
+				$this->db->update('penduduk_mati', $data);
+
+				$dt = [
+					'id_penduduk' => $this->input->post('id_penduduk'),
+					'waktu_kematian' => $this->input->post('waktu_kematian'),
+					'status' => $this->input->post('status'),
+				];
+
+				$this->MyModel->editMati($id, $dt);
+				
+				
+				$alert = "<script>alert('Berhasil!');</script>";
+				$this->session->set_flashdata('message', $alert);
+				redirect('petugas/suket_mati');
+			} else {
+				$config = [
+                    'file_name' => 'suket_mati',
+                    'upload_path' => './assets/img/suket_mati/',
+                    'allowed_types' => 'jpg|png|jpeg',
+                    'max_size' => 1024,
+				];
+				
+				$this->load->library('upload', $config);
+
+				if($this->upload->do_upload('gambar_surat_pengantar')) {
+					$file = $this->upload->data();
+
+					$data = [
+						'id_penduduk' => $this->input->post('id_mati'),
+					];
+					$this->db->where('id_penduduk_mati', $this->input->post('id_penduduk_mati'));
+					$this->db->update('penduduk_mati', $data);
+
+					$dt = [
+						'id_penduduk' => $this->input->post('id_penduduk'),
+						'waktu_kematian' => $this->input->post('waktu_kematian'),
+						'gambar_surat_pengantar' => $file['file_name'],
+						'status' => $this->input->post('status'),
+					];
+
+					$this->MyModel->editMati($id, $dt);
+					
+					
+					$alert = "<script>alert('Berhasil!');</script>";
+					$this->session->set_flashdata('message', $alert);
+					redirect('petugas/suket_mati'); 	
+				} else {
+					$alert = "<div class='alert alert-danger'>".$this->upload->display_errors()."</div>";
+					$this->session->set_flashdata('error', $alert);
+					redirect('petugas/suket_mati/edit/'.$id);
+				}
+			}
+		}
 	}
 	public function suket_mati_del($id) {
-
+		$mt = $this->MyModel->getMatiByID($id);
+		unlink('assets/img/suket_mati/'.$mt['gambar_surat_pengantar']);
+		$this->MyModel->delMati($id);
+		$alert = "<script>alert('Berhasil!');</script>";
+		$this->session->set_flashdata('message', $alert);
+		redirect('petugas/suket_mati');
 	}
 	// Surat Keterangan Pindah
 	public function suket_pindah() {

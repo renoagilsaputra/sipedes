@@ -131,12 +131,16 @@ class MyModel extends CI_Model {
 	}
 	// Surat Kematian
 	public function getMati() {
+		$this->db->select('*, penduduk_mati.id_penduduk as id_mati');
 		$this->db->join('penduduk','penduduk.id_penduduk = suket_kematian.id_penduduk','left');
+		$this->db->join('penduduk_mati','penduduk_mati.id_penduduk_mati = suket_kematian.id_penduduk_mati','left');
 		$this->db->order_by('nik','asc');
 		return $this->db->get('suket_kematian')->result_array();
 	}
 
 	public function getMatiByID($id) {
+		$this->db->select('*,suket_kematian.id_penduduk as id_pengaju, penduduk_mati.id_penduduk as id_mati');
+		$this->db->join('penduduk_mati','penduduk_mati.id_penduduk_mati = suket_kematian.id_penduduk_mati','left');
 		return $this->db->get_where('suket_kematian',['id_suket_kematian' => $id])->row_array();
 	}
 
@@ -150,7 +154,11 @@ class MyModel extends CI_Model {
 	}
 
 	public function delMati($id) {
-		$this->db->where('id_suket_kematian', $id);
+		$pm = $this->getMatiByID($id);
+
+		
+
+		$this->db->where('id_penduduk_mati', $pm['id_mati']);
 		$this->db->delete('penduduk_mati');
 
 		$this->db->where('id_suket_kematian', $id);

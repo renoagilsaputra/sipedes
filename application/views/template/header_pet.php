@@ -77,7 +77,7 @@
 							</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">
+							<a class="nav-link" href="<?= base_url('petugas/suket_mati'); ?>">
 								<i class="fa fa-envelope"></i>
 								Surat Keterangan Kematian
 							</a>
