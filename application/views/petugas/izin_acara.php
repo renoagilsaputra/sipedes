@@ -1,4 +1,4 @@
-<h1><i class="fa fa-calendar-check-o"></i> Pelayanan</h1>
+<h1><i class="fa fa-calendar-check-o"></i> Izin Acara</h1>
 <?= $this->session->flashdata('message'); ?>
 
 <div class="row">
@@ -152,7 +152,7 @@
 						<tr>
 							<th>Surat Pengantar</th>
 							<td>:</td>
-							<td><img src="<?= base_url('assets/img/pelayanan/').$pn['gambar_surat_pengantar']; ?>" width="100%" class="img-thumbnail" alt=""></td>
+							<td><img src="<?= base_url('assets/img/izin_acara/').$pn['gambar_surat_pengantar']; ?>" width="100%" class="img-thumbnail" alt=""></td>
 						</tr>
 						<tr>
 							<th>Status</th>

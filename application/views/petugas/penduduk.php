@@ -100,6 +100,11 @@
 							<td><?= $pn['nik']; ?></td>
 						</tr>
 						<tr>
+							<th>No KK</th>
+							<td>:</td>
+							<td><?= $pn['no_kk']; ?></td>
+						</tr>
+						<tr>
 							<th>Nama</th>
 							<td>:</td>
 							<td><?= $pn['nama_lengkap']; ?></td>

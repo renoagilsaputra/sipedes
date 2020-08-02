@@ -75,6 +75,7 @@ $route['petugas/penduduk/edit/(:any)'] = 'Petugas/editPenduduk/$1';
 $route['petugas/penduduk/hapus/(:any)'] = 'Petugas/delPenduduk/$1';
 $route['petugas/penduduk/gantisandi/(:any)'] = 'Petugas/sandiPenduduk/$1';
 // Pelayanan
+$route['petugas/pelayanan/cetak/(:any)'] = 'Petugas/pelayanan_cetak/$1';
 $route['petugas/pelayanan'] = 'Petugas/pelayanan';
 $route['petugas/pelayanan/tambah'] = 'Petugas/pelayanan_add';
 $route['petugas/pelayanan/edit/(:any)'] = 'Petugas/pelayanan_edit/$1';
@@ -84,12 +85,30 @@ $route['petugas/kependudukan'] = 'Petugas/kependudukan';
 $route['petugas/kependudukan/tambah'] = 'Petugas/kependudukan_add';
 $route['petugas/kependudukan/edit/(:any)'] = 'Petugas/kependudukan_edit/$1';
 $route['petugas/kependudukan/hapus/(:any)'] = 'Petugas/kependudukan_del/$1';
+// Akta Kelahiran
+$route['petugas/akta'] = 'Petugas/akta';
+$route['petugas/akta/tambah'] = 'Petugas/akta_add';
+$route['petugas/akta/edit/(:any)'] = 'Petugas/akta_edit/$1';
+$route['petugas/akta/hapus/(:any)'] = 'Petugas/akta_del/$1';
+// Surat Keterangan Pindah
+$route['petugas/suket_pindah'] = 'Petugas/suket_pindah';
+$route['petugas/suket_pindah/tambah'] = 'Petugas/suket_pindah_add';
+$route['petugas/suket_pindah/edit/(:any)'] = 'Petugas/suket_pindah_edit/$1';
+$route['petugas/suket_pindah/hapus/(:any)'] = 'Petugas/suket_pindah_del/$1';
+
+$route['petugas/keluarga_pindah/(:any)'] = 'Petugas/keluarga_pindah/$1';
+$route['petugas/keluarga_pindah/tambah'] = 'Petugas/keluarga_pindah_add';
+$route['petugas/keluarga_pindah/edit'] = 'Petugas/keluarga_pindah_edit';
 // Izin Acara
 $route['petugas/izin_acara'] = 'Petugas/izin_acara';
 $route['petugas/izin_acara/tambah'] = 'Petugas/izin_acara_add';
 $route['petugas/izin_acara/edit/(:any)'] = 'Petugas/izin_acara_edit/$1';
 $route['petugas/izin_acara/hapus/(:any)'] = 'Petugas/izin_acara_del/$1';
-
+// Izin Usaha
+$route['petugas/izin_usaha'] = 'Petugas/izin_usaha';
+$route['petugas/izin_usaha/tambah'] = 'Petugas/izin_usaha_add';
+$route['petugas/izin_usaha/edit/(:any)'] = 'Petugas/izin_usaha_edit/$1';
+$route['petugas/izin_usaha/hapus/(:any)'] = 'Petugas/izin_usaha_del/$1';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

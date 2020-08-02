@@ -1,4 +1,4 @@
-<h1><i class="fa fa-calendar-check-o"></i> Tambah Izin Acara</h1>
+<h1><i class="fa fa-calendar-check-o"></i> Tambah Izin Usaha</h1>
 <?= $this->session->flashdata('message'); ?>
 
 
@@ -17,30 +17,24 @@
 				<?= form_error('id_penduduk', '<small class="text-danger pl-1">','</small>'); ?>
 			</div>
 			<div class="form-group">
-				<label>Acara</label>
-				<input type="text" name="acara" placeholder="Acara" class="form-control">
-				<?= form_error('acara', '<small class="text-danger pl-1">','</small>'); ?>
+				<label>Nama Usaha</label>
+				<input type="text" name="nama_usaha" placeholder="Nama Usaha" class="form-control">
+				<?= form_error('nama_usaha', '<small class="text-danger pl-1">','</small>'); ?>
 			</div>
 			<div class="form-group">
-				<label>Tanggal Mulai</label>
-				<input type="datetime-local" name="tgl_mulai" placeholder="Tanggal Mulai" class="form-control">
-				<?= form_error('tgl_mulai', '<small class="text-danger pl-1">','</small>'); ?>
+				<label>Jenis Usaha</label>
+				<input type="text" name="jenis_usaha" placeholder="Jenis Usaha" class="form-control">
+				<?= form_error('jenis_usaha', '<small class="text-danger pl-1">','</small>'); ?>
 			</div>
 			<div class="form-group">
-				<label>Tanggal Selesai</label>
-				<input type="datetime-local" name="tgl_selesai" placeholder="Tanggal Selesai" class="form-control">
-				<?= form_error('tgl_selesai', '<small class="text-danger pl-1">','</small>'); ?>
+				<label>Modal Usaha</label>
+				<input type="number" name="modal_usaha" placeholder="Modal Usaha" class="form-control">
+				<?= form_error('modal_usaha', '<small class="text-danger pl-1">','</small>'); ?>
 			</div>
 			<div class="form-group">
-				<label>Lokasi</label>
-				<textarea name="lokasi" class="form-control" placeholder="Lokasi"></textarea>
-				<?= form_error('lokasi', '<small class="text-danger pl-1">','</small>'); ?>
-			</div>
-
-			<div class="form-group">
-				<label>Jenis Acara</label>
-				<input type="text" name="jenis_acara" placeholder="Jenis Acara" class="form-control">
-				<?= form_error('jenis_acara', '<small class="text-danger pl-1">','</small>'); ?>
+				<label>Tempat Usaha</label>
+				<textarea name="tempat_usaha" class="form-control" placeholder="Tempat Usaha"></textarea>
+				<?= form_error('tempat_usaha', '<small class="text-danger pl-1">','</small>'); ?>
 			</div>
 		
 			<div class="form-group">

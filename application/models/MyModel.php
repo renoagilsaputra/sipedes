@@ -90,7 +90,88 @@ class MyModel extends CI_Model {
 		$this->db->where('id_kependudukan',$id);
 		$this->db->delete('kependudukan');
 	}
+	// Akta Kelahiran
+	public function getAkta() {
+		$this->db->select(
+			'*,
+			akta_kelahiran.nama_lengkap as nama_akta, 
+			akta_kelahiran.tmp_lahir as tmp_lahir_akta, 
+			akta_kelahiran.tgl_lahir as tgl_lahir_akta, 
+			akta_kelahiran.jk as jk_akta, 
+			akta_kelahiran.kewarganegaraan as kewarganegaraan_akta, 
+			akta_kelahiran.agama as agama_akta, 
+			akta_kelahiran.alamat as alamat_akta, 
+			akta_kelahiran.rt as rt_akta, 
+			akta_kelahiran.rw as rw_akta, 
+			akta_kelahiran.no_rumah as no_rumah_akta, 
+			akta_kelahiran.kelurahan_desa as kelurahan_desa_akta, 
+			akta_kelahiran.kecamatan as kecamatan_akta, 
+			akta_kelahiran.kabupaten_kota as kabupaten_kota_akta, 
+			akta_kelahiran.kode_pos as kode_pos_akta');
+		$this->db->join('penduduk','penduduk.id_penduduk = akta_kelahiran.id_penduduk','left');
+		$this->db->order_by('nik','asc');
+		return $this->db->get('akta_kelahiran')->result_array();
+	}
+	public function getAktaByID($id) {
+		return $this->db->get_where('akta_kelahiran',['id_akta_kelahiran' => $id])->row_array();
+	}
 
+	public function addAkta($data) {
+		$this->db->insert('akta_kelahiran', $data);
+	}
+
+	public function editAkta($id, $data) {
+		$this->db->where('id_akta_kelahiran', $id);
+		$this->db->update('akta_kelahiran', $data);
+	}
+
+	public function delAkta($id) {
+		$this->db->where('id_akta_kelahiran',$id);
+		$this->db->delete('akta_kelahiran');
+	}
+	// Surat Pindah
+	public function getPindah() {
+		$this->db->select('
+			*, 
+			suket_pindah.kelurahan_desa as kelurahan_desa_pindah,
+			suket_pindah_kecamatan as kecamatan_pindah,
+			suket_pindah.kabupaten_kota as kabupaten_kota_pindah');
+		$this->db->join('penduduk','penduduk.id_penduduk = suket_pindah.id_penduduk','left');
+		$this->db->order_by('nik','asc');
+		return $this->db->get('suket_pindah')->result_array();
+	}
+
+	public function getPindahByID($id) {
+		return $this->db->get_where('suket_pindah',['id_suket_pindah' => $id])->row_array();
+	}
+
+	public function addPindah($data) {
+		$this->db->insert('suket_pindah',$data);
+	}
+
+	public function editPindah($id, $data) {
+		$this->db->where('id_suket_pindah', $id);
+		$this->db->update('suket_pindah', $data);
+	}
+
+	public function delPindah($id) {
+		$this->db->where('id_suket_pindah', $id);
+		$this->db->delete('suket_pindah');
+	}
+	public function getKelPindah($id) {  
+		return $this->db->get_where('kelurga_pindah',['id_suket_pindah' => $id])->result_array();
+	}
+	public function addKelPindah() {
+		$this->db->insert('keluarga_pindah',$data);
+	}
+	public function editPindah($id, $data) {
+		$this->db->where('id_keluarga_pindah', $id);
+		$this->db->update('keluarga_pindah', $data);
+	}
+	public function delKelPindah() {
+		$this->db->where('id_keluarga_pindah', $id);
+		$this->db->delete('keluraga_pindah');
+	}
 	// Izin Acara
 	public function getAcara() {
 		$this->db->join('penduduk','penduduk.id_penduduk = izin_acara.id_penduduk','left');
@@ -113,7 +194,32 @@ class MyModel extends CI_Model {
 
 	public function delAcara($id) {
 		$this->db->where('id_izin_acara', $id);
-		$this->db->update('izin_acara');
+		$this->db->delete('izin_acara');
+	}
+
+	// Izin Usaha
+	public function getUsaha() {
+		$this->db->join('penduduk','penduduk.id_penduduk = izin_usaha.id_penduduk','left');
+		$this->db->order_by('nik','asc');
+		return $this->db->get('izin_usaha')->result_array();
+	}
+
+	public function getUsahaByID($id) {
+		return $this->db->get_where('izin_usaha',['id_izin_usaha' => $id])->row_array();
+	}
+
+	public function addUsaha($data) {
+		$this->db->insert('izin_usaha',$data);
+	}
+
+	public function editUsaha($id, $data) {
+		$this->db->where('id_izin_usaha', $id);
+		$this->db->update('izin_usaha', $data);
+	}
+
+	public function delUsaha($id) {
+		$this->db->where('id_izin_usaha', $id);
+		$this->db->delete('izin_usaha');
 	}
 }
                         

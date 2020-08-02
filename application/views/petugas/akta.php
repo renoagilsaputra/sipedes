@@ -1,10 +1,10 @@
-<h1><i class="fa fa-id-card"></i> Pelayanan</h1>
+<h1><i class="fa fa-child"></i> Akta Kelahiran</h1>
 <?= $this->session->flashdata('message'); ?>
 
 <div class="row">
 	<div class="col-lg-8">
 
-		<a href="<?= base_url('petugas/pelayanan/tambah'); ?>" class="btn btn-primary mb-2"><i class="fa fa-pencil"></i>
+		<a href="<?= base_url('petugas/akta/tambah'); ?>" class="btn btn-primary mb-2"><i class="fa fa-pencil"></i>
 			Tambah</a>
 	</div>
 	<div class="col-lg-4">
@@ -26,39 +26,40 @@
 			<th>#</th>
 			<th>NIK</th>
 			<th>Nama Lengkap</th>
-			<th>Jenis Pelayanan</th>
-			<th>Keperluan</th>
+			<th>Nama Ayah</th>
+			<th>Nama Ibu</th>
+			<th>Tanggal Lahir</th>
 			<th>Kode</th>
 			<th>Status</th>
 			<th><i class="fa fa-cogs"></i></th>
 		</tr>
-		<?php if(empty($pelayanan)) : ?>
+		<?php if(empty($akta)) : ?>
 		<tr>
 			<td colspan="8" class="text-center">Data tidak ada!</td>
 		</tr>
 		<?php endif; ?>
 		<?php 
 			$no = 1;
-			foreach($pelayanan as $pl) :
+			foreach($akta as $ac) :
 		?>
 		<tr>
 			<td><?= $no++; ?></td>
-			<td><?= $pl['nik']; ?></td>
-			<td><?= $pl['nama_lengkap']; ?></td>
-			<td><?= $pl['jenis_pelayanan']; ?></td>
-			<td><?= $pl['keperluan']; ?></td>
-			<td><?= $pl['kode']; ?></td>
-			<td><?= $pl['status']; ?></td>
+			<td><?= $ac['nik']; ?></td>
+			<td><?= $ac['nama_akta']; ?></td>
+			<td><?= $ac['nama_ayah']; ?></td>
+			<td><?= $ac['nama_ibu']; ?></td>
+			<td><?= $ac['tgl_lahir_akta']; ?></td>
+			<td><?= $ac['kode']; ?></td>
+			<td><?= $ac['status']; ?></td>
 			<td>
 				<div class="btn-group">
-					<a href="<?= base_url('petugas/pelayanan/cetak/').$pl['id_pelayanan']; ?>" class="btn btn-secondary"><i class="fa fa-print"></i> Cetak Surat</a>
-					<a href="" data-toggle="modal" data-target="#pelayanan<?= $pl['id_pelayanan']; ?>"
+					<a href="" data-toggle="modal" data-target="#akta<?= $ac['id_akta_kelahiran']; ?>"
 						class="btn btn-info"><i class="fa fa-search"></i></a>
-					<a href="<?= base_url('petugas/pelayanan/edit/').$pl['id_pelayanan']; ?>" class="btn btn-success"><i
+					<a href="<?= base_url('petugas/akta/edit/').$ac['id_akta_kelahiran']; ?>" class="btn btn-success"><i
 							class="fa fa-edit"></i></a>
 					
 					<a onclick="return confirm('Yakin?')"
-						href="<?= base_url('petugas/pelayanan/hapus/').$pl['id_pelayanan']; ?>" class="btn btn-danger"><i
+						href="<?= base_url('petugas/akta/hapus/').$ac['id_akta_kelahiran']; ?>" class="btn btn-danger"><i
 							class="fa fa-trash"></i></a>
 				</div>
 			</td>
@@ -68,13 +69,13 @@
 </div>
 
 <!-- Modal Detail -->
-<?php foreach($pelayanan as $pn) : ?>
-<div class="modal fade" id="pelayanan<?= $pn['id_pelayanan']; ?>" tabindex="-1" role="dialog"
+<?php foreach($akta as $pn) : ?>
+<div class="modal fade" id="akta<?= $pn['id_akta_kelahiran']; ?>" tabindex="-1" role="dialog"
 	aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg" id="cetak<?= $pn['id_pelayanan']; ?>">
+	<div class="modal-dialog modal-lg" id="cetak<?= $pn['id_akta_kelahiran']; ?>">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Detail Pelayanan</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Detail Izin Akta Kelahiran</h5>
 				<button type="button" class="close no-print" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -82,7 +83,7 @@
 			<div class="modal-body">
 				<div class="text-right">
 				<p class="print">Dicetak pada : <?= date('d-m-Y'); ?></p>
-					<a href="" onclick="javascript:printlayer('cetak<?= $pn['id_pelayanan']; ?>')" class="btn btn-secondary mb-2 no-print"><i
+					<a href="" onclick="javascript:printlayer('cetak<?= $pn['id_akta_kelahiran']; ?>')" class="btn btn-secondary mb-2 no-print"><i
 							class="fa fa-print"></i> Cetak</a>
 				</div>
 				<div class="table-responsive">
@@ -100,43 +101,74 @@
 						<tr>
 							<th>Nama Lengkap</th>
 							<td>:</td>
-							<td><?= $pn['nama_lengkap']; ?></td>
+							<td><?= $pn['nama_akta']; ?></td>
+						</tr>
+						<tr>
+							<th>Tempat Lahir</th>
+							<td>:</td>
+							<td><?= $pn['tmp_lahir_akta']; ?></td>
+						</tr>
+						<tr>
+							<th>Tanggal Lahir</th>
+							<td>:</td>
+							<td><?= $pn['tgl_lahir_akta']; ?></td>
+						</tr>
+						<tr>
+							<th>Jenis Kelamin</th>
+							<td>:</td>
+							<td><?= ($pn['jk_akta'] == 'l') ? 'Laki - laki' : 'Perempuan'; ?></td>
+						</tr>
+						<tr>
+							<th>Kewarganegaraan</th>
+							<td>:</td>
+							<td><?= $pn['kewarganegaraan_akta']; ?></td>
+						</tr>
+						<tr>
+							<th>Agama</th>
+							<td>:</td>
+							<td><?= $pn['agama_akta']; ?></td>
+						</tr>
+						<tr>
+							<th>RT</th>
+							<td>:</td>
+							<td><?= $pn['rt_akta']; ?></td>
+						</tr>
+						<tr>
+							<th>RW</th>
+							<td>:</td>
+							<td><?= $pn['rw_akta']; ?></td>
+						</tr>
+						<tr>
+							<th>No Rumah</th>
+							<td>:</td>
+							<td><?= $pn['no_rumah_akta']; ?></td>
 						</tr>
 						<tr>
 							<th>Kelurahan / Desa</th>
 							<td>:</td>
-							<td><?= $pn['kelurahan_desa']; ?></td>
+							<td><?= $pn['kelurahan_desa_akta']; ?></td>
 						</tr>
 						<tr>
 							<th>Kecamatan</th>
 							<td>:</td>
-							<td><?= $pn['kecamatan']; ?></td>
+							<td><?= $pn['kecamatan_akta']; ?></td>
 						</tr>
 						<tr>
 							<th>Kabupaten / Kota</th>
 							<td>:</td>
-							<td><?= $pn['kabupaten_kota']; ?></td>
+							<td><?= $pn['kabupaten_kota_akta']; ?></td>
 						</tr>
 						<tr>
 							<th>Kode Pos</th>
 							<td>:</td>
-							<td><?= $pn['kode_pos']; ?></td>
+							<td><?= $pn['kode_pos_akta']; ?></td>
 						</tr>
 
-						<tr>
-							<th>Jenis Pelayanan</th>
-							<td>:</td>
-							<td><?= $pn['jenis_pelayanan']; ?></td>
-						</tr>
-						<tr>
-							<th>Keperluan</th>
-							<td>:</td>
-							<td><?= $pn['keperluan']; ?></td>
-						</tr>
+						
 						<tr>
 							<th>Surat Pengantar</th>
 							<td>:</td>
-							<td><img src="<?= base_url('assets/img/pelayanan/').$pn['gambar_surat_pengantar']; ?>" width="100%" class="img-thumbnail" alt=""></td>
+							<td><img src="<?= base_url('assets/img/akta/').$pn['gambar_surat_pengantar']; ?>" width="100%" class="img-thumbnail" alt=""></td>
 						</tr>
 						<tr>
 							<th>Status</th>

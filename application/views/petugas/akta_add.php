@@ -1,4 +1,4 @@
-<h1><i class="fa fa-users"></i> Tambah Penduduk</h1>
+<h1><i class="fa fa-child"></i> Tambah Akta Kelahiran</h1>
 <?= $this->session->flashdata('message'); ?>
 
 
@@ -8,13 +8,13 @@
 			<?= $this->session->flashdata('error'); ?>
 			<div class="form-group">
 				<label>NIK</label>
-				<input type="text" name="nik" placeholder="NIK" class="form-control">
-				<?= form_error('nik', '<small class="text-danger pl-1">','</small>'); ?>
-			</div>
-			<div class="form-group">
-				<label>No KK</label>
-				<input type="text" name="no_kk" placeholder="No KK" class="form-control">
-				<?= form_error('no_kk', '<small class="text-danger pl-1">','</small>'); ?>
+				<select name="id_penduduk" class="js-example-basic-single form-control">
+					<option value=""></option>
+					<?php foreach($penduduk as $pd) : ?>
+					<option value="<?= $pd['id_penduduk']; ?>"><?= $pd['nik'].' '.$pd['nama_lengkap']; ?></option>
+					<?php endforeach; ?>
+				</select>
+				<?= form_error('id_penduduk', '<small class="text-danger pl-1">','</small>'); ?>
 			</div>
 			<div class="form-group">
 				<label>Nama Lengkap</label>
@@ -46,31 +46,24 @@
 				<input type="text" name="kewarganegaraan" placeholder="Kewarganegaraan" class="form-control">
 				<?= form_error('kewarganegaraan', '<small class="text-danger pl-1">','</small>'); ?>
 			</div>
-			<div class="form-group">
-				<label>Status Perkawinan</label>
-				<select name="status_perkawinan" class="form-control">
-					<option value=""></option>
-					<?php foreach($status_perkawinan as $sp) : ?>
-					<option value="<?= $sp; ?>"><?= $sp; ?></option>
-					<?php endforeach; ?>
-				</select>
-				<?= form_error('status_perkawinan', '<small class="text-danger pl-1">','</small>'); ?>
-			</div>
+			
 			<div class="form-group">
 				<label>Agama</label>
 				<input type="text" name="agama" placeholder="Agama" class="form-control">
 				<?= form_error('agama', '<small class="text-danger pl-1">','</small>'); ?>
 			</div>
 			<div class="form-group">
-				<label>Pekerjaan</label>
-				<input type="text" name="pekerjaan" placeholder="Pekerjaan" class="form-control">
-				<?= form_error('pekerjaan', '<small class="text-danger pl-1">','</small>'); ?>
+				<label>Nama Ayah</label>
+				<input type="text" name="nama_ayah" placeholder="Nama Ayah" class="form-control">
+				<?= form_error('nama_ayah', '<small class="text-danger pl-1">','</small>'); ?>
 			</div>
 			<div class="form-group">
-				<label>Telp</label>
-				<input type="tel" name="telp" placeholder="Telp" class="form-control">
-				<?= form_error('telp', '<small class="text-danger pl-1">','</small>'); ?>
+				<label>Nama Ibu</label>
+				<input type="text" name="nama_ibu" placeholder="Nama Ibu" class="form-control">
+				<?= form_error('nama_ibu', '<small class="text-danger pl-1">','</small>'); ?>
 			</div>
+
+			
 			<div class="form-group">
 				<label>Alamat</label>
 				<textarea name="alamat" class="form-control" placeholder="Alamat"></textarea>
@@ -121,41 +114,23 @@
 				<?= form_error('kode_pos', '<small class="text-danger pl-1">','</small>'); ?>
 			</div>
 
-			<div class="row">
-				<div class="col-lg-6">
-					<div class="form-group">
-						<label>Kata Sandi</label>
-						<input type="password" name="kata_sandi" placeholder="Kata Sandi" class="form-control">
-						<?= form_error('kata_sandi', '<small class="text-danger pl-1">','</small>'); ?>
-					</div>
-				</div>
-				<div class="col-lg-6">
-					<div class="form-group">
-						<label>Konfirmasi Kata Sandi</label>
-						<input type="password" name="konfirmasi_kata_sandi" placeholder="Konfirmasi Kata Sandi"
-							class="form-control">
-						<?= form_error('konfirmasi_kata_sandi', '<small class="text-danger pl-1">','</small>'); ?>
-					</div>
-				</div>
-			</div>
-
+			
 			<div class="form-group">
-				<label>Foto</label>
+				<label>Surat Pengantar</label>
 				<div class="input-group mb-2">
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputGroupFileAddon01"><i class="fa fa-image"></i></span>
 					</div>
 					<div class="custom-file">
-						<input type="file" name="foto" class="custom-file-input" id="inputGroupFile01"
+						<input type="file" name="gambar_surat_pengantar" class="custom-file-input" id="inputGroupFile01"
 							aria-describedby="inputGroupFileAddon01">
-						<label class="custom-file-label" for="inputGroupFile01">Pilih Gambar</label>
+						<label class="custom-file-label" for="inputGroupFile01">Pilih Surat Pengantar</label>
 					</div>
 				</div>
 				<div id="image-holder"> </div>
 				<small class="text-danger">*) Jenis File : jpg,png,jpeg</small>
 				<small class="text-danger">*) Ukuran Maksimal : 1MB</small>
 			</div>
-
 
 
 			<button type="submit" class="btn btn-primary"><i class="fa fa-pencil"></i> Tambah</button>

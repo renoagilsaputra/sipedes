@@ -12,6 +12,11 @@
 				<?= form_error('nik', '<small class="text-danger pl-1">','</small>'); ?>
 			</div>
 			<div class="form-group">
+				<label>No KK</label>
+				<input type="text" name="no_kk" placeholder="No KK" class="form-control" value="<?= $pd['no_kk']; ?>">
+				<?= form_error('no_kk', '<small class="text-danger pl-1">','</small>'); ?>
+			</div>
+			<div class="form-group">
 				<label>Nama Lengkap</label>
 				<input type="text" name="nama_lengkap" placeholder="Nama Lengkap" class="form-control" value="<?= $pd['nama_lengkap']; ?>">
 				<?= form_error('nama_lengkap', '<small class="text-danger pl-1">','</small>'); ?>

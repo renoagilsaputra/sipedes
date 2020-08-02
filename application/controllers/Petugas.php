@@ -76,6 +76,7 @@ class Petugas extends CI_Controller {
 		
 
 		$this->form_validation->set_rules('nik', 'NIK', 'trim|required');
+		$this->form_validation->set_rules('no_kk', 'No KK', 'trim|required');
 		$this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'trim|required');
 		$this->form_validation->set_rules('tmp_lahir', 'Tempat Lahir', 'trim|required');
 		$this->form_validation->set_rules('tgl_lahir', 'Tanggal Lahir', 'trim|required');
@@ -121,6 +122,7 @@ class Petugas extends CI_Controller {
 					$file = $this->upload->data();
 					$data = [
 						'nik' => $this->input->post('nik'),
+						'no_kk' => $this->input->post('no_kk'),
 						'nama_lengkap' =>  $this->input->post('nama_lengkap'),
 						'tmp_lahir' =>  $this->input->post('tmp_lahir'),
 						'tgl_lahir' =>  $this->input->post('tgl_lahir'),
@@ -164,6 +166,7 @@ class Petugas extends CI_Controller {
 		
 
 		$this->form_validation->set_rules('nik', 'NIK', 'trim|required');
+		$this->form_validation->set_rules('no_kk', 'No KK', 'trim|required');
 		$this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'trim|required');
 		$this->form_validation->set_rules('tmp_lahir', 'Tempat Lahir', 'trim|required');
 		$this->form_validation->set_rules('tgl_lahir', 'Tanggal Lahir', 'trim|required');
@@ -193,6 +196,7 @@ class Petugas extends CI_Controller {
 			if(empty($_FILES['foto']['name'])) {
 				$data = [
 					'nik' => $this->input->post('nik'),
+					'no_kk' => $this->input->post('no_kk'),
 					'nama_lengkap' =>  $this->input->post('nama_lengkap'),
 					'tmp_lahir' =>  $this->input->post('tmp_lahir'),
 					'tgl_lahir' =>  $this->input->post('tgl_lahir'),
@@ -317,6 +321,29 @@ class Petugas extends CI_Controller {
 		}
 	}
 	// Pelayanan
+	public function pelayanan_cetak($id) {
+		$this->db->join('penduduk','penduduk.id_penduduk = pelayanan.id_penduduk','left');
+		$data['ply'] = $this->db->get_where('pelayanan', ['id_pelayanan' => $id])->row_array();
+		$bln = [
+			'01' => 'Januari',
+			'02' => 'Februari',
+			'03' => 'Maret',
+			'04' => 'April',
+			'05' => 'Mei',
+			'06' => 'Juni',
+			'07' => 'April',
+			'08' => 'Agustus',
+			'09' => 'September',
+			'10' => 'Oktober',
+			'11' => 'November',
+			'12' => 'Desember'
+		];
+		
+		$data['tanggal'] = date('d').' '.$bln[date('m')].' '.date('Y');
+		$this->load->view('petugas/cetak_pelayanan', $data);
+		
+	}
+
 	public function pelayanan() {
 		if($this->input->post('search')) {
 			$this->db->join('penduduk','penduduk.id_penduduk = pelayanan.id_penduduk','left');
@@ -695,11 +722,275 @@ class Petugas extends CI_Controller {
 		$this->session->set_flashdata('message', $alert);
 		redirect('petugas/kependudukan'); 	
 	}
+	// Akta Kelahiran
+	public function akta() {
+		if($this->input->post('search')) {
+			$this->db->join('penduduk','penduduk.id_penduduk = akta_kelahiran.id_penduduk','left');
+			$this->db->order_by('nik','asc');
+			$this->db->like('nik', $this->input->post('search'));
+			$this->db->or_like('akta_kelahiran.nama_lengkap', $this->input->post('search'));
+			$this->db->or_like('kode', $this->input->post('search'));
+			$data['akta'] = $this->db->get('akta_kelahiran')->result_array();
+		} else {
+			$data['akta'] = $this->MyModel->getAkta();
+		}
 
+		
+
+		$this->load->view('template/header_pet');
+		$this->load->view('petugas/akta', $data);
+		$this->load->view('template/footer_pet');
+	}
+
+	public function akta_add() {
+		$data['penduduk'] = $this->MyModel->getPenduduk();
+		$data['jenis_kelamin'] = ['l','p'];
+		
+		
+		$this->form_validation->set_rules('id_penduduk', 'NIK', 'trim|required');
+		$this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'trim|required');
+		$this->form_validation->set_rules('tmp_lahir', 'Tempat Lahir', 'trim|required');
+		$this->form_validation->set_rules('tgl_lahir', 'Tanggal Lahir', 'trim|required');
+		$this->form_validation->set_rules('jk', 'Jenis Kelamin', 'trim|required');
+		$this->form_validation->set_rules('kewarganegaraan', 'Kewarganegaraan', 'trim|required');
+		$this->form_validation->set_rules('agama', 'Agama', 'trim|required');
+		$this->form_validation->set_rules('nama_ayah', 'Nama Ayah', 'trim|required');
+		$this->form_validation->set_rules('nama_ibu', 'Nama Ibu', 'trim|required');
+		
+		$this->form_validation->set_rules('alamat', 'Alamat', 'trim|required');
+		$this->form_validation->set_rules('rt', 'RT', 'trim|required');
+		$this->form_validation->set_rules('rw', 'RW', 'trim|required');
+		$this->form_validation->set_rules('no_rumah', 'No Rumah', 'trim|required');
+		$this->form_validation->set_rules('kelurahan_desa', 'Kelurahan / Desa', 'trim|required');
+		$this->form_validation->set_rules('kecamatan', 'Kecamatan', 'trim|required');
+		$this->form_validation->set_rules('kabupaten_kota', 'Kabupaten / Kota', 'trim|required');
+		$this->form_validation->set_rules('kode_pos', 'Kode Pos', 'trim|required');
+		
+		
+		
+		if ($this->form_validation->run() == FALSE) {
+			
+			$this->load->view('template/header_pet');
+			$this->load->view('petugas/akta_add', $data);
+			$this->load->view('template/footer_pet');
+		} else {
+			if(empty($_FILES['gambar_surat_pengantar']['name'])) {
+				$alert = "<script>alert('Foto tidak boleh kosong!');</script>";
+				$this->session->set_flashdata('message', $alert);
+				redirect('petugas/akta/tambah');
+			} else {
+				$config = [
+                    'file_name' => 'akta',
+                    'upload_path' => './assets/img/akta/',
+                    'allowed_types' => 'jpg|png|jpeg',
+                    'max_size' => 1024,
+				];
+				
+				$this->load->library('upload', $config);
+
+				if($this->upload->do_upload('gambar_surat_pengantar')) {
+					$file = $this->upload->data();
+
+					$query = $this->db->query("SELECT MAX(kode) as kode from akta_kelahiran");
+					$kodeMax = $query->row_array();
+
+					$nourut = substr($kodeMax['kode'], 3, 4);
+					$urutan = $nourut + 1;
+					$huruf = "AKT";
+					$kode = $huruf . sprintf("%03s", $urutan);
+
+					$data = [
+						'id_penduduk' => $this->input->post('id_penduduk'),
+						'nama_lengkap' =>  $this->input->post('nama_lengkap'),
+						'tmp_lahir' =>  $this->input->post('tmp_lahir'),
+						'tgl_lahir' =>  $this->input->post('tgl_lahir'),
+						'jk' =>  $this->input->post('jk'),
+						'kewarganegaraan' =>  $this->input->post('kewarganegaraan'),
+						'agama' =>  $this->input->post('agama'),
+						'nama_ayah' =>  $this->input->post('nama_ayah'),
+						'nama_ibu' =>  $this->input->post('nama_ibu'),
+					
+						'alamat' =>  $this->input->post('alamat'),
+						'rt' =>  $this->input->post('rt'),
+						'rw' =>  $this->input->post('rw'),
+						'no_rumah' =>  $this->input->post('no_rumah'),
+						'kelurahan_desa' =>  $this->input->post('kelurahan_desa'),
+						'kecamatan' =>  $this->input->post('kecamatan'),
+						'kabupaten_kota' =>  $this->input->post('kabupaten_kota'),
+						'kode_pos' =>  $this->input->post('kode_pos'),
+						'gambar_surat_pengantar' => $file['file_name'],
+						'waktu' => date('Y-m-d H:i:s'),
+						'kode' => $kode,
+						'status' => 'belum',
+						
+					];
+					
+					$this->MyModel->addAkta($data);
+					$alert = "<script>alert('Berhasil!');</script>";
+					$this->session->set_flashdata('message', $alert);
+					redirect('petugas/akta'); 	
+				} else {
+					$alert = "<div class='alert alert-danger'>".$this->upload->display_errors()."</div>";
+					$this->session->set_flashdata('error', $alert);
+					redirect('petugas/akta/tambah');
+				}
+			}
+		}
+	}
+
+
+	public function akta_edit($id) {
+		$data['penduduk'] = $this->MyModel->getPenduduk();
+		$data['jenis_kelamin'] = ['l','p'];
+		$data['status'] = ['belum','proses','selesai'];
+		$data['akta'] = $this->MyModel->getAktaByID($id);		
+		
+		$this->form_validation->set_rules('id_penduduk', 'NIK', 'trim|required');
+		$this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'trim|required');
+		$this->form_validation->set_rules('tmp_lahir', 'Tempat Lahir', 'trim|required');
+		$this->form_validation->set_rules('tgl_lahir', 'Tanggal Lahir', 'trim|required');
+		$this->form_validation->set_rules('jk', 'Jenis Kelamin', 'trim|required');
+		$this->form_validation->set_rules('kewarganegaraan', 'Kewarganegaraan', 'trim|required');
+		$this->form_validation->set_rules('agama', 'Agama', 'trim|required');
+		$this->form_validation->set_rules('nama_ayah', 'Nama Ayah', 'trim|required');
+		$this->form_validation->set_rules('nama_ibu', 'Nama Ibu', 'trim|required');
+		
+		$this->form_validation->set_rules('alamat', 'Alamat', 'trim|required');
+		$this->form_validation->set_rules('rt', 'RT', 'trim|required');
+		$this->form_validation->set_rules('rw', 'RW', 'trim|required');
+		$this->form_validation->set_rules('no_rumah', 'No Rumah', 'trim|required');
+		$this->form_validation->set_rules('kelurahan_desa', 'Kelurahan / Desa', 'trim|required');
+		$this->form_validation->set_rules('kecamatan', 'Kecamatan', 'trim|required');
+		$this->form_validation->set_rules('kabupaten_kota', 'Kabupaten / Kota', 'trim|required');
+		$this->form_validation->set_rules('kode_pos', 'Kode Pos', 'trim|required');
+		$this->form_validation->set_rules('status', 'Status', 'trim|required');
+		
+		
+		
+		if ($this->form_validation->run() == FALSE) {
+			
+			$this->load->view('template/header_pet');
+			$this->load->view('petugas/akta_edit', $data);
+			$this->load->view('template/footer_pet');
+		} else {
+			if(empty($_FILES['gambar_surat_pengantar']['name'])) {
+				$data = [
+					'id_penduduk' => $this->input->post('id_penduduk'),
+					'nama_lengkap' =>  $this->input->post('nama_lengkap'),
+					'tmp_lahir' =>  $this->input->post('tmp_lahir'),
+					'tgl_lahir' =>  $this->input->post('tgl_lahir'),
+					'jk' =>  $this->input->post('jk'),
+					'kewarganegaraan' =>  $this->input->post('kewarganegaraan'),
+					'agama' =>  $this->input->post('agama'),
+					'nama_ayah' =>  $this->input->post('nama_ayah'),
+					'nama_ibu' =>  $this->input->post('nama_ibu'),
+				
+					'alamat' =>  $this->input->post('alamat'),
+					'rt' =>  $this->input->post('rt'),
+					'rw' =>  $this->input->post('rw'),
+					'no_rumah' =>  $this->input->post('no_rumah'),
+					'kelurahan_desa' =>  $this->input->post('kelurahan_desa'),
+					'kecamatan' =>  $this->input->post('kecamatan'),
+					'kabupaten_kota' =>  $this->input->post('kabupaten_kota'),
+					'kode_pos' =>  $this->input->post('kode_pos'),
+					'status' => $this->input->post('status'),
+					
+				];
+				
+				$this->MyModel->editAkta($id,$data);
+				$alert = "<script>alert('Berhasil!');</script>";
+				$this->session->set_flashdata('message', $alert);
+				redirect('petugas/akta');
+			} else {
+				unlink('assets/img/akta/'.$data['akta']['gambar_surat_pengantar']);
+				$config = [
+                    'file_name' => 'akta',
+                    'upload_path' => './assets/img/akta/',
+                    'allowed_types' => 'jpg|png|jpeg',
+                    'max_size' => 1024,
+				];
+				
+				$this->load->library('upload', $config);
+
+				if($this->upload->do_upload('gambar_surat_pengantar')) {
+					$file = $this->upload->data();
+
+	
+
+					$data = [
+						'id_penduduk' => $this->input->post('id_penduduk'),
+						'nama_lengkap' =>  $this->input->post('nama_lengkap'),
+						'tmp_lahir' =>  $this->input->post('tmp_lahir'),
+						'tgl_lahir' =>  $this->input->post('tgl_lahir'),
+						'jk' =>  $this->input->post('jk'),
+						'kewarganegaraan' =>  $this->input->post('kewarganegaraan'),
+						'agama' =>  $this->input->post('agama'),
+						'nama_ayah' =>  $this->input->post('nama_ayah'),
+						'nama_ibu' =>  $this->input->post('nama_ibu'),
+					
+						'alamat' =>  $this->input->post('alamat'),
+						'rt' =>  $this->input->post('rt'),
+						'rw' =>  $this->input->post('rw'),
+						'no_rumah' =>  $this->input->post('no_rumah'),
+						'kelurahan_desa' =>  $this->input->post('kelurahan_desa'),
+						'kecamatan' =>  $this->input->post('kecamatan'),
+						'kabupaten_kota' =>  $this->input->post('kabupaten_kota'),
+						'kode_pos' =>  $this->input->post('kode_pos'),
+						'gambar_surat_pengantar' => $file['file_name'],
+						'status' => $this->input->post('status'),
+						
+					];
+					
+					$this->MyModel->editAkta($id,$data);
+					$alert = "<script>alert('Berhasil!');</script>";
+					$this->session->set_flashdata('message', $alert);
+					redirect('petugas/akta'); 	
+				} else {
+					$alert = "<div class='alert alert-danger'>".$this->upload->display_errors()."</div>";
+					$this->session->set_flashdata('error', $alert);
+					redirect('petugas/akta/edit/'.$id);
+				}
+			}
+		}
+	}
+
+	public function akta_del($id) {
+		$akt = $this->MyModel->getAktaByID($id);
+		unlink('assets/img/akta/'.$akt['gambar_surat_pengantar']);
+		$this->MyModel->delAkta($id);
+		$alert = "<script>alert('Berhasil!');</script>";
+		$this->session->set_flashdata('message', $alert);
+		redirect('petugas/akta');
+	}
+	// Surat Keterangan Pindah
+	public function suket_pindah() {
+
+	}
+	public function suket_pindah_add() {
+
+	}
+	public function suket_pindah_edit($id) {
+
+	}
+	public function suket_pindah_del($id) {
+
+	}
+	public function keluarga_pindah($id) {
+
+	}
+	public function keluarga_pindah_add() {
+
+	}
+	public function keluarga_pindah_edit() {
+		
+	}
+	public function keluarga_pindah_del($id) {
+
+	}
 	// Izin Acara
 	public function izin_acara() {
 		if($this->input->post('search')) {
-			$this->db->join('penduduk','penduduk.id_penduduk = pelayanan.id_penduduk','left');
+			$this->db->join('penduduk','penduduk.id_penduduk = izin_acara.id_penduduk','left');
 			$this->db->order_by('nik','asc');
 			$this->db->like('nik', $this->input->post('search'));
 			$this->db->or_like('nama_lengkap', $this->input->post('search'));
@@ -722,7 +1013,8 @@ class Petugas extends CI_Controller {
 
 		$this->form_validation->set_rules('id_penduduk', 'NIK', 'trim|required');
 		$this->form_validation->set_rules('acara', 'Acara', 'trim|required');
-		// $this->form_validation->set_rules('keperluan', 'Keperluan', 'trim|required');
+		$this->form_validation->set_rules('tgl_mulai', 'Tanggal Mulai', 'trim|required');
+		$this->form_validation->set_rules('tgl_selesai', 'Tanggal Selesai', 'trim|required');
 		
 		if ($this->form_validation->run() == FALSE) {
 			
@@ -733,7 +1025,7 @@ class Petugas extends CI_Controller {
 			if(empty($_FILES['gambar_surat_pengantar']['name'])) {
 				$alert = "<script>alert('Surat Pengantar tidak boleh kosong!');</script>";
 				$this->session->set_flashdata('message', $alert);
-				redirect('petugas/pelayanan/tambah');
+				redirect('petugas/izin_usaha/tambah');
 			} else {
 				$config = [
                     'file_name' => 'izin_acara_surat_pengantar',
@@ -757,35 +1049,274 @@ class Petugas extends CI_Controller {
 
 					$data = [
 						'id_penduduk' => $this->input->post('id_penduduk'),
-						// 'jenis_pelayanan' => $this->input->post('jenis_pelayanan'),
-						// 'keperluan' => $this->input->post('keperluan'),
-						// 'gambar_surat_pengantar' => $file['file_name'],
+						'acara' => $this->input->post('acara'),
+						'tgl_mulai' => $this->input->post('tgl_mulai'),
+						'tgl_selesai' => $this->input->post('tgl_selesai'),
+						'lokasi' => $this->input->post('lokasi'),
+						'jenis_acara' => $this->input->post('jenis_acara'),
+						'gambar_surat_pengantar' => $file['file_name'],
 						'waktu' => date('Y-m-d H:i:s'),
 						'kode' => $kode,
 						'status' => 'belum',
 					];
 					
-					$this->MyModel->addPelayanan($data);
+					$this->MyModel->addAcara($data);
 					$alert = "<script>alert('Berhasil!');</script>";
 					$this->session->set_flashdata('message', $alert);
-					redirect('petugas/pelayanan'); 	
+					redirect('petugas/izin_acara'); 	
 				} else {
 					$alert = "<div class='alert alert-danger'>".$this->upload->display_errors()."</div>";
 					$this->session->set_flashdata('error', $alert);
-					redirect('petugas/pelayanan/tambah');
+					redirect('petugas/izin_acara/tambah');
 				}
 			}
 		}
 	}
 
 	public function izin_acara_edit($id) {
+		$data['penduduk'] = $this->MyModel->getPenduduk();
+		$data['acara'] = $this->MyModel->getAcaraByID($id);
+		$data['status'] = ['belum','proses','selesai'];
 
+		$this->form_validation->set_rules('id_penduduk', 'NIK', 'trim|required');
+		$this->form_validation->set_rules('acara', 'Acara', 'trim|required');
+		$this->form_validation->set_rules('tgl_mulai', 'Tanggal Mulai', 'trim|required');
+		$this->form_validation->set_rules('tgl_selesai', 'Tanggal Selesai', 'trim|required');
+		$this->form_validation->set_rules('status', 'Status', 'trim|required');
+		
+		if ($this->form_validation->run() == FALSE) {
+			
+			$this->load->view('template/header_pet');
+			$this->load->view('petugas/izin_acara_edit', $data);
+			$this->load->view('template/footer_pet');
+		} else {
+			if(empty($_FILES['gambar_surat_pengantar']['name'])) {
+				$data = [
+					'id_penduduk' => $this->input->post('id_penduduk'),
+					'acara' => $this->input->post('acara'),
+					'tgl_mulai' => $this->input->post('tgl_mulai'),
+					'tgl_selesai' => $this->input->post('tgl_selesai'),
+					'lokasi' => $this->input->post('lokasi'),
+					'jenis_acara' => $this->input->post('jenis_acara'),
+					'status' => $this->input->post('status'),
+				];
+				
+				$this->MyModel->editAcara($id,$data);
+				$alert = "<script>alert('Berhasil!');</script>";
+				$this->session->set_flashdata('message', $alert);
+				redirect('petugas/izin_acara');
+			} else {
+				unlink('assets/img/izin_acara/'.$data['acara']['gambar_surat_pengantar']);
+				$config = [
+                    'file_name' => 'izin_acara_surat_pengantar',
+                    'upload_path' => './assets/img/izin_acara/',
+                    'allowed_types' => 'jpg|png|jpeg',
+                    'max_size' => 1024,
+				];
+				
+				$this->load->library('upload', $config);
+
+				if($this->upload->do_upload('gambar_surat_pengantar')) {
+					$file = $this->upload->data();
+
+
+					$data = [
+						'id_penduduk' => $this->input->post('id_penduduk'),
+						'acara' => $this->input->post('acara'),
+						'tgl_mulai' => $this->input->post('tgl_mulai'),
+						'tgl_selesai' => $this->input->post('tgl_selesai'),
+						'lokasi' => $this->input->post('lokasi'),
+						'jenis_acara' => $this->input->post('jenis_acara'),
+						'gambar_surat_pengantar' => $file['file_name'],
+						'status' => $this->input->post('status'),
+					];
+					
+					$this->MyModel->editAcara($id,$data);
+					$alert = "<script>alert('Berhasil!');</script>";
+					$this->session->set_flashdata('message', $alert);
+					redirect('petugas/izin_acara'); 	
+				} else {
+					$alert = "<div class='alert alert-danger'>".$this->upload->display_errors()."</div>";
+					$this->session->set_flashdata('error', $alert);
+					redirect('petugas/izin_acara/edit/'.$id);
+				}
+			}
+		}
 	} 
 
 	public function izin_acara_del($id) {
+		$acr = $this->MyModel->getAcaraByID($id);
+		unlink('assets/img/izin_acara/'.$acr['gambar_surat_pengantar']);
+		$this->MyModel->delAcara($id);
+		$alert = "<script>alert('Berhasil!');</script>";
+		$this->session->set_flashdata('message', $alert);
+		redirect('petugas/izin_acara');
 
 	}
-         
+
+	// Izin Usaha
+	public function izin_usaha() {
+		if($this->input->post('search')) {
+			$this->db->join('penduduk','penduduk.id_penduduk = izin_usaha.id_penduduk','left');
+			$this->db->order_by('nik','asc');
+			$this->db->like('nik', $this->input->post('search'));
+			$this->db->or_like('nama_lengkap', $this->input->post('search'));
+			$this->db->or_like('kode', $this->input->post('search'));
+			$data['usaha'] = $this->db->get('izin_usaha')->result_array();
+		} else {
+			$data['usaha'] = $this->MyModel->getUsaha();
+		}
+
+		
+
+		$this->load->view('template/header_pet');
+		$this->load->view('petugas/izin_usaha', $data);
+		$this->load->view('template/footer_pet');
+	}
+
+	public function izin_usaha_add() {
+		$data['penduduk'] = $this->MyModel->getPenduduk();
+		
+
+		$this->form_validation->set_rules('id_penduduk', 'NIK', 'trim|required');
+		$this->form_validation->set_rules('nama_usaha', 'Nama Usaha', 'trim|required');
+		$this->form_validation->set_rules('jenis_usaha', 'Jenis Usaha', 'trim|required');
+		$this->form_validation->set_rules('modal_usaha', 'Modal Usaha', 'trim|required');
+		$this->form_validation->set_rules('tempat_usaha', 'Tempat Usaha', 'trim|required');
+		
+		if ($this->form_validation->run() == FALSE) {
+			
+			$this->load->view('template/header_pet');
+			$this->load->view('petugas/izin_usaha_add', $data);
+			$this->load->view('template/footer_pet');
+		} else {
+			if(empty($_FILES['gambar_surat_pengantar']['name'])) {
+				$alert = "<script>alert('Surat Pengantar tidak boleh kosong!');</script>";
+				$this->session->set_flashdata('message', $alert);
+				redirect('petugas/izin_usaha/tambah');
+			} else {
+				$config = [
+                    'file_name' => 'izin_usaha_surat_pengantar',
+                    'upload_path' => './assets/img/izin_usaha/',
+                    'allowed_types' => 'jpg|png|jpeg',
+                    'max_size' => 1024,
+				];
+				
+				$this->load->library('upload', $config);
+
+				if($this->upload->do_upload('gambar_surat_pengantar')) {
+					$file = $this->upload->data();
+
+					$query = $this->db->query("SELECT MAX(kode) as kode from izin_usaha");
+					$kodeMax = $query->row_array();
+
+					$nourut = substr($kodeMax['kode'], 3, 4);
+					$urutan = $nourut + 1;
+					$huruf = "IZU";
+					$kode = $huruf . sprintf("%03s", $urutan);
+
+					$data = [
+						'id_penduduk' => $this->input->post('id_penduduk'),
+						'nama_usaha' => $this->input->post('nama_usaha'),
+						'jenis_usaha' => $this->input->post('jenis_usaha'),
+						'modal_usaha' => $this->input->post('modal_usaha'),
+						'tempat_usaha' => $this->input->post('tempat_usaha'),
+						'gambar_surat_pengantar' => $file['file_name'],
+						'waktu' => date('Y-m-d H:i:s'),
+						'kode' => $kode,
+						'status' => 'belum',
+					];
+					
+					$this->MyModel->addUsaha($data);
+					$alert = "<script>alert('Berhasil!');</script>";
+					$this->session->set_flashdata('message', $alert);
+					redirect('petugas/izin_usaha'); 	
+				} else {
+					$alert = "<div class='alert alert-danger'>".$this->upload->display_errors()."</div>";
+					$this->session->set_flashdata('error', $alert);
+					redirect('petugas/izn_usaha/tambah');
+				}
+			}
+		}
+	}
+
+	public function izin_usaha_edit($id) {
+		$data['penduduk'] = $this->MyModel->getPenduduk();
+		$data['usaha'] = $this->MyModel->getUsahaByID($id);
+		$data['status'] = ['belum','proses','selesai'];
+
+		$this->form_validation->set_rules('id_penduduk', 'NIK', 'trim|required');
+		$this->form_validation->set_rules('nama_usaha', 'Nama Usaha', 'trim|required');
+		$this->form_validation->set_rules('jenis_usaha', 'Jenis Usaha', 'trim|required');
+		$this->form_validation->set_rules('modal_usaha', 'Modal Usaha', 'trim|required');
+		$this->form_validation->set_rules('tempat_usaha', 'Tempat Usaha', 'trim|required');
+		
+		if ($this->form_validation->run() == FALSE) {
+			
+			$this->load->view('template/header_pet');
+			$this->load->view('petugas/izin_usaha_edit', $data);
+			$this->load->view('template/footer_pet');
+		} else {
+			if(empty($_FILES['gambar_surat_pengantar']['name'])) {
+				$data = [
+					'id_penduduk' => $this->input->post('id_penduduk'),
+					'nama_usaha' => $this->input->post('nama_usaha'),
+					'jenis_usaha' => $this->input->post('jenis_usaha'),
+					'modal_usaha' => $this->input->post('modal_usaha'),
+					'tempat_usaha' => $this->input->post('tempat_usaha'),
+					'status' => $this->input->post('status'),
+				];
+				
+				$this->MyModel->editUsaha($id,$data);
+				$alert = "<script>alert('Berhasil!');</script>";
+				$this->session->set_flashdata('message', $alert);
+				redirect('petugas/izin_usaha');
+			} else {
+				unlink('assets/img/izin_usaha/'.$data['usaha']['gambar_surat_pengantar']);
+				$config = [
+                    'file_name' => 'izin_usaha_surat_pengantar',
+                    'upload_path' => './assets/img/izin_usaha/',
+                    'allowed_types' => 'jpg|png|jpeg',
+                    'max_size' => 1024,
+				];
+				
+				$this->load->library('upload', $config);
+
+				if($this->upload->do_upload('gambar_surat_pengantar')) {
+					$file = $this->upload->data();
+
+
+					$data = [
+						'id_penduduk' => $this->input->post('id_penduduk'),
+						'nama_usaha' => $this->input->post('nama_usaha'),
+						'jenis_usaha' => $this->input->post('jenis_usaha'),
+						'modal_usaha' => $this->input->post('modal_usaha'),
+						'tempat_usaha' => $this->input->post('tempat_usaha'),
+						'gambar_surat_pengantar' => $file['file_name'],
+						'status' => $this->input->post('status'),
+					];
+					
+					$this->MyModel->editUsaha($id,$data);
+					$alert = "<script>alert('Berhasil!');</script>";
+					$this->session->set_flashdata('message', $alert);
+					redirect('petugas/izin_usaha'); 	
+				} else {
+					$alert = "<div class='alert alert-danger'>".$this->upload->display_errors()."</div>";
+					$this->session->set_flashdata('error', $alert);
+					redirect('petugas/izin_usaha/edit/'.$id);
+				}
+			}
+		}
+	}
+
+	public function izin_usaha_del($id) {
+		$ush = $this->MyModel->getUsahaByID($id);
+		unlink('assets/img/izin_usaha/'.$ush['gambar_surat_pengantar']);
+		$this->MyModel->delUsaha($id);
+		$alert = "<script>alert('Berhasil!');</script>";
+		$this->session->set_flashdata('message', $alert);
+		redirect('petugas/izin_usaha');
+	}
 }
         
     /* End of file  Petugas.php */
