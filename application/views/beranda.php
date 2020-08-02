@@ -4,8 +4,8 @@
  	<div class="container">
  		<div class="row">
  			<div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
-			 	<?= $this->session->flashdata('message'); ?>
-				 <h1>SISTEM PELAYANAN DESA PEMERINTAHAN DESA KEDONDONG</h1>
+ 				<?= $this->session->flashdata('message'); ?>
+ 				<h1>SISTEM PELAYANAN DESA PEMERINTAHAN DESA KEDONDONG</h1>
  				<h2 class="text-justify">Kami menyajikan sekilas informasi dan pelayanan online pada Desa Kedondong,
  					Kecamatan Sokaraja, Kabupaten
  					Banyumas, Provinsi Jawa Tengah.
@@ -26,6 +26,9 @@
  					<a href="#" class="btn btn-info scrollto" data-toggle="modal" data-target="#pengaduan"><i
  							class="fa fa-bullhorn"></i> Layanan Pengaduan Online</a>
  				</div>
+ 				
+ 				
+ 				
  			</div>
  			<div class="col-lg-6 order-1 order-lg-2 hero-img">
  				<img src="assets/img/hero-img.png" class="img-fluid" alt="">
@@ -34,6 +37,22 @@
  	</div>
 
  </section><!-- End Hero -->
+
+ <section class="d-flex align-items-center" style="margin-bottom: -20rem !important; background: #f9f9f9 !important;">
+ 	<div class="container">
+		 <div class="row">
+			 <div class="col-lg-6 mx-auto">
+				 <div class="card" style="background: #f9f9f9 !important;">
+					 <div class="card-body text-center">
+						 <h4>Jam Kerja</h4>
+						 <h5>Senin - Jumat</h5>
+						 <h6>08.00 - 16.00</h6>
+					 </div>
+				 </div>
+			 </div>
+		 </div>
+	 </div>
+ </section>
 
  <!-- Modal -->
  <div class="modal fade" id="pengaduan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -49,42 +68,44 @@
  			<form action="<?= base_url('pengaduan'); ?>" method="post" enctype="multipart/form-data">
  				<div class="modal-body">
  					<div class="form-group">
-						 <label>NIK</label>
-						 <input type="text" name="nik_pengadu" placeholder="NIK" class="form-control mb-2">
-					 </div>
+ 						<label>NIK</label>
+ 						<input type="text" name="nik_pengadu" placeholder="NIK" class="form-control mb-2">
+ 					</div>
  					<div class="form-group">
  						<label>Nama</label>
-						 <input type="text" name="nama_pengadu" placeholder="Nama" class="form-control mb-2">
-					 </div>
-					 <div class="form-group">
-						 <label>Deskripsi</label>
-						 <textarea name="deskripsi" placeholder="Deskripsi" class="form-control mb-2"></textarea>
-					 </div>
-					 
-					 <div class="form-group">
-						 <label>Pilih Gambar</label>
-
-						 <div class="input-group mb-2">
-							 <div class="input-group-prepend">
-								 <span class="input-group-text" id="inputGroupFileAddon01"><i class="fa fa-image"></i></span>
-							 </div>
-							 <div class="custom-file">
-								 <input type="file" name="foto" class="custom-file-input" id="inputGroupFile01"
-									 aria-describedby="inputGroupFileAddon01">
-								 <label class="custom-file-label" for="inputGroupFile01">Pilih Gambar</label>
-							 </div>
-						 </div>
-						 <div id="image-holder"> </div>
-					 </div>
-					 <div class="form-group">
-						 <label>Tempat Kejadian</label>
-						 <textarea name="tempat_kejadian" placeholder="Tempat Kejadian" class="form-control mb-2"></textarea>
-					 </div>
+ 						<input type="text" name="nama_pengadu" placeholder="Nama" class="form-control mb-2">
+ 					</div>
  					<div class="form-group">
-						 
-						 <label>Waktu Kejadian</label>
-						 <input type="datetime-local" name="waktu_kejadian" class="form-control mb-2">
-					 </div>
+ 						<label>Deskripsi</label>
+ 						<textarea name="deskripsi" placeholder="Deskripsi" class="form-control mb-2"></textarea>
+ 					</div>
+
+ 					<div class="form-group">
+ 						<label>Pilih Gambar</label>
+
+ 						<div class="input-group mb-2">
+ 							<div class="input-group-prepend">
+ 								<span class="input-group-text" id="inputGroupFileAddon01"><i
+ 										class="fa fa-image"></i></span>
+ 							</div>
+ 							<div class="custom-file">
+ 								<input type="file" name="foto" class="custom-file-input" id="inputGroupFile01"
+ 									aria-describedby="inputGroupFileAddon01">
+ 								<label class="custom-file-label" for="inputGroupFile01">Pilih Gambar</label>
+ 							</div>
+ 						</div>
+ 						<div id="image-holder"> </div>
+ 					</div>
+ 					<div class="form-group">
+ 						<label>Tempat Kejadian</label>
+ 						<textarea name="tempat_kejadian" placeholder="Tempat Kejadian"
+ 							class="form-control mb-2"></textarea>
+ 					</div>
+ 					<div class="form-group">
+
+ 						<label>Waktu Kejadian</label>
+ 						<input type="datetime-local" name="waktu_kejadian" class="form-control mb-2">
+ 					</div>
  				</div>
  				<div class="modal-footer">
  					<button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>

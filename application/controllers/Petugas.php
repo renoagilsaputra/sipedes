@@ -962,6 +962,20 @@ class Petugas extends CI_Controller {
 		$this->session->set_flashdata('message', $alert);
 		redirect('petugas/akta');
 	}
+	// Surat Keterangan Menikah
+	// Surat Keterangan Kematian
+	public function suket_mati() {
+
+	}
+	public function suket_mati_add() {
+
+	}
+	public function suket_mati_edit($id) {
+
+	}
+	public function suket_mati_del($id) {
+
+	}
 	// Surat Keterangan Pindah
 	public function suket_pindah() {
 		if($this->input->post('search')) {

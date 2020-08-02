@@ -1,6 +1,6 @@
  <!-- ======= Footer ======= -->
   <footer id="footer" style="margin-top: 20rem;">
-
+ 		
     <div class="container py-4">
       <div class="copyright">
         &copy; Copyright <strong><span>Admin siPEDES</span></strong>. All Rights Reserved

@@ -129,6 +129,33 @@ class MyModel extends CI_Model {
 		$this->db->where('id_akta_kelahiran',$id);
 		$this->db->delete('akta_kelahiran');
 	}
+	// Surat Kematian
+	public function getMati() {
+		$this->db->join('penduduk','penduduk.id_penduduk = suket_kematian.id_penduduk','left');
+		$this->db->order_by('nik','asc');
+		return $this->db->get('suket_kematian')->result_array();
+	}
+
+	public function getMatiByID($id) {
+		return $this->db->get_where('suket_kematian',['id_suket_kematian' => $id])->row_array();
+	}
+
+	public function addMati($data) {
+		$this->db->insert('suket_kematian',$data);
+	}
+
+	public function editMati($id, $data) {
+		$this->db->where('id_suket_kematian', $id);
+		$this->db->update('suket_kematian', $data);
+	}
+
+	public function delMati($id) {
+		$this->db->where('id_suket_kematian', $id);
+		$this->db->delete('penduduk_mati');
+
+		$this->db->where('id_suket_kematian', $id);
+		$this->db->delete('suket_kematian');
+	}
 	// Surat Pindah
 	public function getPindah() {
 		$this->db->select('

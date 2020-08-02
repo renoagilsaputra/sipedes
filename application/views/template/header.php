@@ -39,22 +39,30 @@
 </head>
 
 <body>
-
+	<header>
+		<div class="container mb-2 p-2">
+			<div class="row">
+				<div class="col-lg-4 mb-2">
+					<img style="margin: auto !important; display:block !important; " src="<?= base_url('assets/img/banyumas.png'); ?>" width="90px" class="img-fluid" alt="">
+				</div>
+				<div class="col-lg-8">
+					<div class="text-center">
+						<h2>PEMERINTAHAN DESA KEDONDONG</h2>
+						<h3>KECAMATAN : SOKARAJA KABUPATEN : BANYUMAS</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
 	<!-- ======= Header ======= -->
-	<header id="header" class="fixed-top">
+	<header id="header">
 		<div class="container d-flex align-items-center">
 
-			<a href="<?= base_url(); ?>" class="logo mr-auto">
-				<div class="d-flex">
-
-					<div class="text-dark">si</div>
-					<div class="text-info">PEDES</div>
-				</div>
-			</a>
+			
 			<!-- Uncomment below if you prefer to use text as a logo -->
 			<!-- <h1 class="logo mr-auto"><a href="index.html">Butterfly</a></h1> -->
 
-			<nav class="nav-menu d-none d-lg-block">
+			<nav class="nav-menu d-none d-lg-block ml-5">
 				<ul>
 					<li class="active"><a href="<?= base_url(); ?>">Beranda</a></li>
 					<li class="drop-down"><a href="">Profil Desa</a>

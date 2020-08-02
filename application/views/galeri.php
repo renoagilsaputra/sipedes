@@ -1,7 +1,7 @@
 <!-- Page Content -->
 <div class="container">
 
-  <h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">Thumbnail Gallery</h1>
+  <h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">Galeri</h1>
 
   <hr class="mt-2 mb-5">
 
