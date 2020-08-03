@@ -101,7 +101,7 @@
 							</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="<?= base_url('petugas/izin_usaha'); ?>">
+							<a class="nav-link" href="<?= base_url('petugas/kasi'); ?>">
 								<i class="fa fa-user-secret"></i>
 								Kasi
 							</a>

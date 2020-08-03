@@ -139,6 +139,7 @@ $route['petugas/izin_usaha/hapus/(:any)'] = 'Petugas/izin_usaha_del/$1';
 $route['petugas/kasi'] = 'Petugas/kasi';
 $route['petugas/kasi/tambah'] = 'Petugas/kasi_add';
 $route['petugas/kasi/edit/(:any)'] = 'Petugas/kasi_edit/$1';
+$route['petugas/kasi/gantisandi/(:any)'] = 'Petugas/kasi_pass/$1';
 $route['petugas/kasi/hapus/(:any)'] = 'Petugas/kasi_del/$1';
 
 $route['404_override'] = '';

@@ -2375,6 +2375,103 @@ class Petugas extends CI_Controller {
 		redirect('petugas/izin_usaha');
 	}
 
+	// Kasi
+	public function kasi() {
+		$data['kasi'] = $this->MyModel->getKasi();
+
+		$this->load->view('template/header_pet');
+		$this->load->view('petugas/kasi', $data);
+		$this->load->view('template/footer_pet');
+	}
+
+	public function kasi_add() {
+		$this->form_validation->set_rules('nama_pengguna', 'Nama Pengguna', 'trim|required');
+		$this->form_validation->set_rules('kata_sandi', 'Kata Sandi', 'trim|required|matches[konfirmasi_kata_sandi]');
+		$this->form_validation->set_rules('konfirmasi_kata_sandi', 'Konfirmasi Kata Sandi', 'trim|required|matches[kata_sandi]');
+
+		if ($this->form_validation->run() == FALSE) {
+			
+			$this->load->view('template/header_pet');
+			$this->load->view('petugas/kasi_add');
+			$this->load->view('template/footer_pet');
+
+		} else {
+			$data = [
+				'nama_pengguna' => $this->input->post('nama_pengguna'),
+				'kata_sandi' => password_hash( $this->input->post('kata_sandi'), PASSWORD_DEFAULT),
+			];
+			$this->MyModel->addKasi($data);
+			$alert = "<script>alert('Berhasil!');</script>";
+			$this->session->set_flashdata('message', $alert);
+			redirect('petugas/kasi');
+		}
+	}
+
+	public function kasi_edit($id) {
+		$data['kasi'] = $this->MyModel->getKasiByID($id);
+		$this->form_validation->set_rules('nama_pengguna', 'Nama Pengguna', 'trim|required');
+		
+		if ($this->form_validation->run() == FALSE) {
+			
+			$this->load->view('template/header_pet');
+			$this->load->view('petugas/kasi_edit', $data);
+			$this->load->view('template/footer_pet');
+
+		} else {
+			$data = [
+				'nama_pengguna' => $this->input->post('nama_pengguna'),
+			];
+			$this->MyModel->editKasi($id,$data);
+			$alert = "<script>alert('Berhasil!');</script>";
+			$this->session->set_flashdata('message', $alert);
+			redirect('petugas/kasi');
+		}
+	}
+
+	public function kasi_del($id) {
+
+	}
+
+	public function kasi_pass($id) {
+		$pd = $this->MyModel->getKasiByID($id);
+
+		$this->form_validation->set_rules('password_lama', 'Kata Sandi Lama', 'required|trim');
+        $this->form_validation->set_rules('password1', 'Kata Sandi Baru', 'required|trim|matches[password2]');
+		$this->form_validation->set_rules('password2', 'Ulangi Kata Sandi', 'required|trim|matches[password1]');
+
+		
+		if ($this->form_validation->run() == FALSE) {
+
+			$this->load->view('template/header_pet');
+			$this->load->view('petugas/kasi_pass');
+			$this->load->view('template/footer_pet');
+		} else {
+			$pass_lama = $this->input->post('password_lama');
+			$pass_baru = $this->input->post('password1');
+
+			if(!password_verify($pass_lama, $pd['kata_sandi'])) {
+				$alert = "<script>alert('Kata Sandi Lama Salah!');</script>";
+				$this->session->set_flashdata('message', $alert);
+				redirect('petugas/kasi/gantisandi/'.$id);
+			} else {
+				if($pass_lama == $pass_baru) {
+					$alert = "<script>alert('Kata Sandi Lama tidak boleh sama dengan Kata Sandi Baru!');</script>";
+					$this->session->set_flashdata('message', $alert);
+					redirect('petugas/kasi/gantisandi/'.$id);
+				} else {
+					$pass = password_hash($pass_baru, PASSWORD_DEFAULT);
+                    $this->db->set('kata_sandi', $pass);
+                    $this->db->where('id_kasi', $id);
+					$this->db->update('kasi');
+					
+					$alert = "<script>alert('Berhasil!');</script>";
+					$this->session->set_flashdata('message', $alert);
+					redirect('petugas/kasi');
+				}
+			}
+		}
+	}
+
 	private function redirect_back()
     {
         if(isset($_SERVER['HTTP_REFERER']))
