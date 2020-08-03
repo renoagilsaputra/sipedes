@@ -79,7 +79,17 @@
 					<li><a href="<?= base_url('galeri'); ?>">Galeri</a></li>
 					<li><a href="<?= base_url('peta'); ?>">Peta Desa</a></li>
 					<li><a href="<?= base_url('kontak'); ?>">Kontak</a></li>
-					<li><a href="#">Masuk</a></li>
+					<?php 
+						$ci =& get_instance();
+						$pr = $ci->db->get_where('penduduk',['id_penduduk' => $ci->session->userdata('id_penduduk')])->row_array();
+						if($ci->session->userdata('id_penduduk')) :
+					?>
+
+						<li><a href="#"><?= $pr['nama_lengkap']; ?></a></li>
+						<li><a onclick="return confirm('Yakin?')" href="<?= base_url('logout'); ?>">Keluar</a></li>
+					<?php else : ?>
+						<li><a href="<?= base_url('login'); ?>">Masuk</a></li>
+					<?php endif; ?>
 
 				</ul>
 			</nav><!-- .nav-menu -->

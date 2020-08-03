@@ -52,11 +52,39 @@ class Auth extends CI_Controller {
 	}
 
 	public function login_penduduk() {
+		$this->form_validation->set_rules('nik', 'NIK', 'required|trim'); 
+		$this->form_validation->set_rules('kata_sandi', 'Kata Sandi', 'required|trim');
+		if ($this->form_validation->run() == FALSE) {
 
+			$this->load->view('auth/login_penduduk');
+		} else {
+			$nik = $this->input->post('nik');
+            $password = $this->input->post('kata_sandi');
+			$pn = $this->db->get_where('penduduk', ['nik' => $nik])->row_array();
+			
+			if($pn) {
+				if(password_verify($password, $pn['kata_sandi'])) {
+                    $data = [
+                        'id_penduduk' => $pn['id_penduduk']
+                    ];
+                    $this->session->set_userdata($data);
+                    redirect(base_url(''));
+                } else {
+					$alert = "<script>alert('Kata Sandi Salah!');</script>";
+					$this->session->set_flashdata('message', $alert);
+					redirect('login');
+                }
+			} else {
+				$alert = "<script>alert('NIK tidak terdaftar!');</script>";
+				$this->session->set_flashdata('message', $alert);
+				redirect('login');
+			}
+		}
 	}
 
 	public function logout_penduduk() {
-
+		$this->session->sess_destroy();
+        redirect(base_url('login'));
 	}
 }
         
