@@ -248,7 +248,123 @@ class Home extends CI_Controller {
 	}
 
 	public function suket_menikah_add() {
+		$data['jenis_kelamin'] = ['l','p'];
+		$data['status_perkawinan'] = ['belum kawin','sudah kawin'];
+		
 
+		$this->form_validation->set_rules('id_penduduk', 'NIK Pengaju', 'trim|required');
+		$this->form_validation->set_rules('nik', 'NIK Pasangan', 'trim|required');
+		$this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'trim|required');
+		$this->form_validation->set_rules('tmp_lahir', 'Tempat Lahir', 'trim|required');
+		$this->form_validation->set_rules('tgl_lahir', 'Tanggal Lahir', 'trim|required');
+		$this->form_validation->set_rules('jk', 'Jenis Kelamin', 'trim|required');
+		$this->form_validation->set_rules('kewarganegaraan', 'Kewarganegaraan', 'trim|required');
+		$this->form_validation->set_rules('status_perkawinan', 'Status Perkawinan', 'trim|required');
+		$this->form_validation->set_rules('agama', 'Agama', 'trim|required');
+		$this->form_validation->set_rules('nama_ayah', 'Nama Ayah', 'trim|required');
+		$this->form_validation->set_rules('nama_ibu', 'Nama Ibu', 'trim|required');
+		$this->form_validation->set_rules('pekerjaan', 'Pekerjaan', 'trim|required');
+		$this->form_validation->set_rules('telp', 'Telp', 'trim|required');
+		$this->form_validation->set_rules('alamat', 'Alamat', 'trim|required');
+		$this->form_validation->set_rules('rt', 'RT', 'trim|required');
+		$this->form_validation->set_rules('rw', 'RW', 'trim|required');
+		$this->form_validation->set_rules('no_rumah', 'No Rumah', 'trim|required');
+		$this->form_validation->set_rules('kelurahan_desa', 'Kelurahan / Desa', 'trim|required');
+		$this->form_validation->set_rules('kecamatan', 'Kecamatan', 'trim|required');
+		$this->form_validation->set_rules('kabupaten_kota', 'Kabupaten / Kota', 'trim|required');
+		$this->form_validation->set_rules('provinsi', 'Provinsi', 'trim|required');
+		
+		
+		if ($this->form_validation->run() == FALSE) {
+			
+			$this->load->view('template/header');
+			$this->load->view('suket_menikah_add', $data);
+			$this->load->view('template/');
+		} else {
+			if(empty($_FILES['gambar_surat_pengantar']['name']) || empty($_FILES['gambar_akta_kelahiran'])) {
+				$alert = "<script>alert('Surat Pengantar / Akta kelahiran tidak boleh kosong!');</script>";
+				$this->session->set_flashdata('message', $alert);
+				redirect('suket_menikah/tambah');
+			} else {
+				$config = [
+                    'file_name' => 'suket_nikah',
+                    'upload_path' => './assets/img/suket_nikah/',
+                    'allowed_types' => 'jpg|png|jpeg',
+                    'max_size' => 1024,
+				];
+
+				
+				
+				$this->load->library('upload', $config);
+		
+
+				if($this->upload->do_upload('gambar_surat_pengantar')) {
+					$file = $this->upload->data();
+					if($this->upload->do_upload('gambar_akta_kelahiran')) {
+						$file2 = $this->upload->data();
+
+						$query = $this->db->query("SELECT MAX(kode) as kode from suket_menikah");
+						$kodeMax = $query->row_array();
+
+						$nourut = substr($kodeMax['kode'], 3, 4);
+						$urutan = $nourut + 1;
+						$huruf = "SKN";
+						$kode = $huruf . sprintf("%03s", $urutan);
+
+						$data = [
+							'nik' => $this->input->post('nik'),
+							'nama_lengkap' =>  $this->input->post('nama_lengkap'),
+							'tmp_lahir' =>  $this->input->post('tmp_lahir'),
+							'tgl_lahir' =>  $this->input->post('tgl_lahir'),
+							'jk' =>  $this->input->post('jk'),
+							'kewarganegaraan' =>  $this->input->post('kewarganegaraan'),
+							'status_perkawinan' =>  $this->input->post('status_perkawinan'),
+							'agama' =>  $this->input->post('agama'),
+							'nama_ayah' =>  $this->input->post('nama_ayah'),
+							'nama_ibu' =>  $this->input->post('nama_ibu'),
+							'pekerjaan' =>  $this->input->post('pekerjaan'),
+							'alamat' =>  $this->input->post('alamat'),
+							'rt' =>  $this->input->post('rt'),
+							'rw' =>  $this->input->post('rw'),
+							'no_rumah' =>  $this->input->post('no_rumah'),
+							'kelurahan_desa' =>  $this->input->post('kelurahan_desa'),
+							'kecamatan' =>  $this->input->post('kecamatan'),
+							'kabupaten_kota' =>  $this->input->post('kabupaten_kota'),
+							'provinsi' =>  $this->input->post('provinsi'),
+							'no_telp' =>  $this->input->post('telp'),
+							
+						];
+
+						$this->db->insert('pasangan', $data);
+						$id_pasangan = $this->db->insert_id();
+
+						$dt = [
+							'id_penduduk' => $this->input->post('id_penduduk'),
+							'id_pasangan' => $id_pasangan,
+							'gambar_surat_pengantar' => $file['file_name'],
+							'gambar_akta_kelahiran' => $file2['file_name'],
+							'waktu' => date('Y-m-d H:i:s'),
+							'kode' => $kode,
+							'status' => 'belum',
+						];
+						
+						$this->MyModel->addNikah($dt);
+						$alert = "<script>alert('Berhasil!');</script>";
+						$this->session->set_flashdata('message', $alert);
+						redirect('pelayanan');
+					} else {
+						$alert = "<div class='alert alert-danger'>".$this->upload->display_errors()."</div>";
+						$this->session->set_flashdata('error', $alert);
+						redirect('suket_menikah/tambah');
+					}
+					 	
+				} else {
+					$alert = "<div class='alert alert-danger'>".$this->upload->display_errors()."</div>";
+					$this->session->set_flashdata('error', $alert);
+					redirect('suket_menikah/tambah');
+				}
+			}
+		}
 	}
 
 	public function suket_izin_acara_add() {

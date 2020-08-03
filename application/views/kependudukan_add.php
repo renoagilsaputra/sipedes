@@ -4,9 +4,10 @@
 		
 			<h1><i class="fa fa-users"></i> Tambah Kependudukan</h1>
 			<?= $this->session->flashdata('message'); ?>
-			
+			<?php $ci =& get_instance();?>
 			
 			<form action="" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="id_penduduk" value="<?= $ci->session->userdata('id_penduduk'); ?>">
 				<div class="row">
 					<div class="col-lg-6">
 						<?= $this->session->flashdata('error'); ?>
