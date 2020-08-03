@@ -66,6 +66,7 @@ $route['kontak'] = 'Home/kontak';
 $route['petugas'] = 'Petugas';
 // Cetak
 $route['petugas/pelayanan/cetak/(:any)'] = 'Petugas/pelayanan_cetak/$1';
+$route['petugas/domisili/cetak/(:any)'] = 'Petugas/domisili_cetak/$1';
 $route['petugas/suket/cetak/(:any)'] = 'Petugas/suket_cetak/$1';
 $route['petugas/belum_menikah/cetak/(:any)'] = 'Petugas/belum_menikah_cetak/$1';
 $route['petugas/sudah_nikah/cetak/(:any)'] = 'Petugas/sudah_nikah_cetak/$1';

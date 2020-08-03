@@ -51,7 +51,27 @@
 			<td><?= $pl['status']; ?></td>
 			<td>
 				<div class="btn-group">
-					<a target="_blank" href="<?= base_url('petugas/pelayanan/cetak/').$pl['id_pelayanan']; ?>" class="btn btn-secondary"><i class="fa fa-print"></i> Cetak Surat</a>
+					<?php if($pl['jenis_pelayanan'] == 'SKCK') : ?>
+					
+						<a target="_blank" href="<?= base_url('petugas/skck/cetak/').$pl['id_pelayanan']; ?>" class="btn btn-secondary"><i class="fa fa-print"></i> Cetak Surat</a>
+					<?php elseif($pl['jenis_pelayanan'] == 'Surat Keterangan Cerai') : ?>
+
+						<a target="_blank" href="<?= base_url('petugas/cerai/cetak/').$pl['id_pelayanan']; ?>" class="btn btn-secondary"><i class="fa fa-print"></i> Cetak Surat</a>
+					<?php elseif($pl['jenis_pelayanan'] == 'Surat Keterangan Belum Menikah') : ?>
+
+						<a target="_blank" href="<?= base_url('petugas/belum_menikah/cetak/').$pl['id_pelayanan']; ?>" class="btn btn-secondary"><i class="fa fa-print"></i> Cetak Surat</a>
+					<?php elseif($pl['jenis_pelayanan'] == 'Surat Keterangan Sudah Menikah') : ?>
+
+						<a target="_blank" href="<?= base_url('petugas/sudah_nikah/cetak/').$pl['id_pelayanan']; ?>" class="btn btn-secondary"><i class="fa fa-print"></i> Cetak Surat</a>
+					<?php elseif($pl['jenis_pelayanan'] == 'Surat Keterangan Tidak Mampu') : ?>
+					
+						<a target="_blank" href="<?= base_url('petugas/tdk_mampu/cetak/').$pl['id_pelayanan']; ?>" class="btn btn-secondary"><i class="fa fa-print"></i> Cetak Surat</a>
+					<?php elseif($pl['jenis_pelayanan'] == 'Domisili') : ?>
+						<a target="_blank" href="<?= base_url('petugas/domisili/cetak/').$pl['id_pelayanan']; ?>" class="btn btn-secondary"><i class="fa fa-print"></i> Cetak Surat</a>
+					<?php else : ?>
+					
+						<a target="_blank" href="<?= base_url('petugas/pelayanan/cetak/').$pl['id_pelayanan']; ?>" class="btn btn-secondary"><i class="fa fa-print"></i> Cetak Surat</a>
+					<?php endif; ?>
 					<a href="" data-toggle="modal" data-target="#pelayanan<?= $pl['id_pelayanan']; ?>"
 						class="btn btn-info"><i class="fa fa-search"></i></a>
 					<a href="<?= base_url('petugas/pelayanan/edit/').$pl['id_pelayanan']; ?>" class="btn btn-success"><i

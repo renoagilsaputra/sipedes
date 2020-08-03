@@ -55,6 +55,7 @@
 			<td><?= $ac['status']; ?></td>
 			<td>
 				<div class="btn-group">
+					<a target="_blank" href="<?= base_url('petugas/pindah/cetak/').$ac['id_suket_pindah']; ?>" class="btn btn-secondary"><i class="fa fa-print"></i> Cetak Surat</a>
 					<a href="<?= base_url('petugas/keluarga_pindah/').$ac['id_suket_pindah']; ?>"
 						class="btn btn-warning"><i class="fa fa-child"></i> Keluarga</a>
 					<a href="" data-toggle="modal" data-target="#pindah<?= $ac['id_suket_pindah']; ?>"

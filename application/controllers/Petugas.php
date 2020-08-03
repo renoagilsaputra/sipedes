@@ -124,6 +124,28 @@ class Petugas extends CI_Controller {
 		$data['tanggal'] = date('d').' '.$bln[date('m')].' '.date('Y');
 		$this->load->view('petugas/cetak_tidak_mampu', $data);
 	}
+	public function domisili_cetak($id) {
+		$this->db->join('penduduk','penduduk.id_penduduk = pelayanan.id_penduduk','left');
+		$data['ply'] = $this->db->get_where('pelayanan', ['id_pelayanan' => $id])->row_array();
+		$bln = [
+			'01' => 'Januari',
+			'02' => 'Februari',
+			'03' => 'Maret',
+			'04' => 'April',
+			'05' => 'Mei',
+			'06' => 'Juni',
+			'07' => 'April',
+			'08' => 'Agustus',
+			'09' => 'September',
+			'10' => 'Oktober',
+			'11' => 'November',
+			'12' => 'Desember'
+		];
+		
+		$data['tanggal'] = date('d').' '.$bln[date('m')].' '.date('Y');
+		$this->load->view('petugas/cetak_domisili', $data);
+	}
+
 	public function usaha_cetak($id) {
 		$this->db->join('penduduk','penduduk.id_penduduk = izin_usaha.id_penduduk','left');
 		$data['ply'] = $this->db->get_where('izin_usaha', ['id_izin_usaha' => $id])->row_array();
@@ -188,8 +210,8 @@ class Petugas extends CI_Controller {
 		$this->load->view('petugas/cetak_suket_nikah', $data);
 	}
 	public function suket_mati_cetak($id) {
-		$this->db->join('penduduk','penduduk.id_penduduk = id_suket_mati.id_penduduk','left');
-		$data['ply'] = $this->db->get_where('suket_mati', ['id_suket_mati' => $id])->row_array();
+		$this->db->join('penduduk','penduduk.id_penduduk = suket_kematian.id_penduduk','left');
+		$data['ply'] = $this->db->get_where('suket_kematian', ['id_suket_kematian' => $id])->row_array();
 		$bln = [
 			'01' => 'Januari',
 			'02' => 'Februari',
@@ -631,7 +653,7 @@ class Petugas extends CI_Controller {
 
 	public function pelayanan_add() {
 		$data['penduduk'] = $this->MyModel->getPenduduk();
-		$data['jenis_pelayanan'] = ['Kartu Keluarga','SKCK','Surat Keterangan Belum Menikah','Surat Keterangan Sudah Menikah','Surat Keterangan Tidak Mampu','Domisili'];
+		$data['jenis_pelayanan'] = ['Kartu Keluarga','SKCK','Surat Keterangan Cerai','Surat Keterangan Belum Menikah','Surat Keterangan Sudah Menikah','Surat Keterangan Tidak Mampu','Domisili'];
 		$data['keperluan'] = ['membuat','merubah'];
 
 		$this->form_validation->set_rules('id_penduduk', 'NIK', 'trim|required');
@@ -696,7 +718,7 @@ class Petugas extends CI_Controller {
 
 	public function pelayanan_edit($id) {
 		$data['penduduk'] = $this->MyModel->getPenduduk();
-		$data['jenis_pelayanan'] = ['Kartu Keluarga','SKCK','Surat Keterangan Belum Menikah','Surat Keterangan Sudah Menikah','Surat Keterangan Tidak Mampu','Domisili'];
+		$data['jenis_pelayanan'] = ['Kartu Keluarga','SKCK','Surat Keterangan Cerai','Surat Keterangan Belum Menikah','Surat Keterangan Sudah Menikah','Surat Keterangan Tidak Mampu','Domisili'];
 		$data['keperluan'] = ['membuat','merubah'];
 		$data['status'] = ['belum','proses','selesai'];
 

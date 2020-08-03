@@ -62,7 +62,7 @@
 
 					<h5 class="font-weight-bold">
 						<u>
-							SURAT KETERANGAN KEMATIAN
+							SURAT KETERANGAN DOMISILI
 						</u>
 					</h5>
 					<p>Nomor : 042.543/<?= date('m'); ?>/<?= date('Y'); ?></p>
@@ -73,66 +73,28 @@
 	<div class="container p-5">
 		<div class="row ml-5">
 			<div class="col-lg-6">
-				<p class="text-justify">Yang bertandatangan di bawah ini Kepala Desa Kedondong, Kecamatan Sokaraja, Kabupaten Banyumas, menerangkan bahwa telah meninggal dunia :</p>
-				<?php
-					$ci =& get_instance();
-					$ci->db->join('penduduk','penduduk.id_penduduk = penduduk_mati.id_penduduk','left');
-					$mt = $ci->db->get_where('penduduk_mati',['id_penduduk_mati' => $ply['id_penduduk_mati']])->row_array();
-				?>
+				<p class="text-justify">Yang bertandatangan di bawah ini :</p>
 				<table class="ml-5">
-				<tr>
-						<td>NIK</td>
+					<tr>
+						<td>Kepala Desa</td>
 						<td width="50px"></td>
 						<td>:</td>
-						<td><?= $mt['nik']; ?></td>
+						<td>Kedondong</td>
 					</tr>
 					<tr>
-						<td>Nama Lengkap</td>
+						<td>Kecamatan</td>
 						<td></td>
 						<td>:</td>
-						<td><?= $mt['nama_lengkap']; ?></td>
+						<td>Sokaraja</td>
 					</tr>
 					<tr>
-						<td>Jenis Kelamin</td>
+						<td>Kabupaten</td>
 						<td></td>
 						<td>:</td>
-						<td><?= ($mt['jk'] == 'l') ? 'Laki - laki' : 'Perempuan'; ?></td>
-					</tr>
-					<tr>
-						<td>Tempat Lahir</td>
-						<td></td>
-						<td>:</td>
-						<td><?= $mt['tmp_lahir']; ?></td>
-					</tr>
-					<tr>
-						<td>Tanggal Lahir</td>
-						<td></td>
-						<td>:</td>
-						<td><?php
-								$tglm = date_create($mt['tgl_lahir']);
-								echo date_format($tglm, 'd-m-Y');
-								 
-							?></td>
-					</tr>
-					<tr>
-						<td>Tanggal Kematian</td>
-						<td></td>
-						<td>:</td>
-						<td><?php
-								$tgm = date_create($ply['waktu_kematian']);
-								echo date_format($tgm, 'd-m-Y');
-								 
-							?></td>
-					</tr>
-					
-					<tr>
-						<td>Alamat</td>
-						<td></td>
-						<td>:</td>
-						<td><?= $mt['alamat']; ?></td>
+						<td>Banyumas</td>
 					</tr>
 				</table>
-				<p class="text-justify">Surat kematian ini berdasarkan keterangan pelapor :</p>
+				<p class="text-justify mt-3">Dengan ini menerangkan bahwa :</p>
 				<table class="ml-5">
 					<tr>
 						<td>NIK</td>
@@ -164,11 +126,22 @@
 						<td>:</td>
 						<td><?php
 								$tgl = date_create($ply['tgl_lahir']);
-								echo date_format($tgl, 'd-m-Y');
+								echo date_format($tgl, 'd-m-Y')
 								 
 							?></td>
 					</tr>
-					
+					<tr>
+						<td>Pekerjaan</td>
+						<td></td>
+						<td>:</td>
+						<td><?= $ply['pekerjaan']; ?></td>
+					</tr>
+					<tr>
+						<td>Agama</td>
+						<td></td>
+						<td>:</td>
+						<td><?= $ply['agama']; ?></td>
+					</tr>
 					<tr>
 						<td>Alamat</td>
 						<td></td>
@@ -177,7 +150,7 @@
 					</tr>
 					
 				</table>
-				
+				<p class="text-justify mt-2">Bahwa orang diatas beserta seluruh anggota keluarganya berdomisili di Desa Kedondong Kecamatan Sokaraja Kabupaten Banyumas.</p>
 				<p class="text-justify">Demikian Surat Keterangan ini dibuat untuk digunakan seperlunya.</p>
 			</div>
 		</div>
