@@ -63,6 +63,16 @@ $route['peta'] = 'Home/peta';
 $route['galeri'] = 'Home/galeri';
 $route['kontak'] = 'Home/kontak';
 
+// Pelayanan Penduduk
+$route['pelayanan/tambah'] = 'Home/pelayanan_add';
+$route['kependudukan/tambah'] = 'Home/kependudukan_add';
+$route['suket_menikah/tambah'] = 'Home/suket_menikah_add';
+$route['suket_izin_acara/tambah'] = 'Home/suket_izin_acara_add';
+$route['suket_izin_usaha/tambah'] = 'Home/suket_izin_usaha_add';
+$route['akta/tambah'] = 'Home/akta_add';
+$route['suket_pindah/tambah'] = 'Home/suket_pindah_add';
+$route['suket_kematian/tambah'] = 'Home/suket_kematian_add';
+
 // Auth
 $route['petugas/login'] = 'Auth/login_kasi';
 $route['petugas/logout'] = 'Auth/logout_kasi';
@@ -101,6 +111,7 @@ $route['petugas/pelayanan'] = 'Petugas/pelayanan';
 $route['petugas/pelayanan/tambah'] = 'Petugas/pelayanan_add';
 $route['petugas/pelayanan/edit/(:any)'] = 'Petugas/pelayanan_edit/$1';
 $route['petugas/pelayanan/hapus/(:any)'] = 'Petugas/pelayanan_del/$1';
+
 // Kependudukan
 $route['petugas/kependudukan'] = 'Petugas/kependudukan';
 $route['petugas/kependudukan/tambah'] = 'Petugas/kependudukan_add';

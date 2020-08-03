@@ -19,16 +19,16 @@
 		rel="stylesheet">
 
 	<!-- Vendor CSS Files -->
-	<link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="assets/vendor/icofont/icofont.min.css" rel="stylesheet">
-	<link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-	<link href="assets/vendor/venobox/venobox.css" rel="stylesheet">
-	<link href="assets/vendor/line-awesome/css/line-awesome.min.css" rel="stylesheet">
-	<link href="assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="assets/vendor/font-awesome/css/font-awesome.min.css">
+	<link href="<?= base_url(''); ?>assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="<?= base_url(''); ?>assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+	<link href="<?= base_url(''); ?>assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+	<link href="<?= base_url(''); ?>assets/vendor/venobox/venobox.css" rel="stylesheet">
+	<link href="<?= base_url(''); ?>assets/vendor/line-awesome/css/line-awesome.min.css" rel="stylesheet">
+	<link href="<?= base_url(''); ?>assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="<?= base_url(''); ?>assets/vendor/font-awesome/css/font-awesome.min.css">
 
 	<!-- Template Main CSS File -->
-	<link href="assets/css/style.css" rel="stylesheet">
+	<link href="<?= base_url(''); ?>assets/css/style.css" rel="stylesheet">
 
 	<!-- =======================================================
   * Template Name: Butterfly - v2.0.0

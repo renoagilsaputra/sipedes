@@ -18,18 +18,69 @@
   <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
 
   <!-- Vendor JS Files -->
-  <script src="assets/vendor/jquery/jquery.min.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="assets/vendor/venobox/venobox.min.js"></script>
-  <script src="assets/vendor/waypoints/jquery.waypoints.min.js"></script>
-  <script src="assets/vendor/counterup/counterup.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+  <script src="<?= base_url(''); ?>assets/vendor/jquery/jquery.min.js"></script>
+  <script src="<?= base_url(''); ?>assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="<?= base_url(''); ?>assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+  <script src="<?= base_url(''); ?>assets/vendor/php-email-form/validate.js"></script>
+  <script src="<?= base_url(''); ?>assets/vendor/venobox/venobox.min.js"></script>
+  <script src="<?= base_url(''); ?>assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+  <script src="<?= base_url(''); ?>assets/vendor/counterup/counterup.min.js"></script>
+  <script src="<?= base_url(''); ?>assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="<?= base_url(''); ?>assets/vendor/owl.carousel/owl.carousel.min.js"></script>
 
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+	<script src="<?= base_url(''); ?>assets/js/main.js"></script>
+	<script>
+
+$(".custom-file-input").on('change', function () {
+
+if (typeof (FileReader) != "undefined") {
+
+	var image_holder = $("#image-holder");
+	image_holder.empty();
+
+	var reader = new FileReader();
+	reader.onload = function (e) {
+		$("<img />", {
+			"src": e.target.result,
+			"class": "img-fluid img-thumbnail",
+			"width": "100%"
+			
+		}).appendTo(image_holder);
+
+	}
+	image_holder.show();
+	reader.readAsDataURL($(this)[0].files[0]);
+} else {
+	alert("This browser does not support FileReader.");
+}
+});
+
+$(".custom-file-input2").on('change', function () {
+
+if (typeof (FileReader) != "undefined") {
+
+	var image_holder2 = $("#image-holder2");
+	image_holder2.empty();
+
+	var reader = new FileReader();
+	reader.onload = function (e) {
+		$("<img />", {
+			"src": e.target.result,
+			"class": "img-fluid img-thumbnail",
+			"width": "100%"
+			
+		}).appendTo(image_holder2);
+
+	}
+	image_holder2.show();
+	reader.readAsDataURL($(this)[0].files[0]);
+} else {
+	alert("This browser does not support FileReader.");
+}
+});
+
+	</script>
 
 </body>
 
