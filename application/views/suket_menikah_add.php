@@ -7,19 +7,11 @@
 
 
 <form action="" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="id_penduduk" value="<?= $ci->session->userdata('id_user'); ?>">
 	<div class="row">
 		<div class="col-lg-6">
 			<?= $this->session->flashdata('error'); ?>
-			<div class="form-group">
-				<label>NIK Pengaju</label>
-				<select name="id_penduduk" class="js-example-basic-single form-control">
-					<option value=""></option>
-					<?php foreach($penduduk as $pd) : ?>
-					<option value="<?= $pd['id_penduduk']; ?>"><?= $pd['nik'].' '.$pd['nama_lengkap']; ?></option>
-					<?php endforeach; ?>
-				</select>
-				<?= form_error('id_penduduk', '<small class="text-danger pl-1">','</small>'); ?>
-			</div>
+			
 			<div class="form-group">
 				<label>NIK Pasangan</label>
 				<input type="text" name="nik" placeholder="NIK" class="form-control">

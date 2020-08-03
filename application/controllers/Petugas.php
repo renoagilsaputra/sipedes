@@ -2086,7 +2086,7 @@ class Petugas extends CI_Controller {
 			if(empty($_FILES['gambar_surat_pengantar']['name'])) {
 				$alert = "<script>alert('Surat Pengantar tidak boleh kosong!');</script>";
 				$this->session->set_flashdata('message', $alert);
-				redirect('petugas/izin_usaha/tambah');
+				redirect('petugas/izin_acara/tambah');
 			} else {
 				$config = [
                     'file_name' => 'izin_acara_surat_pengantar',

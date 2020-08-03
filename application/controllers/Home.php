@@ -279,7 +279,7 @@ class Home extends CI_Controller {
 			
 			$this->load->view('template/header');
 			$this->load->view('suket_menikah_add', $data);
-			$this->load->view('template/');
+			$this->load->view('template/footer');
 		} else {
 			if(empty($_FILES['gambar_surat_pengantar']['name']) || empty($_FILES['gambar_akta_kelahiran'])) {
 				$alert = "<script>alert('Surat Pengantar / Akta kelahiran tidak boleh kosong!');</script>";
@@ -369,6 +369,65 @@ class Home extends CI_Controller {
 
 	public function suket_izin_acara_add() {
 
+		$this->form_validation->set_rules('acara', 'Acara', 'trim|required');
+		$this->form_validation->set_rules('tgl_mulai', 'Tanggal Mulai', 'trim|required');
+		$this->form_validation->set_rules('tgl_selesai', 'Tanggal Selesai', 'trim|required');
+		
+		if ($this->form_validation->run() == FALSE) {
+			
+			$this->load->view('template/header');
+			$this->load->view('suket_izin_acara_add');
+			$this->load->view('template/footer');
+		} else {
+			if(empty($_FILES['gambar_surat_pengantar']['name'])) {
+				$alert = "<script>alert('Surat Pengantar tidak boleh kosong!');</script>";
+				$this->session->set_flashdata('message', $alert);
+				redirect('izin_usaha/tambah');
+			} else {
+				$config = [
+                    'file_name' => 'izin_acara_surat_pengantar',
+                    'upload_path' => './assets/img/izin_acara/',
+                    'allowed_types' => 'jpg|png|jpeg',
+                    'max_size' => 1024,
+				];
+				
+				$this->load->library('upload', $config);
+
+				if($this->upload->do_upload('gambar_surat_pengantar')) {
+					$file = $this->upload->data();
+
+					$query = $this->db->query("SELECT MAX(kode) as kode from izin_acara");
+					$kodeMax = $query->row_array();
+
+					$nourut = substr($kodeMax['kode'], 3, 4);
+					$urutan = $nourut + 1;
+					$huruf = "IZA";
+					$kode = $huruf . sprintf("%03s", $urutan);
+
+					$data = [
+						'id_penduduk' => $this->input->post('id_penduduk'),
+						'acara' => $this->input->post('acara'),
+						'tgl_mulai' => $this->input->post('tgl_mulai'),
+						'tgl_selesai' => $this->input->post('tgl_selesai'),
+						'lokasi' => $this->input->post('lokasi'),
+						'jenis_acara' => $this->input->post('jenis_acara'),
+						'gambar_surat_pengantar' => $file['file_name'],
+						'waktu' => date('Y-m-d H:i:s'),
+						'kode' => $kode,
+						'status' => 'belum',
+					];
+					
+					$this->MyModel->addAcara($data);
+					$alert = "<script>alert('Berhasil!');</script>";
+					$this->session->set_flashdata('message', $alert);
+					redirect('pelayanan'); 	
+				} else {
+					$alert = "<div class='alert alert-danger'>".$this->upload->display_errors()."</div>";
+					$this->session->set_flashdata('error', $alert);
+					redirect('izin_acara/tambah');
+				}
+			}
+		}
 	}
 
 	public function suket_izin_usaha_add() {
