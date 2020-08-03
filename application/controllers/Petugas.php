@@ -2295,7 +2295,7 @@ class Petugas extends CI_Controller {
 				} else {
 					$alert = "<div class='alert alert-danger'>".$this->upload->display_errors()."</div>";
 					$this->session->set_flashdata('error', $alert);
-					redirect('petugas/izn_usaha/tambah');
+					redirect('petugas/izin_usaha/tambah');
 				}
 			}
 		}

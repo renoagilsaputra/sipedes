@@ -431,11 +431,161 @@ class Home extends CI_Controller {
 	}
 
 	public function suket_izin_usaha_add() {
+		$this->form_validation->set_rules('id_penduduk', 'NIK', 'trim|required');
+		$this->form_validation->set_rules('nama_usaha', 'Nama Usaha', 'trim|required');
+		$this->form_validation->set_rules('jenis_usaha', 'Jenis Usaha', 'trim|required');
+		$this->form_validation->set_rules('modal_usaha', 'Modal Usaha', 'trim|required');
+		$this->form_validation->set_rules('tempat_usaha', 'Tempat Usaha', 'trim|required');
+		
+		if ($this->form_validation->run() == FALSE) {
+			
+			$this->load->view('template/header');
+			$this->load->view('suket_izin_usaha_add');
+			$this->load->view('template/footer');
+		} else {
+			if(empty($_FILES['gambar_surat_pengantar']['name'])) {
+				$alert = "<script>alert('Surat Pengantar tidak boleh kosong!');</script>";
+				$this->session->set_flashdata('message', $alert);
+				redirect('izin_usaha/tambah');
+			} else {
+				$config = [
+                    'file_name' => 'izin_usaha_surat_pengantar',
+                    'upload_path' => './assets/img/izin_usaha/',
+                    'allowed_types' => 'jpg|png|jpeg',
+                    'max_size' => 1024,
+				];
+				
+				$this->load->library('upload', $config);
 
+				if($this->upload->do_upload('gambar_surat_pengantar')) {
+					$file = $this->upload->data();
+
+					$query = $this->db->query("SELECT MAX(kode) as kode from izin_usaha");
+					$kodeMax = $query->row_array();
+
+					$nourut = substr($kodeMax['kode'], 3, 4);
+					$urutan = $nourut + 1;
+					$huruf = "IZU";
+					$kode = $huruf . sprintf("%03s", $urutan);
+
+					$data = [
+						'id_penduduk' => $this->input->post('id_penduduk'),
+						'nama_usaha' => $this->input->post('nama_usaha'),
+						'jenis_usaha' => $this->input->post('jenis_usaha'),
+						'modal_usaha' => $this->input->post('modal_usaha'),
+						'tempat_usaha' => $this->input->post('tempat_usaha'),
+						'gambar_surat_pengantar' => $file['file_name'],
+						'waktu' => date('Y-m-d H:i:s'),
+						'kode' => $kode,
+						'status' => 'belum',
+					];
+					
+					$this->MyModel->addUsaha($data);
+					$alert = "<script>alert('Berhasil!');</script>";
+					$this->session->set_flashdata('message', $alert);
+					redirect('pelayanan'); 	
+				} else {
+					$alert = "<div class='alert alert-danger'>".$this->upload->display_errors()."</div>";
+					$this->session->set_flashdata('error', $alert);
+					redirect('izin_usaha/tambah');
+				}
+			}
+		}
 	}
 
 	public function akta_add() {
+		$data['jenis_kelamin'] = ['l','p'];
 		
+		
+		$this->form_validation->set_rules('id_penduduk', 'NIK', 'trim|required');
+		$this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'trim|required');
+		$this->form_validation->set_rules('tmp_lahir', 'Tempat Lahir', 'trim|required');
+		$this->form_validation->set_rules('tgl_lahir', 'Tanggal Lahir', 'trim|required');
+		$this->form_validation->set_rules('jk', 'Jenis Kelamin', 'trim|required');
+		$this->form_validation->set_rules('kewarganegaraan', 'Kewarganegaraan', 'trim|required');
+		$this->form_validation->set_rules('agama', 'Agama', 'trim|required');
+		$this->form_validation->set_rules('nama_ayah', 'Nama Ayah', 'trim|required');
+		$this->form_validation->set_rules('nama_ibu', 'Nama Ibu', 'trim|required');
+		
+		$this->form_validation->set_rules('alamat', 'Alamat', 'trim|required');
+		$this->form_validation->set_rules('rt', 'RT', 'trim|required');
+		$this->form_validation->set_rules('rw', 'RW', 'trim|required');
+		$this->form_validation->set_rules('no_rumah', 'No Rumah', 'trim|required');
+		$this->form_validation->set_rules('kelurahan_desa', 'Kelurahan / Desa', 'trim|required');
+		$this->form_validation->set_rules('kecamatan', 'Kecamatan', 'trim|required');
+		$this->form_validation->set_rules('kabupaten_kota', 'Kabupaten / Kota', 'trim|required');
+		$this->form_validation->set_rules('kode_pos', 'Kode Pos', 'trim|required');
+		
+		
+		
+		if ($this->form_validation->run() == FALSE) {
+			
+			$this->load->view('template/header');
+			$this->load->view('akta_add', $data);
+			$this->load->view('template/footer');
+		} else {
+			if(empty($_FILES['gambar_surat_pengantar']['name'])) {
+				$alert = "<script>alert('Foto tidak boleh kosong!');</script>";
+				$this->session->set_flashdata('message', $alert);
+				redirect('akta/tambah');
+			} else {
+				$config = [
+                    'file_name' => 'akta',
+                    'upload_path' => './assets/img/akta/',
+                    'allowed_types' => 'jpg|png|jpeg',
+                    'max_size' => 1024,
+				];
+				
+				$this->load->library('upload', $config);
+
+				if($this->upload->do_upload('gambar_surat_pengantar')) {
+					$file = $this->upload->data();
+
+					$query = $this->db->query("SELECT MAX(kode) as kode from akta_kelahiran");
+					$kodeMax = $query->row_array();
+
+					$nourut = substr($kodeMax['kode'], 3, 4);
+					$urutan = $nourut + 1;
+					$huruf = "AKT";
+					$kode = $huruf . sprintf("%03s", $urutan);
+
+					$data = [
+						'id_penduduk' => $this->input->post('id_penduduk'),
+						'nama_lengkap' =>  $this->input->post('nama_lengkap'),
+						'tmp_lahir' =>  $this->input->post('tmp_lahir'),
+						'tgl_lahir' =>  $this->input->post('tgl_lahir'),
+						'jk' =>  $this->input->post('jk'),
+						'kewarganegaraan' =>  $this->input->post('kewarganegaraan'),
+						'agama' =>  $this->input->post('agama'),
+						'nama_ayah' =>  $this->input->post('nama_ayah'),
+						'nama_ibu' =>  $this->input->post('nama_ibu'),
+					
+						'alamat' =>  $this->input->post('alamat'),
+						'rt' =>  $this->input->post('rt'),
+						'rw' =>  $this->input->post('rw'),
+						'no_rumah' =>  $this->input->post('no_rumah'),
+						'kelurahan_desa' =>  $this->input->post('kelurahan_desa'),
+						'kecamatan' =>  $this->input->post('kecamatan'),
+						'kabupaten_kota' =>  $this->input->post('kabupaten_kota'),
+						'kode_pos' =>  $this->input->post('kode_pos'),
+						'gambar_surat_pengantar' => $file['file_name'],
+						'waktu' => date('Y-m-d H:i:s'),
+						'kode' => $kode,
+						'status' => 'belum',
+						
+					];
+					
+					$this->MyModel->addAkta($data);
+					$alert = "<script>alert('Berhasil!');</script>";
+					$this->session->set_flashdata('message', $alert);
+					redirect('pelayanan'); 	
+				} else {
+					$alert = "<div class='alert alert-danger'>".$this->upload->display_errors()."</div>";
+					$this->session->set_flashdata('error', $alert);
+					redirect('akta/tambah');
+				}
+			}
+		}
 	}
 
 	public function suket_pindah_add() {
@@ -443,7 +593,74 @@ class Home extends CI_Controller {
 	}
 
 	public function suket_kematian_add() {
+		$data['penduduk'] = $this->MyModel->getPenduduk();
+	
+		$this->form_validation->set_rules('id_mati', 'NIK Penduduk Mati', 'trim|required');
+		$this->form_validation->set_rules('waktu_kematian', 'Waktu Kematian', 'trim|required');
+		
+		
+		if ($this->form_validation->run() == FALSE) {
+			
+			$this->load->view('template/header');
+			$this->load->view('suket_mati_add', $data);
+			$this->load->view('template/footer');
+		} else {
+			if(empty($_FILES['gambar_surat_pengantar']['name'])) {
+				$alert = "<script>alert('Surat Pengantar tidak boleh kosong!');</script>";
+				$this->session->set_flashdata('message', $alert);
+				redirect('petugas/suket_pindah/tambah');
+			} else {
+				$config = [
+                    'file_name' => 'suket_mati',
+                    'upload_path' => './assets/img/suket_mati/',
+                    'allowed_types' => 'jpg|png|jpeg',
+                    'max_size' => 1024,
+				];
+				
+				$this->load->library('upload', $config);
 
+				if($this->upload->do_upload('gambar_surat_pengantar')) {
+					$file = $this->upload->data();
+
+					$query = $this->db->query("SELECT MAX(kode) as kode from suket_kematian");
+					$kodeMax = $query->row_array();
+
+					$nourut = substr($kodeMax['kode'], 3, 4);
+					$urutan = $nourut + 1;
+					$huruf = "SKM";
+					$kode = $huruf . sprintf("%03s", $urutan);
+
+					$data = [
+						'id_penduduk' => $this->input->post('id_mati'),
+					];
+					$this->db->insert('penduduk_mati', $data);
+					$id_penduduk_mati = $this->db->insert_id();
+
+					$dt = [
+						'id_penduduk' => $this->input->post('id_penduduk'),
+						'id_penduduk_mati' => $id_penduduk_mati,
+						'waktu_kematian' => $this->input->post('waktu_kematian'),
+						'gambar_surat_pengantar' => $file['file_name'],
+						'waktu' => date('Y-m-d H:i:s'),
+						'kode' => $kode,
+						'status' => 'belum',
+					];
+
+					$this->MyModel->addMati($dt);
+
+
+					
+					
+					$alert = "<script>alert('Berhasil!');</script>";
+					$this->session->set_flashdata('message', $alert);
+					redirect('pelayanan'); 	
+				} else {
+					$alert = "<div class='alert alert-danger'>".$this->upload->display_errors()."</div>";
+					$this->session->set_flashdata('error', $alert);
+					redirect('suket_mati/tambah');
+				}
+			}
+		}
 	}
 
 	public function sejarah() {
