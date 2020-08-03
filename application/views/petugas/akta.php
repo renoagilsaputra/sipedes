@@ -53,6 +53,7 @@
 			<td><?= $ac['status']; ?></td>
 			<td>
 				<div class="btn-group">
+					<a target="_blank" href="<?= base_url('petugas/akta/cetak/').$ac['id_akta_kelahiran']; ?>" class="btn btn-secondary"><i class="fa fa-print"></i> Cetak</a>
 					<a href="" data-toggle="modal" data-target="#akta<?= $ac['id_akta_kelahiran']; ?>"
 						class="btn btn-info"><i class="fa fa-search"></i></a>
 					<a href="<?= base_url('petugas/akta/edit/').$ac['id_akta_kelahiran']; ?>" class="btn btn-success"><i

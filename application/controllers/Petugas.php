@@ -80,7 +80,7 @@ class Petugas extends CI_Controller {
 		];
 		
 		$data['tanggal'] = date('d').' '.$bln[date('m')].' '.date('Y');
-		$this->load->view('petugas/cetak_belum_nikah', $data);
+		$this->load->view('petugas/cetak_belum_menikah', $data);
 	}
 	public function sudah_nikah_cetak($id) {
 		$this->db->join('penduduk','penduduk.id_penduduk = pelayanan.id_penduduk','left');
