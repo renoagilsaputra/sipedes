@@ -63,6 +63,12 @@ $route['peta'] = 'Home/peta';
 $route['galeri'] = 'Home/galeri';
 $route['kontak'] = 'Home/kontak';
 
+// Auth
+$route['petugas/login'] = 'Auth/login_kasi';
+$route['petugas/logout'] = 'Auth/logout_kasi';
+$route['penduduk/login'] = 'Auth/login_penduduk';
+$route['penduduk/logout'] = 'Auth/logout_penduduk';
+
 $route['petugas'] = 'Petugas';
 // Cetak
 $route['petugas/pelayanan/cetak/(:any)'] = 'Petugas/pelayanan_cetak/$1';

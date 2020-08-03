@@ -9,6 +9,10 @@ class Petugas extends CI_Controller {
 		parent::__construct();
 		$this->load->library('form_validation');
 		$this->load->model('MyModel');
+
+		if(!$this->session->userdata('id_kasi')) {
+            redirect(base_url('petugas/login'));
+        }
 	}
 
 	public function index(){
@@ -2429,7 +2433,10 @@ class Petugas extends CI_Controller {
 	}
 
 	public function kasi_del($id) {
-
+		$this->MyModel->delKasi($id);
+		$alert = "<script>alert('Berhasil!');</script>";
+		$this->session->set_flashdata('message', $alert);
+		redirect('petugas/kasi');
 	}
 
 	public function kasi_pass($id) {

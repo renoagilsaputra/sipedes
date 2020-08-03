@@ -24,7 +24,7 @@
 		
 		<ul class="navbar-nav px-3">
 			<li class="nav-item text-nowrap">
-				<a onclick="return confirm('Yakin?')" class="nav-link" href=""><i class="fa fa-sign-out"></i> Keluar</a>
+				<a onclick="return confirm('Yakin?')" class="nav-link" href="<?= base_url('petugas/logout'); ?>"><i class="fa fa-sign-out"></i> Keluar</a>
 			</li>
 		</ul>
 	</nav>
