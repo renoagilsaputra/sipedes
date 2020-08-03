@@ -51,6 +51,7 @@
 			<td><?= $kp['status']; ?></td>
 			<td>
 				<div class="btn-group">
+					<a target="_blank" href="<?= base_url('petugas/suket/cetak/').$kp['id_kependudukan']; ?>" class="btn btn-secondary"><i class="fa fa-print"></i> Cetak</a>
 					<a href="" data-toggle="modal" data-target="#kependudukan<?= $kp['id_kependudukan']; ?>"
 						class="btn btn-info"><i class="fa fa-search"></i></a>
 					<a href="<?= base_url('petugas/kependudukan/edit/').$kp['id_kependudukan']; ?>" class="btn btn-success"><i

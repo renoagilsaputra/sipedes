@@ -297,6 +297,28 @@ class MyModel extends CI_Model {
 		$this->db->where('id_izin_usaha', $id);
 		$this->db->delete('izin_usaha');
 	}
+	// Kasi
+	public function getKasi() {
+		return $this->db->get('kasi')->result_array();
+	}
+
+	public function getKasiByID($id) {
+		return $this->db->get_where('kasi',['id_kasi' => $id])->row_array();
+	}
+
+	public function addKasi($data) {
+		$this->db->insert('kasi',$data);
+	}
+
+	public function editKasi($id, $data) {
+		$this->db->where('id_kasi', $id);
+		$this->db->update('kasi', $data);
+	}
+
+	public function delKasi($id) {
+		$this->db->where('id_kasi', $id);
+		$this->db->delete('kasi');
+	}
 }
                         
 /* End of file MyModel.php */

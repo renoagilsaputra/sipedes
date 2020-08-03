@@ -64,6 +64,21 @@ $route['galeri'] = 'Home/galeri';
 $route['kontak'] = 'Home/kontak';
 
 $route['petugas'] = 'Petugas';
+// Cetak
+$route['petugas/pelayanan/cetak/(:any)'] = 'Petugas/pelayanan_cetak/$1';
+$route['petugas/suket/cetak/(:any)'] = 'Petugas/suket_cetak/$1';
+$route['petugas/belum_menikah/cetak/(:any)'] = 'Petugas/belum_menikah_cetak/$1';
+$route['petugas/sudah_nikah/cetak/(:any)'] = 'Petugas/sudah_nikah_cetak/$1';
+$route['petugas/tdk_mampu/cetak/(:any)'] = 'Petugas/tdk_mampu_cetak/$1';
+$route['petugas/usaha/cetak/(:any)'] = 'Petugas/usaha_cetak/$1';
+$route['petugas/cerai/cetak/(:any)'] = 'Petugas/cerai_cetak/$1';
+$route['petugas/suket_nikah/cetak/(:any)'] = 'Petugas/suket_nikah_cetak/$1';
+$route['petugas/suket_mati/cetak/(:any)'] = 'Petugas/suket_mati_cetak/$1';
+$route['petugas/acara/cetak/(:any)'] = 'Petugas/acara_cetak/$1';
+$route['petugas/akta/cetak/(:any)'] = 'Petugas/akta_cetak/$1';
+$route['petugas/pindah/cetak/(:any)'] = 'Petugas/pindah_cetak/$1';
+$route['petugas/skck/cetak/(:any)'] = 'Petugas/skck_cetak/$1';
+$route['petugas/usaha/cetak/(:any)'] = 'Petugas/usaha_cetak/$1';
 // Pengaduan
 $route['petugas/laporan-pengaduan'] = 'Petugas/laporanPengaduan';
 $route['petugas/pengaduan/status/edit'] = 'Petugas/editStatusPengaduan';
@@ -75,7 +90,6 @@ $route['petugas/penduduk/edit/(:any)'] = 'Petugas/editPenduduk/$1';
 $route['petugas/penduduk/hapus/(:any)'] = 'Petugas/delPenduduk/$1';
 $route['petugas/penduduk/gantisandi/(:any)'] = 'Petugas/sandiPenduduk/$1';
 // Pelayanan
-$route['petugas/pelayanan/cetak/(:any)'] = 'Petugas/pelayanan_cetak/$1';
 $route['petugas/pelayanan'] = 'Petugas/pelayanan';
 $route['petugas/pelayanan/tambah'] = 'Petugas/pelayanan_add';
 $route['petugas/pelayanan/edit/(:any)'] = 'Petugas/pelayanan_edit/$1';
@@ -120,6 +134,11 @@ $route['petugas/izin_usaha'] = 'Petugas/izin_usaha';
 $route['petugas/izin_usaha/tambah'] = 'Petugas/izin_usaha_add';
 $route['petugas/izin_usaha/edit/(:any)'] = 'Petugas/izin_usaha_edit/$1';
 $route['petugas/izin_usaha/hapus/(:any)'] = 'Petugas/izin_usaha_del/$1';
+// Kasi
+$route['petugas/kasi'] = 'Petugas/kasi';
+$route['petugas/kasi/tambah'] = 'Petugas/kasi_add';
+$route['petugas/kasi/edit/(:any)'] = 'Petugas/kasi_edit/$1';
+$route['petugas/kasi/hapus/(:any)'] = 'Petugas/kasi_del/$1';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

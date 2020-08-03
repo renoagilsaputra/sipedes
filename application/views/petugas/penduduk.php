@@ -151,6 +151,11 @@
 							<td><?= $pn['telp']; ?></td>
 						</tr>
 						<tr>
+							<th>Alamat</th>
+							<td>:</td>
+							<td><?= $pn['alamat']; ?></td>
+						</tr>
+						<tr>
 							<th>RT</th>
 							<td>:</td>
 							<td><?= $pn['rt']; ?></td>

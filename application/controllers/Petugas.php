@@ -18,6 +18,285 @@ class Petugas extends CI_Controller {
 		
 	}
 
+	public function pelayanan_cetak($id) {
+		$this->db->join('penduduk','penduduk.id_penduduk = pelayanan.id_penduduk','left');
+		$data['ply'] = $this->db->get_where('pelayanan', ['id_pelayanan' => $id])->row_array();
+		$bln = [
+			'01' => 'Januari',
+			'02' => 'Februari',
+			'03' => 'Maret',
+			'04' => 'April',
+			'05' => 'Mei',
+			'06' => 'Juni',
+			'07' => 'April',
+			'08' => 'Agustus',
+			'09' => 'September',
+			'10' => 'Oktober',
+			'11' => 'November',
+			'12' => 'Desember'
+		];
+		
+		$data['tanggal'] = date('d').' '.$bln[date('m')].' '.date('Y');
+		$this->load->view('petugas/cetak_pelayanan', $data);
+		
+	}
+	public function suket_cetak($id) {
+		$this->db->join('penduduk','penduduk.id_penduduk = kependudukan.id_penduduk','left');
+		$data['ply'] = $this->db->get_where('kependudukan', ['id_kependudukan' => $id])->row_array();
+		$bln = [
+			'01' => 'Januari',
+			'02' => 'Februari',
+			'03' => 'Maret',
+			'04' => 'April',
+			'05' => 'Mei',
+			'06' => 'Juni',
+			'07' => 'April',
+			'08' => 'Agustus',
+			'09' => 'September',
+			'10' => 'Oktober',
+			'11' => 'November',
+			'12' => 'Desember'
+		];
+		
+		$data['tanggal'] = date('d').' '.$bln[date('m')].' '.date('Y');
+		$this->load->view('petugas/cetak_suket', $data);
+	}
+	public function belum_nikah_cetak($id) {
+		$this->db->join('penduduk','penduduk.id_penduduk = pelayanan.id_penduduk','left');
+		$data['ply'] = $this->db->get_where('pelayanan', ['id_pelayanan' => $id])->row_array();
+		$bln = [
+			'01' => 'Januari',
+			'02' => 'Februari',
+			'03' => 'Maret',
+			'04' => 'April',
+			'05' => 'Mei',
+			'06' => 'Juni',
+			'07' => 'April',
+			'08' => 'Agustus',
+			'09' => 'September',
+			'10' => 'Oktober',
+			'11' => 'November',
+			'12' => 'Desember'
+		];
+		
+		$data['tanggal'] = date('d').' '.$bln[date('m')].' '.date('Y');
+		$this->load->view('petugas/cetak_belum_nikah', $data);
+	}
+	public function sudah_nikah_cetak($id) {
+		$this->db->join('penduduk','penduduk.id_penduduk = pelayanan.id_penduduk','left');
+		$data['ply'] = $this->db->get_where('pelayanan', ['id_pelayanan' => $id])->row_array();
+		$bln = [
+			'01' => 'Januari',
+			'02' => 'Februari',
+			'03' => 'Maret',
+			'04' => 'April',
+			'05' => 'Mei',
+			'06' => 'Juni',
+			'07' => 'April',
+			'08' => 'Agustus',
+			'09' => 'September',
+			'10' => 'Oktober',
+			'11' => 'November',
+			'12' => 'Desember'
+		];
+		
+		$data['tanggal'] = date('d').' '.$bln[date('m')].' '.date('Y');
+		$this->load->view('petugas/cetak_sudah_nikah', $data);
+	}
+	public function tdk_mampu_cetak($id) {
+		$this->db->join('penduduk','penduduk.id_penduduk = pelayanan.id_penduduk','left');
+		$data['ply'] = $this->db->get_where('pelayanan', ['id_pelayanan' => $id])->row_array();
+		$bln = [
+			'01' => 'Januari',
+			'02' => 'Februari',
+			'03' => 'Maret',
+			'04' => 'April',
+			'05' => 'Mei',
+			'06' => 'Juni',
+			'07' => 'April',
+			'08' => 'Agustus',
+			'09' => 'September',
+			'10' => 'Oktober',
+			'11' => 'November',
+			'12' => 'Desember'
+		];
+		
+		$data['tanggal'] = date('d').' '.$bln[date('m')].' '.date('Y');
+		$this->load->view('petugas/cetak_tidak_mampu', $data);
+	}
+	public function usaha_cetak($id) {
+		$this->db->join('penduduk','penduduk.id_penduduk = izin_usaha.id_penduduk','left');
+		$data['ply'] = $this->db->get_where('izin_usaha', ['id_izin_usaha' => $id])->row_array();
+		$bln = [
+			'01' => 'Januari',
+			'02' => 'Februari',
+			'03' => 'Maret',
+			'04' => 'April',
+			'05' => 'Mei',
+			'06' => 'Juni',
+			'07' => 'April',
+			'08' => 'Agustus',
+			'09' => 'September',
+			'10' => 'Oktober',
+			'11' => 'November',
+			'12' => 'Desember'
+		];
+		
+		$data['tanggal'] = date('d').' '.$bln[date('m')].' '.date('Y');
+		$this->load->view('petugas/cetak_usaha', $data);
+	}
+	public function cerai_cetak($id) {
+		$this->db->join('penduduk','penduduk.id_penduduk = pelayanan.id_penduduk','left');
+		$data['ply'] = $this->db->get_where('pelayanan', ['id_pelayanan' => $id])->row_array();
+		$bln = [
+			'01' => 'Januari',
+			'02' => 'Februari',
+			'03' => 'Maret',
+			'04' => 'April',
+			'05' => 'Mei',
+			'06' => 'Juni',
+			'07' => 'April',
+			'08' => 'Agustus',
+			'09' => 'September',
+			'10' => 'Oktober',
+			'11' => 'November',
+			'12' => 'Desember'
+		];
+		
+		$data['tanggal'] = date('d').' '.$bln[date('m')].' '.date('Y');
+		$this->load->view('petugas/cetak_cerai', $data);
+	}
+	public function suket_nikah_cetak($id) {
+		$this->db->join('penduduk','penduduk.id_penduduk = suket_menikah.id_penduduk','left');
+		$data['ply'] = $this->db->get_where('suket_menikah', ['id_suket_menikah' => $id])->row_array();
+		$bln = [
+			'01' => 'Januari',
+			'02' => 'Februari',
+			'03' => 'Maret',
+			'04' => 'April',
+			'05' => 'Mei',
+			'06' => 'Juni',
+			'07' => 'April',
+			'08' => 'Agustus',
+			'09' => 'September',
+			'10' => 'Oktober',
+			'11' => 'November',
+			'12' => 'Desember'
+		];
+		
+		$data['tanggal'] = date('d').' '.$bln[date('m')].' '.date('Y');
+		$this->load->view('petugas/cetak_suket_nikah', $data);
+	}
+	public function suket_mati_cetak($id) {
+		$this->db->join('penduduk','penduduk.id_penduduk = id_suket_mati.id_penduduk','left');
+		$data['ply'] = $this->db->get_where('suket_mati', ['id_suket_mati' => $id])->row_array();
+		$bln = [
+			'01' => 'Januari',
+			'02' => 'Februari',
+			'03' => 'Maret',
+			'04' => 'April',
+			'05' => 'Mei',
+			'06' => 'Juni',
+			'07' => 'April',
+			'08' => 'Agustus',
+			'09' => 'September',
+			'10' => 'Oktober',
+			'11' => 'November',
+			'12' => 'Desember'
+		];
+		
+		$data['tanggal'] = date('d').' '.$bln[date('m')].' '.date('Y');
+		$this->load->view('petugas/cetak_suket_mati', $data);
+	}
+	public function acara_cetak($id) {
+		$this->db->join('penduduk','penduduk.id_penduduk = izin_acara.id_penduduk','left');
+		$data['ply'] = $this->db->get_where('izin_acara', ['id_izin_acara' => $id])->row_array();
+		$bln = [
+			'01' => 'Januari',
+			'02' => 'Februari',
+			'03' => 'Maret',
+			'04' => 'April',
+			'05' => 'Mei',
+			'06' => 'Juni',
+			'07' => 'April',
+			'08' => 'Agustus',
+			'09' => 'September',
+			'10' => 'Oktober',
+			'11' => 'November',
+			'12' => 'Desember'
+		];
+		
+		$data['tanggal'] = date('d').' '.$bln[date('m')].' '.date('Y');
+		$this->load->view('petugas/cetak_acara', $data);
+	}
+	public function akta_cetak($id) {
+		$this->db->join('penduduk','penduduk.id_penduduk = akta_kelahiran.id_penduduk','left');
+		$data['ply'] = $this->db->get_where('akta_kelahiran', ['id_akta_kelahiran' => $id])->row_array();
+		$bln = [
+			'01' => 'Januari',
+			'02' => 'Februari',
+			'03' => 'Maret',
+			'04' => 'April',
+			'05' => 'Mei',
+			'06' => 'Juni',
+			'07' => 'April',
+			'08' => 'Agustus',
+			'09' => 'September',
+			'10' => 'Oktober',
+			'11' => 'November',
+			'12' => 'Desember'
+		];
+		
+		$data['tanggal'] = date('d').' '.$bln[date('m')].' '.date('Y');
+		$this->load->view('petugas/cetak_akta', $data);
+	}
+	public function pindah_cetak($id) {
+		$this->db->join('penduduk','penduduk.id_penduduk = suket_pindah.id_penduduk','left');
+		$data['ply'] = $this->db->get_where('suket_pindah', ['id_suket_pindah' => $id])->row_array();
+		$bln = [
+			'01' => 'Januari',
+			'02' => 'Februari',
+			'03' => 'Maret',
+			'04' => 'April',
+			'05' => 'Mei',
+			'06' => 'Juni',
+			'07' => 'April',
+			'08' => 'Agustus',
+			'09' => 'September',
+			'10' => 'Oktober',
+			'11' => 'November',
+			'12' => 'Desember'
+		];
+		
+		$data['tanggal'] = date('d').' '.$bln[date('m')].' '.date('Y');
+		$this->load->view('petugas/cetak_pindah', $data);
+	}
+
+	public function skck_cetak($id) {
+		$this->db->join('penduduk','penduduk.id_penduduk = pelayanan.id_penduduk','left');
+		$data['ply'] = $this->db->get_where('pelayanan', ['id_pelayanan' => $id])->row_array();
+		$bln = [
+			'01' => 'Januari',
+			'02' => 'Februari',
+			'03' => 'Maret',
+			'04' => 'April',
+			'05' => 'Mei',
+			'06' => 'Juni',
+			'07' => 'April',
+			'08' => 'Agustus',
+			'09' => 'September',
+			'10' => 'Oktober',
+			'11' => 'November',
+			'12' => 'Desember'
+		];
+		
+		$data['tanggal'] = date('d').' '.$bln[date('m')].' '.date('Y');
+		$this->load->view('petugas/cetak_skck', $data);
+	}
+
+
+	
+
 	public function laporanPengaduan(){
 		$data['pengaduan'] = $this->MyModel->getPengaduan();
 		$data['status'] = ['belum','proses','selesai'];
@@ -84,6 +363,8 @@ class Petugas extends CI_Controller {
 		$this->form_validation->set_rules('kewarganegaraan', 'Kewarganegaraan', 'trim|required');
 		$this->form_validation->set_rules('status_perkawinan', 'Status Perkawinan', 'trim|required');
 		$this->form_validation->set_rules('agama', 'Agama', 'trim|required');
+		$this->form_validation->set_rules('nama_ayah', 'Nama Ayah', 'trim|required');
+		$this->form_validation->set_rules('nama_ibu', 'Nama Ibu', 'trim|required');
 		$this->form_validation->set_rules('pekerjaan', 'Pekerjaan', 'trim|required');
 		$this->form_validation->set_rules('telp', 'Telp', 'trim|required');
 		$this->form_validation->set_rules('alamat', 'Alamat', 'trim|required');
@@ -130,6 +411,8 @@ class Petugas extends CI_Controller {
 						'kewarganegaraan' =>  $this->input->post('kewarganegaraan'),
 						'status_perkawinan' =>  $this->input->post('status_perkawinan'),
 						'agama' =>  $this->input->post('agama'),
+						'nama_ayah' =>  $this->input->post('nama_ayah'),
+						'nama_ibu' =>  $this->input->post('nama_ibu'),
 						'pekerjaan' =>  $this->input->post('pekerjaan'),
 						'telp' =>  $this->input->post('telp'),
 						'alamat' =>  $this->input->post('alamat'),
@@ -174,6 +457,8 @@ class Petugas extends CI_Controller {
 		$this->form_validation->set_rules('kewarganegaraan', 'Kewarganegaraan', 'trim|required');
 		$this->form_validation->set_rules('status_perkawinan', 'Status Perkawinan', 'trim|required');
 		$this->form_validation->set_rules('agama', 'Agama', 'trim|required');
+		$this->form_validation->set_rules('nama_ayah', 'Nama Ayah', 'trim|required');
+		$this->form_validation->set_rules('nama_ibu', 'Nama Ibu', 'trim|required');
 		$this->form_validation->set_rules('pekerjaan', 'Pekerjaan', 'trim|required');
 		$this->form_validation->set_rules('telp', 'Telp', 'trim|required');
 		$this->form_validation->set_rules('alamat', 'Alamat', 'trim|required');
@@ -204,6 +489,8 @@ class Petugas extends CI_Controller {
 					'kewarganegaraan' =>  $this->input->post('kewarganegaraan'),
 					'status_perkawinan' =>  $this->input->post('status_perkawinan'),
 					'agama' =>  $this->input->post('agama'),
+					'nama_ayah' =>  $this->input->post('nama_ayah'),
+					'nama_ibu' =>  $this->input->post('nama_ibu'),
 					'pekerjaan' =>  $this->input->post('pekerjaan'),
 					'telp' =>  $this->input->post('telp'),
 					'alamat' =>  $this->input->post('alamat'),
@@ -321,28 +608,7 @@ class Petugas extends CI_Controller {
 		}
 	}
 	// Pelayanan
-	public function pelayanan_cetak($id) {
-		$this->db->join('penduduk','penduduk.id_penduduk = pelayanan.id_penduduk','left');
-		$data['ply'] = $this->db->get_where('pelayanan', ['id_pelayanan' => $id])->row_array();
-		$bln = [
-			'01' => 'Januari',
-			'02' => 'Februari',
-			'03' => 'Maret',
-			'04' => 'April',
-			'05' => 'Mei',
-			'06' => 'Juni',
-			'07' => 'April',
-			'08' => 'Agustus',
-			'09' => 'September',
-			'10' => 'Oktober',
-			'11' => 'November',
-			'12' => 'Desember'
-		];
-		
-		$data['tanggal'] = date('d').' '.$bln[date('m')].' '.date('Y');
-		$this->load->view('petugas/cetak_pelayanan', $data);
-		
-	}
+	
 
 	public function pelayanan() {
 		if($this->input->post('search')) {
@@ -982,13 +1248,364 @@ class Petugas extends CI_Controller {
 		$this->load->view('template/footer_pet');
 	}
 	public function suket_nikah_add() {
+		$data['penduduk'] = $this->MyModel->getPenduduk();
+		$data['jenis_kelamin'] = ['l','p'];
+		$data['status_perkawinan'] = ['belum kawin','sudah kawin'];
+		
 
+		$this->form_validation->set_rules('id_penduduk', 'NIK Pengaju', 'trim|required');
+		$this->form_validation->set_rules('nik', 'NIK Pasangan', 'trim|required');
+		$this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'trim|required');
+		$this->form_validation->set_rules('tmp_lahir', 'Tempat Lahir', 'trim|required');
+		$this->form_validation->set_rules('tgl_lahir', 'Tanggal Lahir', 'trim|required');
+		$this->form_validation->set_rules('jk', 'Jenis Kelamin', 'trim|required');
+		$this->form_validation->set_rules('kewarganegaraan', 'Kewarganegaraan', 'trim|required');
+		$this->form_validation->set_rules('status_perkawinan', 'Status Perkawinan', 'trim|required');
+		$this->form_validation->set_rules('agama', 'Agama', 'trim|required');
+		$this->form_validation->set_rules('nama_ayah', 'Nama Ayah', 'trim|required');
+		$this->form_validation->set_rules('nama_ibu', 'Nama Ibu', 'trim|required');
+		$this->form_validation->set_rules('pekerjaan', 'Pekerjaan', 'trim|required');
+		$this->form_validation->set_rules('telp', 'Telp', 'trim|required');
+		$this->form_validation->set_rules('alamat', 'Alamat', 'trim|required');
+		$this->form_validation->set_rules('rt', 'RT', 'trim|required');
+		$this->form_validation->set_rules('rw', 'RW', 'trim|required');
+		$this->form_validation->set_rules('no_rumah', 'No Rumah', 'trim|required');
+		$this->form_validation->set_rules('kelurahan_desa', 'Kelurahan / Desa', 'trim|required');
+		$this->form_validation->set_rules('kecamatan', 'Kecamatan', 'trim|required');
+		$this->form_validation->set_rules('kabupaten_kota', 'Kabupaten / Kota', 'trim|required');
+		$this->form_validation->set_rules('provinsi', 'Provinsi', 'trim|required');
+		
+		
+		if ($this->form_validation->run() == FALSE) {
+			
+			$this->load->view('template/header_pet');
+			$this->load->view('petugas/suket_nikah_add', $data);
+			$this->load->view('template/footer_pet');
+		} else {
+			if(empty($_FILES['gambar_surat_pengantar']['name']) || empty($_FILES['gambar_akta_kelahiran'])) {
+				$alert = "<script>alert('Surat Pengantar / Akta kelahiran tidak boleh kosong!');</script>";
+				$this->session->set_flashdata('message', $alert);
+				redirect('petugas/suket_nikah/tambah');
+			} else {
+				$config = [
+                    'file_name' => 'suket_nikah',
+                    'upload_path' => './assets/img/suket_nikah/',
+                    'allowed_types' => 'jpg|png|jpeg',
+                    'max_size' => 1024,
+				];
+
+				
+				
+				$this->load->library('upload', $config);
+		
+
+				if($this->upload->do_upload('gambar_surat_pengantar')) {
+					$file = $this->upload->data();
+					if($this->upload->do_upload('gambar_akta_kelahiran')) {
+						$file2 = $this->upload->data();
+
+						$query = $this->db->query("SELECT MAX(kode) as kode from suket_menikah");
+						$kodeMax = $query->row_array();
+
+						$nourut = substr($kodeMax['kode'], 3, 4);
+						$urutan = $nourut + 1;
+						$huruf = "SKN";
+						$kode = $huruf . sprintf("%03s", $urutan);
+
+						$data = [
+							'nik' => $this->input->post('nik'),
+							'nama_lengkap' =>  $this->input->post('nama_lengkap'),
+							'tmp_lahir' =>  $this->input->post('tmp_lahir'),
+							'tgl_lahir' =>  $this->input->post('tgl_lahir'),
+							'jk' =>  $this->input->post('jk'),
+							'kewarganegaraan' =>  $this->input->post('kewarganegaraan'),
+							'status_perkawinan' =>  $this->input->post('status_perkawinan'),
+							'agama' =>  $this->input->post('agama'),
+							'nama_ayah' =>  $this->input->post('nama_ayah'),
+							'nama_ibu' =>  $this->input->post('nama_ibu'),
+							'pekerjaan' =>  $this->input->post('pekerjaan'),
+							'alamat' =>  $this->input->post('alamat'),
+							'rt' =>  $this->input->post('rt'),
+							'rw' =>  $this->input->post('rw'),
+							'no_rumah' =>  $this->input->post('no_rumah'),
+							'kelurahan_desa' =>  $this->input->post('kelurahan_desa'),
+							'kecamatan' =>  $this->input->post('kecamatan'),
+							'kabupaten_kota' =>  $this->input->post('kabupaten_kota'),
+							'provinsi' =>  $this->input->post('provinsi'),
+							'no_telp' =>  $this->input->post('telp'),
+							
+						];
+
+						$this->db->insert('pasangan', $data);
+						$id_pasangan = $this->db->insert_id();
+
+						$dt = [
+							'id_penduduk' => $this->input->post('id_penduduk'),
+							'id_pasangan' => $id_pasangan,
+							'gambar_surat_pengantar' => $file['file_name'],
+							'gambar_akta_kelahiran' => $file2['file_name'],
+							'waktu' => date('Y-m-d H:i:s'),
+							'kode' => $kode,
+							'status' => 'belum',
+						];
+						
+						$this->MyModel->addNikah($dt);
+						$alert = "<script>alert('Berhasil!');</script>";
+						$this->session->set_flashdata('message', $alert);
+						redirect('petugas/suket_nikah');
+					} else {
+						$alert = "<div class='alert alert-danger'>".$this->upload->display_errors()."</div>";
+						$this->session->set_flashdata('error', $alert);
+						redirect('petugas/suket_nikah/tambah');
+					}
+					 	
+				} else {
+					$alert = "<div class='alert alert-danger'>".$this->upload->display_errors()."</div>";
+					$this->session->set_flashdata('error', $alert);
+					redirect('petugas/suket_nikah/tambah');
+				}
+			}
+		}
 	}
 	public function suket_nikah_edit($id) {
+		$data['penduduk'] = $this->MyModel->getPenduduk();
+		$data['jenis_kelamin'] = ['l','p'];
+		$data['status_perkawinan'] = ['belum kawin','sudah kawin'];
+		$data['status'] = ['belum','proses','selesai'];
+		$data['nikah'] = $this->MyModel->getNikahByID($id);
+		
 
+		$this->form_validation->set_rules('id_penduduk', 'NIK Pengaju', 'trim|required');
+		$this->form_validation->set_rules('nik', 'NIK Pasangan', 'trim|required');
+		$this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'trim|required');
+		$this->form_validation->set_rules('tmp_lahir', 'Tempat Lahir', 'trim|required');
+		$this->form_validation->set_rules('tgl_lahir', 'Tanggal Lahir', 'trim|required');
+		$this->form_validation->set_rules('jk', 'Jenis Kelamin', 'trim|required');
+		$this->form_validation->set_rules('kewarganegaraan', 'Kewarganegaraan', 'trim|required');
+		$this->form_validation->set_rules('status_perkawinan', 'Status Perkawinan', 'trim|required');
+		$this->form_validation->set_rules('agama', 'Agama', 'trim|required');
+		$this->form_validation->set_rules('nama_ayah', 'Nama Ayah', 'trim|required');
+		$this->form_validation->set_rules('nama_ibu', 'Nama Ibu', 'trim|required');
+		$this->form_validation->set_rules('pekerjaan', 'Pekerjaan', 'trim|required');
+		$this->form_validation->set_rules('telp', 'Telp', 'trim|required');
+		$this->form_validation->set_rules('alamat', 'Alamat', 'trim|required');
+		$this->form_validation->set_rules('rt', 'RT', 'trim|required');
+		$this->form_validation->set_rules('rw', 'RW', 'trim|required');
+		$this->form_validation->set_rules('no_rumah', 'No Rumah', 'trim|required');
+		$this->form_validation->set_rules('kelurahan_desa', 'Kelurahan / Desa', 'trim|required');
+		$this->form_validation->set_rules('kecamatan', 'Kecamatan', 'trim|required');
+		$this->form_validation->set_rules('kabupaten_kota', 'Kabupaten / Kota', 'trim|required');
+		$this->form_validation->set_rules('provinsi', 'Provinsi', 'trim|required');
+		$this->form_validation->set_rules('status', 'Status', 'trim|required');
+		
+		
+		if ($this->form_validation->run() == FALSE) {
+			
+			$this->load->view('template/header_pet');
+			$this->load->view('petugas/suket_nikah_edit', $data);
+			$this->load->view('template/footer_pet');
+		} else {
+			if(empty($_FILES['gambar_surat_pengantar']['name']) && empty($_FILES['gambar_akta_kelahiran'])) {
+				$data = [
+					'nik' => $this->input->post('nik'),
+					'nama_lengkap' =>  $this->input->post('nama_lengkap'),
+					'tmp_lahir' =>  $this->input->post('tmp_lahir'),
+					'tgl_lahir' =>  $this->input->post('tgl_lahir'),
+					'jk' =>  $this->input->post('jk'),
+					'kewarganegaraan' =>  $this->input->post('kewarganegaraan'),
+					'status_perkawinan' =>  $this->input->post('status_perkawinan'),
+					'agama' =>  $this->input->post('agama'),
+					'nama_ayah' =>  $this->input->post('nama_ayah'),
+					'nama_ibu' =>  $this->input->post('nama_ibu'),
+					'pekerjaan' =>  $this->input->post('pekerjaan'),
+					'alamat' =>  $this->input->post('alamat'),
+					'rt' =>  $this->input->post('rt'),
+					'rw' =>  $this->input->post('rw'),
+					'no_rumah' =>  $this->input->post('no_rumah'),
+					'kelurahan_desa' =>  $this->input->post('kelurahan_desa'),
+					'kecamatan' =>  $this->input->post('kecamatan'),
+					'kabupaten_kota' =>  $this->input->post('kabupaten_kota'),
+					'provinsi' =>  $this->input->post('provinsi'),
+					'no_telp' =>  $this->input->post('telp'),
+					
+				];
+				$this->db->where('id_pasangan', $this->input->post('id_pasangan'));
+				$this->db->update('pasangan', $data);
+		
+
+				$dt = [
+					'id_penduduk' => $this->input->post('id_penduduk'),
+					'status' => $this->input->post('status'),
+				];
+				
+				$this->MyModel->editNikah($id, $dt);
+				$alert = "<script>alert('Berhasil!');</script>";
+				$this->session->set_flashdata('message', $alert);
+				redirect('petugas/suket_nikah');
+			} else if(empty($_FILES['gambar_surat_pengantar']['name'])){
+				unlink('assets/img/suket_nikah/'.$data['nikah']['gambar_akta_kelahiran']);
+				$config = [
+                    'file_name' => 'suket_nikah',
+                    'upload_path' => './assets/img/suket_nikah/',
+                    'allowed_types' => 'jpg|png|jpeg',
+                    'max_size' => 1024,
+				];
+				
+				$this->load->library('upload', $config);
+			
+				$this->upload->do_upload('gambar_akta_kelahiran');
+				$file2 = $this->upload->data();
+				$data = [
+					'nik' => $this->input->post('nik'),
+					'nama_lengkap' =>  $this->input->post('nama_lengkap'),
+					'tmp_lahir' =>  $this->input->post('tmp_lahir'),
+					'tgl_lahir' =>  $this->input->post('tgl_lahir'),
+					'jk' =>  $this->input->post('jk'),
+					'kewarganegaraan' =>  $this->input->post('kewarganegaraan'),
+					'status_perkawinan' =>  $this->input->post('status_perkawinan'),
+					'agama' =>  $this->input->post('agama'),
+					'nama_ayah' =>  $this->input->post('nama_ayah'),
+					'nama_ibu' =>  $this->input->post('nama_ibu'),
+					'pekerjaan' =>  $this->input->post('pekerjaan'),
+					'alamat' =>  $this->input->post('alamat'),
+					'rt' =>  $this->input->post('rt'),
+					'rw' =>  $this->input->post('rw'),
+					'no_rumah' =>  $this->input->post('no_rumah'),
+					'kelurahan_desa' =>  $this->input->post('kelurahan_desa'),
+					'kecamatan' =>  $this->input->post('kecamatan'),
+					'kabupaten_kota' =>  $this->input->post('kabupaten_kota'),
+					'provinsi' =>  $this->input->post('provinsi'),
+					'no_telp' =>  $this->input->post('telp'),
+					
+				];
+				$this->db->where('id_pasangan', $this->input->post('id_pasangan'));
+				$this->db->update('pasangan', $data);
+		
+
+				$dt = [
+					'id_penduduk' => $this->input->post('id_penduduk'),
+					'gambar_akta_kelahiran' => $file2['file_name'],
+					'status' => $this->input->post('status'),
+				];
+				
+				$this->MyModel->editNikah($id, $dt);
+				$alert = "<script>alert('Berhasil!');</script>";
+				$this->session->set_flashdata('message', $alert);
+				redirect('petugas/suket_nikah');
+			} else if(empty($_FILES['gambar_akta_kelahiran']['name'])) {
+				unlink('assets/img/suket_nikah/'.$data['nikah']['gambar_surat_pengantar']);
+				$config = [
+                    'file_name' => 'suket_nikah',
+                    'upload_path' => './assets/img/suket_nikah/',
+                    'allowed_types' => 'jpg|png|jpeg',
+                    'max_size' => 1024,
+				];
+				
+				$this->load->library('upload', $config);
+				$this->upload->do_upload('gambar_surat_pengantar');
+				$file = $this->upload->data();
+				$data = [
+					'nik' => $this->input->post('nik'),
+					'nama_lengkap' =>  $this->input->post('nama_lengkap'),
+					'tmp_lahir' =>  $this->input->post('tmp_lahir'),
+					'tgl_lahir' =>  $this->input->post('tgl_lahir'),
+					'jk' =>  $this->input->post('jk'),
+					'kewarganegaraan' =>  $this->input->post('kewarganegaraan'),
+					'status_perkawinan' =>  $this->input->post('status_perkawinan'),
+					'agama' =>  $this->input->post('agama'),
+					'nama_ayah' =>  $this->input->post('nama_ayah'),
+					'nama_ibu' =>  $this->input->post('nama_ibu'),
+					'pekerjaan' =>  $this->input->post('pekerjaan'),
+					'alamat' =>  $this->input->post('alamat'),
+					'rt' =>  $this->input->post('rt'),
+					'rw' =>  $this->input->post('rw'),
+					'no_rumah' =>  $this->input->post('no_rumah'),
+					'kelurahan_desa' =>  $this->input->post('kelurahan_desa'),
+					'kecamatan' =>  $this->input->post('kecamatan'),
+					'kabupaten_kota' =>  $this->input->post('kabupaten_kota'),
+					'provinsi' =>  $this->input->post('provinsi'),
+					'no_telp' =>  $this->input->post('telp'),
+					
+				];
+				$this->db->where('id_pasangan', $this->input->post('id_pasangan'));
+				$this->db->update('pasangan', $data);
+		
+
+				$dt = [
+					'id_penduduk' => $this->input->post('id_penduduk'),
+					'gambar_surat_pengantar' => $file['file_name'],
+
+					'status' => $this->input->post('status'),
+				];
+				
+				$this->MyModel->editNikah($id, $dt);
+				$alert = "<script>alert('Berhasil!');</script>";
+				$this->session->set_flashdata('message', $alert);
+				redirect('petugas/suket_nikah');
+			} else {
+				unlink('assets/img/suket_nikah/'.$data['nikah']['gambar_surat_pengantar']);
+				unlink('assets/img/suket_nikah/'.$data['nikah']['gambar_akta_kelahiran']);
+				$config = [
+                    'file_name' => 'suket_nikah',
+                    'upload_path' => './assets/img/suket_nikah/',
+                    'allowed_types' => 'jpg|png|jpeg',
+                    'max_size' => 1024,
+				];
+				
+				$this->load->library('upload', $config);
+				$this->upload->do_upload('gambar_surat_pengantar');
+				$file = $this->upload->data();
+				$this->upload->do_upload('gambar_akta_kelahiran');
+				$file2 = $this->upload->data();
+				$data = [
+					'nik' => $this->input->post('nik'),
+					'nama_lengkap' =>  $this->input->post('nama_lengkap'),
+					'tmp_lahir' =>  $this->input->post('tmp_lahir'),
+					'tgl_lahir' =>  $this->input->post('tgl_lahir'),
+					'jk' =>  $this->input->post('jk'),
+					'kewarganegaraan' =>  $this->input->post('kewarganegaraan'),
+					'status_perkawinan' =>  $this->input->post('status_perkawinan'),
+					'agama' =>  $this->input->post('agama'),
+					'nama_ayah' =>  $this->input->post('nama_ayah'),
+					'nama_ibu' =>  $this->input->post('nama_ibu'),
+					'pekerjaan' =>  $this->input->post('pekerjaan'),
+					'alamat' =>  $this->input->post('alamat'),
+					'rt' =>  $this->input->post('rt'),
+					'rw' =>  $this->input->post('rw'),
+					'no_rumah' =>  $this->input->post('no_rumah'),
+					'kelurahan_desa' =>  $this->input->post('kelurahan_desa'),
+					'kecamatan' =>  $this->input->post('kecamatan'),
+					'kabupaten_kota' =>  $this->input->post('kabupaten_kota'),
+					'provinsi' =>  $this->input->post('provinsi'),
+					'no_telp' =>  $this->input->post('telp'),
+					
+				];
+				$this->db->where('id_pasangan', $this->input->post('id_pasangan'));
+				$this->db->update('pasangan', $data);
+		
+
+				$dt = [
+					'id_penduduk' => $this->input->post('id_penduduk'),
+					'gambar_surat_pengantar' => $file['file_name'],
+					'gambar_akta_kelahiran' => $file2['file_name'],
+					'status' => $this->input->post('status'),
+				];
+				
+				$this->MyModel->editNikah($id, $dt);
+				$alert = "<script>alert('Berhasil!');</script>";
+				$this->session->set_flashdata('message', $alert);
+				redirect('petugas/suket_nikah');
+			}
+		}
 	}
 	public function suket_nikah_del($id) {
-
+		$nk = $this->MyModel->getNikahByID($id);
+		unlink('assets/img/suket_nikah/'.$nk['gambar_surat_pengantar']);
+		unlink('assets/img/suket_nikah/'.$nk['gambar_akta_kelahiran']);
+		$this->MyModel->delNikah($id);
+		$alert = "<script>alert('Berhasil!');</script>";
+		$this->session->set_flashdata('message', $alert);
+		redirect('petugas/suket_nikah');
 	}
 	// Surat Keterangan Kematian
 	public function suket_mati() {

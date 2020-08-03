@@ -1,1 +1,1 @@
-<h1>Beranda</h1>
+<h1>Selamat Datang</h1>

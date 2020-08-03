@@ -1,11 +1,11 @@
-<h1><i class="fa fa-envelope"></i> Surat Keterangan Pindah</h1>
+<h1><i class="fa fa-envelope-square"></i> Surat Keterangan Menikah</h1>
 <?= $this->session->flashdata('message'); ?>
 <?php $ci =& get_instance(); ?>
 
 <div class="row">
 	<div class="col-lg-8">
 
-		<a href="<?= base_url('petugas/suket_pindah/tambah'); ?>" class="btn btn-primary mb-2"><i
+		<a href="<?= base_url('petugas/suket_nikah/tambah'); ?>" class="btn btn-primary mb-2"><i
 				class="fa fa-pencil"></i>
 			Tambah</a>
 	</div>
@@ -54,14 +54,14 @@
 			<td><?= $ac['status']; ?></td>
 			<td>
 				<div class="btn-group">
-
+					<a target="_blank" href="<?= base_url('petugas/suket_nikah/cetak/').$ac['id_suket_menikah']; ?>" class="btn btn-secondary"><i class="fa fa-print"></i> Cetak</a>
 					<a href="" data-toggle="modal" data-target="#nikah<?= $ac['id_suket_menikah']; ?>"
 						class="btn btn-info"><i class="fa fa-search"></i></a>
-					<a href="<?= base_url('petugas/suket_menikah/edit/').$ac['id_suket_menikah']; ?>"
+					<a href="<?= base_url('petugas/suket_nikah/edit/').$ac['id_suket_menikah']; ?>"
 						class="btn btn-success"><i class="fa fa-edit"></i></a>
 
 					<a onclick="return confirm('Yakin?')"
-						href="<?= base_url('petugas/suket_menikah/hapus/').$ac['id_suket_menikah']; ?>"
+						href="<?= base_url('petugas/suket_nikah/hapus/').$ac['id_suket_menikah']; ?>"
 						class="btn btn-danger"><i class="fa fa-trash"></i></a>
 
 				</div>
@@ -74,7 +74,7 @@
 <!-- Modal Detail -->
 <?php 
 	foreach($nikah as $pn) :
-	$pg = $this->MyModel->getPasanganByID($ac['id_pasangan']);
+	$pg = $this->MyModel->getPasanganByID($pn['id_pasangan']);
 ?>
 <div class="modal fade" id="nikah<?= $pn['id_suket_menikah']; ?>" tabindex="-1" role="dialog"
 	aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -94,6 +94,9 @@
 				</div>
 				<div class="table-responsive">
 					<table class="table table-hover">
+						<tr>
+							<th colspan="3">Pengaju</th>
+						</tr>
 						<tr>
 							<th>Kode</th>
 							<td>:</td>
@@ -118,6 +121,31 @@
 							<th>Tempat Lahir Lahir Pengaju</th>
 							<td>:</td>
 							<td><?= $pn['tmp_lahir']; ?></td>
+						</tr>
+						<tr>
+							<th>Jenis Kelamin</th>
+							<td>:</td>
+							<td><?= ($pn['jk'] == 'l') ? 'Laki-laki' : 'Perempuan'; ?></td>
+						</tr>
+						<tr>
+							<th>Kewarganegaraan</th>
+							<td>:</td>
+							<td><?= $pn['kewarganegaraan']; ?></td>
+						</tr>
+						<tr>
+							<th>Status Perkawinan</th>
+							<td>:</td>
+							<td><?= $pn['status_perkawinan']; ?></td>
+						</tr>
+						<tr>
+							<th>Agama</th>
+							<td>:</td>
+							<td><?= $pn['agama']; ?></td>
+						</tr>
+						<tr>
+							<th>Pekerjaan</th>
+							<td>:</td>
+							<td><?= $pn['pekerjaan']; ?></td>
 						</tr>
 
 						<tr>
@@ -144,7 +172,7 @@
 						<tr>
 							<th>Akta Kelahiran</th>
 							<td>:</td>
-							<td><img src="<?= base_url('assets/img/suket_nikah/').$pn['akta_kelahiran']; ?>"
+							<td><img src="<?= base_url('assets/img/suket_nikah/').$pn['gambar_akta_kelahiran']; ?>"
 									width="100%" class="img-thumbnail" alt=""></td>
 						</tr>
 						<tr>
@@ -162,6 +190,9 @@
 
 					</table>
 					<table class="table table-hover">
+						<tr>
+							<th colspan="3">Pasangan</th>
+						</tr>
 						<tr>
 							<th>NIK Pasangan</th>
 							<td>:</td>
@@ -186,7 +217,57 @@
 						<tr>
 							<th>Jenis Kelamin</th>
 							<td>:</td>
-							<td><?= $pg['jenis_kelamin']; ?></td>
+							<td><?= ($pg['jk'] == 'l') ? 'Laki-laki' : 'Perempuan'; ?></td>
+						</tr>
+						<tr>
+							<th>Kewarganegaraan</th>
+							<td>:</td>
+							<td><?= $pg['kewarganegaraan']; ?></td>
+						</tr>
+						<tr>
+							<th>Status Perkawinan</th>
+							<td>:</td>
+							<td><?= $pg['status_perkawinan']; ?></td>
+						</tr>
+						<tr>
+							<th>Agama</th>
+							<td>:</td>
+							<td><?= $pg['agama']; ?></td>
+						</tr>
+						<tr>
+							<th>Pekerjaan</th>
+							<td>:</td>
+							<td><?= $pg['pekerjaan']; ?></td>
+						</tr>
+						<tr>
+							<th>Nama Ayah</th>
+							<td>:</td>
+							<td><?= $pg['nama_ayah']; ?></td>
+						</tr>
+						<tr>
+							<th>Nama Ibu</th>
+							<td>:</td>
+							<td><?= $pg['nama_ibu']; ?></td>
+						</tr>
+						<tr>
+							<th>Alamat</th>
+							<td>:</td>
+							<td><?= $pg['alamat']; ?></td>
+						</tr>
+						<tr>
+							<th>RT</th>
+							<td>:</td>
+							<td><?= $pg['rt']; ?></td>
+						</tr>
+						<tr>
+							<th>RW</th>
+							<td>:</td>
+							<td><?= $pg['rw']; ?></td>
+						</tr>
+						<tr>
+							<th>No Rumah</th>
+							<td>:</td>
+							<td><?= $pg['no_rumah']; ?></td>
 						</tr>
 						<tr>
 							<th>Kelurahan / Desa</th>

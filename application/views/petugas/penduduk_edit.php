@@ -62,6 +62,16 @@
 				<?= form_error('agama', '<small class="text-danger pl-1">','</small>'); ?>
 			</div>
 			<div class="form-group">
+				<label>Nama Ayah</label>
+				<input type="text" name="nama_ayah" placeholder="Nama Ayah" class="form-control" value="<?= $pd['nama_ayah']; ?>">
+				<?= form_error('nama_ayah', '<small class="text-danger pl-1">','</small>'); ?>
+			</div>
+			<div class="form-group">
+				<label>Nama Ibu</label>
+				<input type="text" name="nama_ibu" placeholder="Nama Ibu" class="form-control" value="<?= $pd['nama_ibu']; ?>">
+				<?= form_error('nama_ibu', '<small class="text-danger pl-1">','</small>'); ?>
+			</div>
+			<div class="form-group">
 				<label>Pekerjaan</label>
 				<input type="text" name="pekerjaan" placeholder="Pekerjaan" class="form-control" value="<?= $pd['pekerjaan']; ?>">
 				<?= form_error('pekerjaan', '<small class="text-danger pl-1">','</small>'); ?>
