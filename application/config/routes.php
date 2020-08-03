@@ -63,6 +63,8 @@ $route['peta'] = 'Home/peta';
 $route['galeri'] = 'Home/galeri';
 $route['kontak'] = 'Home/kontak';
 
+$route['data-diri'] = 'Home/data_diri';
+
 // Pelayanan Penduduk
 $route['pelayanan/tambah'] = 'Home/pelayanan_add';
 $route['kependudukan/tambah'] = 'Home/kependudukan_add';

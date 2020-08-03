@@ -23,6 +23,17 @@ class Home extends CI_Controller {
 		
 	}
 
+	public function data_diri() {
+		if($this->session->userdata('id_penduduk')) {
+
+			$this->load->view('template/header');
+			$this->load->view('data-diri');
+			$this->load->view('template/footer');
+		} else {
+			redirect(base_url('login'));
+		}
+	}
+
 	public function pengaduan(){
 		$this->form_validation->set_rules('nik_pengadu', 'NIK', 'required|trim');
 		$this->form_validation->set_rules('nama_pengadu', 'Nama', 'required|trim');

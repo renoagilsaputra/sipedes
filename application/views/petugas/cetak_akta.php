@@ -112,6 +112,7 @@
 					</tr>
 					<tr>
 						<td>Nama Ibu</td>
+						<td>:</td>
 						<td><?= $ply['nama_ibu']; ?></td>
 					</tr>
 				</table>

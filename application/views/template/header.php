@@ -85,7 +85,7 @@
 						if($ci->session->userdata('id_penduduk')) :
 					?>
 
-						<li><a href="#"><?= $pr['nama_lengkap']; ?></a></li>
+						<li><a href="<?= base_url('data-diri'); ?>"><?= $pr['nama_lengkap']; ?></a></li>
 						<li><a onclick="return confirm('Yakin?')" href="<?= base_url('logout'); ?>">Keluar</a></li>
 					<?php else : ?>
 						<li><a href="<?= base_url('login'); ?>">Masuk</a></li>
