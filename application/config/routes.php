@@ -64,6 +64,8 @@ $route['galeri'] = 'Home/galeri';
 $route['kontak'] = 'Home/kontak';
 
 $route['data-diri'] = 'Home/data_diri';
+$route['data-diri-edit'] = 'Home/data_diri_edit';
+$route['data-diri-gantisandi'] = 'Home/data_diri_pass';
 
 // Pelayanan Penduduk
 $route['pelayanan/tambah'] = 'Home/pelayanan_add';

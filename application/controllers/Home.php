@@ -34,6 +34,166 @@ class Home extends CI_Controller {
 		}
 	}
 
+	public function data_diri_edit() {
+		$id = $this->session->userdata('id_penduduk');
+		if($this->session->userdata('id_penduduk')) {
+			$data['jenis_kelamin'] = ['l','p'];
+			$data['status_perkawinan'] = ['belum kawin','sudah kawin'];
+
+			$this->form_validation->set_rules('nik', 'NIK', 'trim|required');
+			$this->form_validation->set_rules('no_kk', 'No KK', 'trim|required');
+			$this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'trim|required');
+			$this->form_validation->set_rules('tmp_lahir', 'Tempat Lahir', 'trim|required');
+			$this->form_validation->set_rules('tgl_lahir', 'Tanggal Lahir', 'trim|required');
+			$this->form_validation->set_rules('jk', 'Jenis Kelamin', 'trim|required');
+			$this->form_validation->set_rules('kewarganegaraan', 'Kewarganegaraan', 'trim|required');
+			$this->form_validation->set_rules('status_perkawinan', 'Status Perkawinan', 'trim|required');
+			$this->form_validation->set_rules('agama', 'Agama', 'trim|required');
+			$this->form_validation->set_rules('nama_ayah', 'Nama Ayah', 'trim|required');
+			$this->form_validation->set_rules('nama_ibu', 'Nama Ibu', 'trim|required');
+			$this->form_validation->set_rules('pekerjaan', 'Pekerjaan', 'trim|required');
+			$this->form_validation->set_rules('telp', 'Telp', 'trim|required');
+			$this->form_validation->set_rules('alamat', 'Alamat', 'trim|required');
+			$this->form_validation->set_rules('rt', 'RT', 'trim|required');
+			$this->form_validation->set_rules('rw', 'RW', 'trim|required');
+			$this->form_validation->set_rules('no_rumah', 'No Rumah', 'trim|required');
+			$this->form_validation->set_rules('kelurahan_desa', 'Kelurahan / Desa', 'trim|required');
+			$this->form_validation->set_rules('kecamatan', 'Kecamatan', 'trim|required');
+			$this->form_validation->set_rules('kabupaten_kota', 'Kabupaten / Kota', 'trim|required');
+			$this->form_validation->set_rules('kode_pos', 'Kode Pos', 'trim|required');
+			
+			if ($this->form_validation->run() == FALSE) {
+				$this->load->view('template/header');
+				$this->load->view('data-diri-edit', $data);
+				$this->load->view('template/footer');
+			
+				
+			} else {
+				if(empty($_FILES['foto']['name'])) {
+					$data = [
+						'nik' => $this->input->post('nik'),
+						'no_kk' => $this->input->post('no_kk'),
+						'nama_lengkap' =>  $this->input->post('nama_lengkap'),
+						'tmp_lahir' =>  $this->input->post('tmp_lahir'),
+						'tgl_lahir' =>  $this->input->post('tgl_lahir'),
+						'jk' =>  $this->input->post('jk'),
+						'kewarganegaraan' =>  $this->input->post('kewarganegaraan'),
+						'status_perkawinan' =>  $this->input->post('status_perkawinan'),
+						'agama' =>  $this->input->post('agama'),
+						'nama_ayah' =>  $this->input->post('nama_ayah'),
+						'nama_ibu' =>  $this->input->post('nama_ibu'),
+						'pekerjaan' =>  $this->input->post('pekerjaan'),
+						'telp' =>  $this->input->post('telp'),
+						'alamat' =>  $this->input->post('alamat'),
+						'rt' =>  $this->input->post('rt'),
+						'rw' =>  $this->input->post('rw'),
+						'no_rumah' =>  $this->input->post('no_rumah'),
+						'kelurahan_desa' =>  $this->input->post('kelurahan_desa'),
+						'kecamatan' =>  $this->input->post('kecamatan'),
+						'kabupaten_kota' =>  $this->input->post('kabupaten_kota'),
+						'kode_pos' =>  $this->input->post('kode_pos'),
+						
+						
+					];
+					
+					$this->MyModel->editPenduduk($id,$data);
+					$alert = "<script>alert('Berhasil!');</script>";
+					$this->session->set_flashdata('message', $alert);
+					redirect('data-diri'); 	
+				} else {
+					$gbr = $this->MyModel->getPendudukByID($id);
+					unlink('assets/img/penduduk/'.$gbr['foto']);
+					$config = [
+						'file_name' => 'penduduk-'.$this->input->post('nik'),
+						'upload_path' => './assets/img/penduduk/',
+						'allowed_types' => 'jpg|png|jpeg',
+						'max_size' => 1024,
+					];
+					
+					$this->load->library('upload', $config);
+	
+					if($this->upload->do_upload('foto')) {
+						$file = $this->upload->data();
+						$data = [
+							'nik' => $this->input->post('nik'),
+							'nama_lengkap' =>  $this->input->post('nama_lengkap'),
+							'tmp_lahir' =>  $this->input->post('tmp_lahir'),
+							'tgl_lahir' =>  $this->input->post('tgl_lahir'),
+							'jk' =>  $this->input->post('jk'),
+							'kewarganegaraan' =>  $this->input->post('kewarganegaraan'),
+							'status_perkawinan' =>  $this->input->post('status_perkawinan'),
+							'agama' =>  $this->input->post('agama'),
+							'pekerjaan' =>  $this->input->post('pekerjaan'),
+							'telp' =>  $this->input->post('telp'),
+							'alamat' =>  $this->input->post('alamat'),
+							'rt' =>  $this->input->post('rt'),
+							'rw' =>  $this->input->post('rw'),
+							'no_rumah' =>  $this->input->post('no_rumah'),
+							'kelurahan_desa' =>  $this->input->post('kelurahan_desa'),
+							'kecamatan' =>  $this->input->post('kecamatan'),
+							'kabupaten_kota' =>  $this->input->post('kabupaten_kota'),
+							'kode_pos' =>  $this->input->post('kode_pos'),
+							'foto' => $file['file_name'],
+							
+						];
+						
+						$this->MyModel->editPenduduk($id,$data);
+						$alert = "<script>alert('Berhasil!');</script>";
+						$this->session->set_flashdata('message', $alert);
+						redirect('data-diri'); 	
+					} else {
+						$alert = "<div class='alert alert-danger'>".$this->upload->display_errors()."</div>";
+						$this->session->set_flashdata('error', $alert);
+						redirect('data-diri-edit');
+					}
+				}
+			}
+		} else {
+			redirect(base_url('login'));
+		}
+	}
+
+	public function data_diri_pass() {
+		$id = $this->session->userdata('id_penduduk');
+		$pd = $this->MyModel->getPendudukByID($id);
+
+		$this->form_validation->set_rules('password_lama', 'Kata Sandi Lama', 'required|trim');
+        $this->form_validation->set_rules('password1', 'Kata Sandi Baru', 'required|trim|matches[password2]');
+		$this->form_validation->set_rules('password2', 'Ulangi Kata Sandi', 'required|trim|matches[password1]');
+
+		
+		if ($this->form_validation->run() == FALSE) {
+
+			$this->load->view('template/header');
+			$this->load->view('data-diri-pass');
+			$this->load->view('template/footer');
+		} else {
+			$pass_lama = $this->input->post('password_lama');
+			$pass_baru = $this->input->post('password1');
+
+			if(!password_verify($pass_lama, $pd['kata_sandi'])) {
+				$alert = "<script>alert('Kata Sandi Lama Salah!');</script>";
+				$this->session->set_flashdata('message', $alert);
+				redirect('data-diri-gantisandi');
+			} else {
+				if($pass_lama == $pass_baru) {
+					$alert = "<script>alert('Kata Sandi Lama tidak boleh sama dengan Kata Sandi Baru!');</script>";
+					$this->session->set_flashdata('message', $alert);
+					redirect('data-diri-gantisandi');
+				} else {
+					$pass = password_hash($pass_baru, PASSWORD_DEFAULT);
+                    $this->db->set('kata_sandi', $pass);
+                    $this->db->where('id_penduduk', $id);
+					$this->db->update('penduduk');
+					
+					$alert = "<script>alert('Berhasil!');</script>";
+					$this->session->set_flashdata('message', $alert);
+					redirect('data-diri');
+				}
+			}
+		}
+	}
+
 	public function pengaduan(){
 		$this->form_validation->set_rules('nik_pengadu', 'NIK', 'required|trim');
 		$this->form_validation->set_rules('nama_pengadu', 'Nama', 'required|trim');
