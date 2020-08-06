@@ -75,6 +75,10 @@ $route['suket_izin_acara/tambah'] = 'Home/suket_izin_acara_add';
 $route['suket_izin_usaha/tambah'] = 'Home/suket_izin_usaha_add';
 $route['akta/tambah'] = 'Home/akta_add';
 $route['suket_pindah/tambah'] = 'Home/suket_pindah_add';
+
+$route['keluarga_pindah/(:num)'] = 'Home/keluarga_pindah/$1';
+$route['keluarga_pindah/tambah'] = 'Home/keluarga_pindah_add';
+
 $route['suket_kematian/tambah'] = 'Home/suket_kematian_add';
 
 // Auth

@@ -7,7 +7,7 @@
 
 
 <form action="" method="post" enctype="multipart/form-data">
-	<input type="hidden" name="id_penduduk" value="<?= $ci->session->userdata('id_user'); ?>">
+	<input type="hidden" name="id_penduduk" value="<?= $ci->session->userdata('id_penduduk'); ?>">
 	<div class="row">
 		<div class="col-lg-6">
 			<?= $this->session->flashdata('error'); ?>

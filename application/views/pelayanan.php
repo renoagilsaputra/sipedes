@@ -285,6 +285,9 @@
 						<tr>
 							<th>#</th>
 							<th>Kode</th>
+							<td>
+								<i class="fa fa-cogs"></i>
+							</td>
 
 						</tr>
 						<?php
@@ -294,6 +297,10 @@
 						<tr>
 							<td><?= $na++; ?></td>
 							<td><?= $sm['kode']; ?></td>
+							<td>
+								<a href="<?= base_url('keluarga_pindah/').$sm['id_suket_pindah']; ?>"
+									class="btn btn-warning"><i class="fa fa-child"></i> Keluarga</a>
+							</td>
 
 						</tr>
 						<?php endforeach; ?>

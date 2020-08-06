@@ -423,7 +423,6 @@ class Home extends CI_Controller {
 		$data['status_perkawinan'] = ['belum kawin','sudah kawin'];
 		
 
-		$this->form_validation->set_rules('id_penduduk', 'NIK Pengaju', 'trim|required');
 		$this->form_validation->set_rules('nik', 'NIK Pasangan', 'trim|required');
 		$this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'trim|required');
 		$this->form_validation->set_rules('tmp_lahir', 'Tempat Lahir', 'trim|required');
@@ -483,6 +482,7 @@ class Home extends CI_Controller {
 						$kode = $huruf . sprintf("%03s", $urutan);
 
 						$data = [
+							'id_penduduk' => $this->input->post('id_penduduk'),
 							'nik' => $this->input->post('nik'),
 							'nama_lengkap' =>  $this->input->post('nama_lengkap'),
 							'tmp_lahir' =>  $this->input->post('tmp_lahir'),
@@ -829,6 +829,37 @@ class Home extends CI_Controller {
 				}
 			}
 		}
+	}
+
+	public function keluarga_pindah($id) {
+		$data['kel'] = $this->MyModel->getKelPindah($id);
+		$this->load->view('template/header');
+		$this->load->view('keluarga_pindah', $data);
+		$this->load->view('template/footer');
+	}
+	public function keluarga_pindah_add() {
+		$id_suket_pindah = $this->input->post('id_suket_pindah');
+		$nik = $this->input->post('nik');
+		$nama = $this->input->post('nama');
+
+		if(empty($nik) || empty($nama)) {
+			$alert = "<script>alert('Kolom tidak boleh kosong!');</script>";
+			$this->session->set_flashdata('message', $alert);
+			redirect('keluarga_pindah/'.$id_suket_pindah);
+		} else {
+
+			$data = [
+				'id_suket_pindah' => $id_suket_pindah,
+				'nik' => $nik,
+				'nama' => $nama	
+			];
+	
+			$this->MyModel->addKelPindah($data);
+			$alert = "<script>alert('Berhasil!');</script>";
+			$this->session->set_flashdata('message', $alert);
+			redirect('keluarga_pindah/'.$id_suket_pindah);
+		}
+
 	}
 
 	public function suket_kematian_add() {
