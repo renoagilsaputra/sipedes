@@ -482,7 +482,7 @@ class Home extends CI_Controller {
 						$kode = $huruf . sprintf("%03s", $urutan);
 
 						$data = [
-							'id_penduduk' => $this->input->post('id_penduduk'),
+							
 							'nik' => $this->input->post('nik'),
 							'nama_lengkap' =>  $this->input->post('nama_lengkap'),
 							'tmp_lahir' =>  $this->input->post('tmp_lahir'),

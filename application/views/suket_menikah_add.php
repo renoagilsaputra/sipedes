@@ -16,7 +16,7 @@
 				<label>NIK Pasangan</label>
 				<input type="text" name="nik" placeholder="NIK" class="form-control">
 				<?= form_error('nik', '<small class="text-danger pl-1">','</small>'); ?>
-			</div>
+			</div> 
 			
 			<div class="form-group">
 				<label>Nama Lengkap</label>
